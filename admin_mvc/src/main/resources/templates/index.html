@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<style type="text/css">
+    body {
+        background-color: #f5f5f5;
+        font-family: sans-serif;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    a {
+        transition: 0.3s;
+    }
+
+    .card {
+        overflow: hidden;
+        box-shadow: 0 3px 17px rgba(0, 0, 0, 0.15), 0 0 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .card > img {
+        width: 100%;
+        height: auto !important;
+    }
+
+    .add-to-cart {
+        display: block;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.3rem;
+        line-height: 59px;
+        position: absolute;
+        right: 1.25rem;
+        top: -30px;
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.4);
+    }
+
+    .add-to-cart:hover {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .labels {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0.8;
+    }
+
+    .labels > div {
+        width: 150px;
+        position: absolute;
+    }
+
+    .label-new {
+        left: -40px;
+        top: 20px;
+        transform: rotate(-45deg);
+    }
+
+    .label-sale {
+        right: -40px;
+        top: 20px;
+        transform: rotate(45deg);
+    }
+</style>
+<body>
+
+<div class="container mt-5">
+    <div id="addProduct" class="btn btn-success" data-toggle="modal" data-target="#modelAddProduct">
+        AddProduct
+    </div>
+    <div id="EditProduct" class="btn btn-success" data-toggle="modal" data-target="#modelEditProduct">
+        EditProduct
+    </div>
+    <div id="deteleProduct" class="btn btn-success" data-toggle="modal" data-target="#modelDeleteProduct">
+        DeleteProduct
+    </div>
+    <h1 th:text="${message != null || !message.isEmpty() ? message : ''}"></h1>
+    <div class="row">
+        <div th:each="product : ${lstProduct}" class="col-md-4 mb-3 mb-md-0">
+            <div class="card h-100">
+                <div class="labels">
+                    <div class="label-new bg-success text-white text-center py-1">New</div>
+                    <div class="label-sale bg-primary text-white text-center py-1">Sale</div>
+                </div>
+                <img src="https://picsum.photos/300/200" alt="">
+                <div class="card-body position-relative d-flex flex-column">
+                    <a href="#" class="add-to-cart bg-primary text-white" data-toggle="tooltip" data-placement="left"
+                       title="Add To Cart">
+                        <i class="fa fa-opencart" aria-hidden="true"></i>
+                    </a>
+                    <h3 class="text-success" th:text="${'$' + product.getPrice()}">$199.99</h3>
+                    <div class="rating text-warning">
+<!--                        #numbers.sequence(1, 5) lắ từ 1 đến 5 -->
+                        <i th:each="i:${#numbers.sequence(1, 5)}" th:class="${product.getStar() >= i ?
+                           'fa fa-star-o' : 'fa fa-star'} " class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                    <h4 th:text="${product.getName()}"></h4>
+                    <p th:text="${product.getDescription()}"></p>
+                    <a href="#" class="btn btn-success btn-block mt-auto">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Product Detail
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal add -->
+<div class="modal fade" id="modelAddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modelAddProduct">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="productName">Name: </label>
+                    <input type="text" class="form-control" id="productName" aria-describedby="emailHelp" placeholder="Enter Name">
+                    <small class="form-text text-muted">Tên sản phẩn bạn muốn thêm.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description: </label>
+                    <input type="text" class="form-control" id="productDescription" aria-describedby="emailHelp" placeholder="Enter Description">
+                    <small class="form-text text-muted">Mô tả sản phẩn bạn muốn thêm.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price: </label>
+                    <input type="number" class="form-control" id="productPrice" aria-describedby="emailHelp" placeholder="Enter Price">
+                    <small class="form-text text-muted">Giá tiền sản phẩn bạn muốn thêm.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productStar">Star : </label>
+                    <input type="number" class="form-control" id="productStar" aria-describedby="emailHelp" placeholder="Enter Star">
+                    <small class="form-text text-muted">Điểm đánh giá bạn muốn thêm.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="addProduct()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Model edit-->
+<div class="modal fade" id="modelEditProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modelEditProduct">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+<!--            Find data forllow name-->
+                <div class="form-group">
+                    <label for="productName">Old Name: </label>
+                    <input type="text" class="form-control" id="editOldProductName" aria-describedby="emailHelp" placeholder="Enter Name">
+                    <small class="form-text text-muted">Tìm kiếm sản phẩn bạn muốn sửa theo tên.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productName">New Name: </label>
+                    <input type="text" class="form-control" id="editNewProductName" aria-describedby="emailHelp" placeholder="Enter Name">
+                    <small class="form-text text-muted">Tên sản phẩn bạn muốn sửa.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description: </label>
+                    <input type="text" class="form-control" id="editProductDescription" aria-describedby="emailHelp" placeholder="Enter Description">
+                    <small class="form-text text-muted">Mô tả sản phẩn bạn muốn sửa.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price: </label>
+                    <input type="number" class="form-control" id="editProductPrice" aria-describedby="emailHelp" placeholder="Enter Price">
+                    <small class="form-text text-muted">Giá tiền sản phẩn bạn muốn sửa.</small>
+                </div>
+                <div class="form-group">
+                    <label for="productStar">Star : </label>
+                    <input type="number"  class="form-control" id="editProductStar" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small class="form-text text-muted">Đánh giá tiền sản phẩn bạn muốn sửa.(từ 1 đến 5)</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="editProduct()" class="btn btn-primary">Edit changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Model delete-->
+<div class="modal fade" id="modelDeleteProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modelDeleteProduct">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+<!--                find data forllow name-->
+                <div class="form-group">
+                    <label for="productName">Name: </label>
+                    <input type="text" class="form-control" id="deleteOldproductName" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small class="form-text text-muted">Tìm kiếm sản phẩn bạn muốn xóa theo tên.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="deteleProduct()" class="btn btn-primary">Delete changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript" type="text/javascript">
+    // $('[data-toggle="tooltip"]').tooltip();
+    // function  editProduct() {
+    //     var name = $("#editOldProductName").val();
+    //     var lstProduct = $.load({
+    //         url: '';
+    //     });
+    //     for (product : [[${lstProduct}]]) {
+    //         if(product.name == name) {
+    //             var newProduct = {
+    //                 name: $("#editNewProductName"),
+    //                 description: $("#editProductDescription"),
+    //                 price: $("#editProductPrice"),
+    //                 star: $("#editProductStar")
+    //             }
+    //             $.ajax({
+    //                 type:"PUT",
+    //                 url:"http://localhost:8080/create-product",
+    //                 data:JSON.stringify(newProduct),
+    //                 contentType: 'application/json'
+    //             });
+    //         }else {
+    //             alert("Tên bạn muồn tìm kiếm không tồn tại!")
+    //         }
+    //     }
+    //
+    // }
+    // function deteleProduct() {
+    //     let id =
+    // }
+    function addProduct() {
+        var product = {
+            name: $("#productName").val(),
+            description:$("#productDescription").val(),
+            price:$("#productPrice").val(),
+            star:$("#productStar").val()
+        };
+        console.log(product);
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/create-product",
+            data:JSON.stringify(product),
+            contentType: 'application/json',
+            success: function (response, data) {
+                //Windown trả về HTTP status code = 200 => thành công
+                //hàm được thực thi resquet thành công không có lỗi
+                //reload lại trang
+                window.location.reload();
+            },
+        });
+        $('#modelAddProduct').model('hide');
+    }
+
+</script>
+</body>
+</html>

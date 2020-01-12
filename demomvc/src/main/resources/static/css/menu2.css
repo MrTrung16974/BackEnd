@@ -1,0 +1,138 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+Body{
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+
+}
+nav{
+	width: 100%;
+	height: 45px;
+	border-top: 3px solid #EFED48;
+	background-color: #565559;
+	margin-top: 10px;
+}
+nav div.container{
+	width: 980px;
+	margin: auto;
+}
+nav div.container > ul.menu{
+	text-align: center;
+}
+nav div.container ul.menu li{
+	list-style: none;
+	display: inline-block;
+	line-height: 48px;
+	padding: 0px 15px;
+	position: relative;
+}
+nav div.container ul li > a{
+	color: white;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: bold;
+}
+nav div.container ul.menu li ul.dropdown{
+	display: none;
+	min-width: 200px;
+	background-color: #565559;
+	position: absolute;
+	top: 45px;
+	left: 0px;
+}
+nav div.container ul.menu li:hover > ul.dropdown{
+	display: block;
+	margin-left: 0;
+
+}
+nav div.container ul.menu li > ul.dropdown > li{
+	display: block;
+	text-align: left;
+}
+nav div.container ul.menu li:hover{
+	background-color: #392F2F;
+	cursor: pointer;
+}
+nav div.container ul.menu li:hover>a{
+	color:#EFED48 ;	
+}
+nav div.container ul.menu ul.dropdown {
+	position: relative;
+}
+nav div.container ul.menu li:hover > ul.dropdown-menu{
+	display: block;
+	background-color: #565559;
+	margin-left: 0;
+	min-width: 200px;
+	position: absolute;
+	left: 200px;
+	top: 0px;	
+}
+nav div.container ul.menu li ul.dropdown-menu{
+	display: none;
+}
+nav div.container ul.menu li > ul.dropdown-menu > li{
+	display: block;
+	text-align: left;
+}
+/* Menu table */
+nav div.container ul.menu li div.menu-table{
+	display: none;
+	min-width: 845px;
+	background-color: #565559;
+	position: absolute;
+	top: 45px;
+	left: 0px;
+}
+nav div.container ul.menu li > div.menu-table > ul{
+	display: table-row;
+}
+nav div.container ul.menu li > div.menu-table > ul li{
+	display: table-cell;
+	text-align: left;
+	padding: 0px 20px;
+}
+nav div.container ul.menu li > div.menu-table > ul li:hover{
+	background-color: #392F2F;
+	border-radius: 10px 5px;
+	position: relative;
+}
+nav div.container ul.menu li:hover > div.menu-table{
+	display: block;
+}
+nav div.container ul.menu li div.menu-table ul.dropdown-table{
+	position: absolute;
+	display: none;
+	min-width: 200px;
+	background-color: #565559; 	
+	top: 0px;
+	left: 120px;
+	
+}
+nav div.container ul.menu li  div.menu-table li:hover > ul.dropdown-table{
+	display: block;
+}
+nav div.container ul.menu li > div.menu-table li ul.dropdown-table > li{
+	display: block;
+}
+/* Dropdown table (Bai chua)*/
+/* nav div.container ul.menu li > div.menu-table > li{
+	min-width: 120px;
+}
+nav div.container ul.menu li > div.menu-table li ul.dropdown-table{
+	display: none;
+	background-color: #565559;
+	min-width: 200px;
+	position: absolute;
+	left: 120px;
+	top: 0px;
+}
+nav div.container ul.menu li > div.menu-table li:hover > ul.dropdown-table{
+	display: block;
+}
+nav div.container ul.menu li > div.menu-table li ul.dropdown-table > li{
+	display: block;
+} */

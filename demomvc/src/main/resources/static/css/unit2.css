@@ -1,0 +1,88 @@
+div.box :first-child{
+	color: blue;
+}
+div.box :first-of-type{
+	color: red;
+}
+div.box :last-child{
+	color: brown;
+}
+div.box :last-of-type{
+	color: yellow;
+}
+div.box :nth-last-child(4){
+	color: violet;
+}
+div.box :nth-last-of-type(1){
+	color: orange;
+}
+div.box :nth-child(3){
+	font-size: 50px;
+}
+div.box :nth-of-type(4){
+	color: silver;
+}
+div.box-2 :only-child{
+	color: #92F837;
+}
+div.box-3 > input[type="text"]:focus{
+	width: 500px;
+	height: 30px;
+	border: 2px solid red;	
+}
+div.box-3 > input[type="checkbox"]:checked{
+	width: 100px;
+	height: 100px;
+}
+div.box-3 > input[type="radio"]:checked{
+	width: 300px;
+	height: 50px;
+}
+div.box-4 a:active{
+	color: red;
+}
+/* Hiển thị trạng thái những trang web đã truy cập */
+div.box-4 a:visited{
+	color: yellow;
+}
+/* Hiển thị trạng thái những trang chưa truy cập */
+div.box-4 a:link{
+	color: green;
+}
+div.box-4 a:hover{
+	color: violet;
+}
+div.box-5 p::first-letter{
+	font-family: serif;
+	color: blue;
+	font-size: 30px;
+}
+div.box-5 p::first-line{
+	color: red;
+}
+div.box-5 p::before{
+	content: "LJAVA-"	;
+}
+div.box-5 p::after{
+	content: url('../Images/icon_zingmp3.png');
+}
+div.box-5 textarea.content::selection{
+	color: yellow;
+}
+div.box-5 p::selection{
+	color: brown;
+}
+div.box-6 p{
+	text-shadow: black 4px 8px 3px;
+}
+div.box-6{
+	width: 500px;
+	height: 500px;
+	background-color: pink;
+	background-image: url(../Images/icon_zingmp3.png);
+	background-repeat: no-repeat;
+	background-position: center center;	
+	background-attachment: scroll;
+	/* background-size: cover; */
+}
+

@@ -1,0 +1,94 @@
+/* Comment css */
+/* reset trinh duyet */
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+/* Css chung */
+body{
+	font-family: 'tahoma';
+	font-size: 14px;
+}	
+/* Css header */
+header{
+	width: 100%;
+	background-color: #CD41CF;
+	min-height: 80px;
+}
+header div.Logo{
+    width: 30%;
+    height: 80px;
+    background-color: #6A8AF2;
+    float: left;
+}
+header div.Banner{
+	width: 70%;
+	height: 80px;
+	background-color: green;
+	float: left;
+}
+/* css nav */
+nav{
+	width: 100%;	
+	background-color: #EF52E6;
+	height: 40px;
+}
+div.container{
+	width: 980px;
+	margin: auto;
+}
+nav ul{
+	text-align: center;
+}
+nav ul li:Hover{
+	background-color: lightblue;
+}
+nav ul li{
+	list-style: none;
+	display: inline-block;
+	line-height: 40px;
+	padding: 0px 20px;
+
+}
+nav ul li a{
+	text-decoration: none;
+}
+/* CSS content-main */
+main{
+	width: 100%;
+	min-height: 600px;
+}
+main div.Content-left{
+	width: 80%;
+	height: 600px;
+	background-color: #DDFB80;
+	float: left;
+}
+main aside.content-right{
+	width: 20%;
+    height: 600px;
+    background-color: #4784D7;
+    float: left;
+}
+main div.Content-left article{
+	width: 100%;
+	height: 50%;
+	background-color: #F5184C;
+}
+main div.Content-left section{
+	width: 100%;
+	height: 50%;
+	background-color: blue;
+}
+/* CSS footer */
+footer{
+	height: 100px;
+	width: 100%;
+	background-color: black;
+}
+footer h3{
+	color: white;
+	text-align: center;
+	padding: 40px 0px;
+}

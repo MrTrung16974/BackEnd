@@ -1,0 +1,64 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+div.header{
+ width: 100%;
+ height: 83px;
+ background: linear-gradient(#4C68A1, #44609C, #3C5A98, #3B5998, #3B5998);
+}
+main{
+	width: 100%;
+	height: 566px;
+	background: linear-gradient(#FFFFFF, #FCFCFC, #F5F5F5, #F0F1F7, #EEEEEE, #ECECEC, #E5E5E5, #E0E1E7, #DDDDDD, #DCDCDC, #D3D8E8);
+}
+main div.content{
+	width: 55%;
+	height: 566px;
+	float: left;
+}
+main div.form{
+	width: 45%;
+	height: 566px;
+	float: left;
+}
+footer{
+	width: 100%;
+	height: 230px;
+	background-color: #FFFFFF;
+}
+div.header div.logo img{
+	margin-left: 145px;
+}
+div.header div.form_dangnhap{
+	width: 45%;
+	float: left;
+	padding-top: 15px;
+}
+div.header div.logo{
+	width: 55%;
+	float: left;
+}
+a{
+	color: white;
+	font-size: 15px;
+	overflow: hidden;
+}
+main div.content img{
+	padding-left: 173px;
+}
+main div.content h2{
+	width: 428px;
+	padding-left: 173px;
+	padding-top: 35px;
+	padding-bottom: 5px; 
+}
+main div.form div.text h1{
+	font-size: 40px;
+	padding-top: 17px;
+}
+main div.form div.text p{
+	font-size: 20px;
+	padding-top: 10px;
+}

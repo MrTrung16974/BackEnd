@@ -1,0 +1,52 @@
+/* Comment trong css */
+/* Reset css */
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+/* HTML Seclector */
+h1{
+	color: red;
+}
+/* Class selector */
+.title{
+	color: blue;
+}
+/* Id selector 
+#mytitle{
+	color: pink;
+} 	*/
+/* HTML selector */
+h1.title{
+	color: #E7ED3A;
+}
+
+/* Atribute selector */
+input[type="email"]{
+	border: 1px solid red;
+}
+input[class~='test 2']{
+	border: 1px solid blue;
+}
+input[class^='te']{
+	border: 1px solid pink;
+}
+input[class$='mo']{
+	border: 1px solid yellow;
+}
+input[class*='test2']{
+	border: 1px solid orange;
+}
+input[class|='xxx']{
+	border: 1px solid brown;
+}
+
+div.box-1 ~ div.box-2{
+	width: 300px;
+	height: 300px;
+	border: 1px solid red;
+}
+div.content>div.content-2+div.content-3~div.content-4>div.content-5 nav.menu>input[class^='myinput']{
+	border: 2px solid blue;
+} 
