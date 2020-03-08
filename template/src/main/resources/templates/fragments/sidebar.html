@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+</head>
+
+<body>
+<div th:fragment="sidebar" class="sidebar" th:data-color="purple" data-background-color="black" th:data-image="@{/img/sidebar-2.jpg}">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        VN Pay
+    </a></div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/home')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/home}">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/user')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/user}">
+                    <i class="material-icons">person</i>
+                    <p>User Profile</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/table')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/table}">
+                    <i class="material-icons">content_paste</i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/typography')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/typography}">
+                    <i class="material-icons">library_books</i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/icon')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/icon}">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/map')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/map}">
+                    <i class="material-icons">location_ons</i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/notification')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/notification}">
+                    <i class="material-icons">notifications</i>
+                    <p>Notifications</p>
+                </a>
+            </li>
+            <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/upgrade')}? 'nav-item active' : 'nav-item'">
+                <a class="nav-link" th:href="@{/upgrade}">
+                      <i class="material-icons">unarchive</i>
+                      <p>Upgrade to PRO</p>
+                  </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

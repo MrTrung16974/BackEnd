@@ -1,0 +1,8 @@
+#https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/el-access.html
+ses:
+  security:
+    authorizations:
+      - url: /js/**,/css/**,/img/**,/plugins/**,/login,/logout,/api/**
+        access: permitAll
+      - url: /*,/**
+        access: isAuthenticated()

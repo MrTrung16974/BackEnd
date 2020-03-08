@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="productName">Name :</label>
+                <input type="text" class="form-control" id="productName"
+                       th:value="${product.getName()}">
+                <input type="hidden" id="productId"
+                       th:value="${product.getId()}">
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Description :</label>
+                <input type="text" class="form-control" id="productDescription"
+                       th:value="${product.getDescription()}">
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Price :</label>
+                <input type="number" class="form-control" id="productPrice"
+                       th:value="${product.getPrice()}">
+            </div>
+            <div class="form-group">
+                <label for="productStar">Star :</label>
+                <input type="number" class="form-control" id="productStar"
+                       th:value="${product.getStar()}">
+            </div>
+            <center>
+                <a th:href="@{/home}" class="btn btn-primary">Trang chủ</a>
+                <a onclick="editProduct()" class="btn btn-success">Sửa</a>
+            </center>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function editProduct() {
+        var product = {
+            name:$("#productName").val().trim(),
+            description:$("#productDescription").val().trim(),
+            price: $("#productPrice").val(),
+            star: $("#productStar").val()
+        };
+        console.log(product);
+        $.ajax({
+            url:'http://localhost:8080/edit?id=' + $('#productId').val(),
+            type:"POST",
+            data: JSON.stringify(product),
+            contentType: 'application/json',
+            success: function(data){
+                if(data == 0){
+                    alert("Đã sửa thành công");
+                }
+                if(data == 4 ){
+                    alert("Dữ liệu không hợp lệ");
+                }
+            },
+            error:function (error) {
+                alert("Lỗi hệ thống vui lòng quay lại sau");
+            }
+        })
+    }
+</script>
+</body>
+</html>

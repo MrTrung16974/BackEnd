@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Test</title>
     <meta charset="utf-8">
@@ -80,18 +80,17 @@
 <body>
 
 <div class="container mt-5">
-    <div id="addProduct" class="btn btn-success" data-toggle="modal" data-target="#modelAddProduct">
-        AddProduct
+    <div id="addProduct" data-toggle="modal"
+         data-target="#modalAddProduct"
+         class="btn btn-success">Add New Product</div>
+    <div class="form-group my-4">
+        <input type="email" id="Product" class="form-control w-50 mb-2" placeholder="Nhập tên sản phẩm bạn muốn tìm!">
+        <button onclick="serachProduct()" type="submit" class="btn btn-primary">Serach</button>
     </div>
-    <div id="EditProduct" class="btn btn-success" data-toggle="modal" data-target="#modelEditProduct">
-        EditProduct
-    </div>
-    <div id="deteleProduct" class="btn btn-success" data-toggle="modal" data-target="#modelDeleteProduct">
-        DeleteProduct
-    </div>
-    <h1 th:text="${message != null || !message.isEmpty() ? message : ''}"></h1>
+        <h1 th:text="${message}"></h1>
     <div class="row">
-        <div th:each="product : ${lstProduct}" class="col-md-4 mb-3 mb-md-0">
+        <div th:each="product : ${lstProduct}"
+             class="col-md-4 mb-3 mb-md-0">
             <div class="card h-100">
                 <div class="labels">
                     <div class="label-new bg-success text-white text-center py-1">New</div>
@@ -103,173 +102,92 @@
                        title="Add To Cart">
                         <i class="fa fa-opencart" aria-hidden="true"></i>
                     </a>
-                    <h3 class="text-success" th:text="${'$' + product.getPrice()}">$199.99</h3>
+                    <h3 class="text-success" th:text="${'$' + product.getPrice()}"></h3>
                     <div class="rating text-warning">
-<!--                        #numbers.sequence(1, 5) lắ từ 1 đến 5 -->
-                        <i th:each="i:${#numbers.sequence(1, 5)}" th:class="${product.getStar() >= i ?
-                           'fa fa-star-o' : 'fa fa-star'} " class="fa fa-star" aria-hidden="true"></i>
+                        <i th:each="i : ${#numbers.sequence(1,5)}"
+                           th:class="${product.getStar() >= i ? 'fa fa-star' : 'fa fa-star-o'}"
+                           aria-hidden="true"></i>
                     </div>
                     <h4 th:text="${product.getName()}"></h4>
                     <p th:text="${product.getDescription()}"></p>
-                    <a href="#" class="btn btn-success btn-block mt-auto">
+                    <a th:href="@{${'/edit/' + product.getId() + '/detail'}}"
+                       class="btn btn-success btn-block mt-auto">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                        Product Detail
+                        Chi tiết
+                    </a>
+
+                    <a th:href="@{${'/delete/' + product.getId()}}"
+                       class="btn btn-danger btn-block mt-auto"><i class="fa fa-eye" aria-hidden="true"></i>
+                        Xóa
                     </a>
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>
-
-<!-- Modal add -->
-<div class="modal fade" id="modelAddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modelAddProduct">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="productName">Name: </label>
-                    <input type="text" class="form-control" id="productName" aria-describedby="emailHelp" placeholder="Enter Name">
-                    <small class="form-text text-muted">Tên sản phẩn bạn muốn thêm.</small>
+                    <label for="productName">Name :</label>
+                    <input type="text" class="form-control" id="productName" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="productDescription">Description: </label>
-                    <input type="text" class="form-control" id="productDescription" aria-describedby="emailHelp" placeholder="Enter Description">
-                    <small class="form-text text-muted">Mô tả sản phẩn bạn muốn thêm.</small>
+                    <label for="productDescription">Description :</label>
+                    <input type="text" class="form-control" id="productDescription" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="productPrice">Price: </label>
-                    <input type="number" class="form-control" id="productPrice" aria-describedby="emailHelp" placeholder="Enter Price">
-                    <small class="form-text text-muted">Giá tiền sản phẩn bạn muốn thêm.</small>
+                    <label for="productPrice">Price :</label>
+                    <input type="number" class="form-control" id="productPrice" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="productStar">Star : </label>
-                    <input type="number" class="form-control" id="productStar" aria-describedby="emailHelp" placeholder="Enter Star">
-                    <small class="form-text text-muted">Điểm đánh giá bạn muốn thêm.</small>
+                    <label for="productStar">Star :</label>
+                    <input type="number" class="form-control" id="productStar" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="addProduct()" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="addProduct()">Save changes</button>
             </div>
         </div>
     </div>
 </div>
-
-<!--Model edit-->
-<div class="modal fade" id="modelEditProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modelEditProduct">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-<!--            Find data forllow name-->
-                <div class="form-group">
-                    <label for="productName">Old Name: </label>
-                    <input type="text" class="form-control" id="editOldProductName" aria-describedby="emailHelp" placeholder="Enter Name">
-                    <small class="form-text text-muted">Tìm kiếm sản phẩn bạn muốn sửa theo tên.</small>
-                </div>
-                <div class="form-group">
-                    <label for="productName">New Name: </label>
-                    <input type="text" class="form-control" id="editNewProductName" aria-describedby="emailHelp" placeholder="Enter Name">
-                    <small class="form-text text-muted">Tên sản phẩn bạn muốn sửa.</small>
-                </div>
-                <div class="form-group">
-                    <label for="productDescription">Description: </label>
-                    <input type="text" class="form-control" id="editProductDescription" aria-describedby="emailHelp" placeholder="Enter Description">
-                    <small class="form-text text-muted">Mô tả sản phẩn bạn muốn sửa.</small>
-                </div>
-                <div class="form-group">
-                    <label for="productPrice">Price: </label>
-                    <input type="number" class="form-control" id="editProductPrice" aria-describedby="emailHelp" placeholder="Enter Price">
-                    <small class="form-text text-muted">Giá tiền sản phẩn bạn muốn sửa.</small>
-                </div>
-                <div class="form-group">
-                    <label for="productStar">Star : </label>
-                    <input type="number"  class="form-control" id="editProductStar" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small class="form-text text-muted">Đánh giá tiền sản phẩn bạn muốn sửa.(từ 1 đến 5)</small>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="editProduct()" class="btn btn-primary">Edit changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Model delete-->
-<div class="modal fade" id="modelDeleteProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modelDeleteProduct">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-<!--                find data forllow name-->
-                <div class="form-group">
-                    <label for="productName">Name: </label>
-                    <input type="text" class="form-control" id="deleteOldproductName" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small class="form-text text-muted">Tìm kiếm sản phẩn bạn muốn xóa theo tên.</small>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="deteleProduct()" class="btn btn-primary">Delete changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script th:inline="javascript" type="text/javascript">
+<script type="text/javascript">
     // $('[data-toggle="tooltip"]').tooltip();
-    // function  editProduct() {
-    //     var name = $("#editOldProductName").val();
-    //     var lstProduct = $.load({
-    //         url: '';
-    //     });
-    //     for (product : [[${lstProduct}]]) {
-    //         if(product.name == name) {
-    //             var newProduct = {
-    //                 name: $("#editNewProductName"),
-    //                 description: $("#editProductDescription"),
-    //                 price: $("#editProductPrice"),
-    //                 star: $("#editProductStar")
-    //             }
-    //             $.ajax({
-    //                 type:"PUT",
-    //                 url:"http://localhost:8080/create-product",
-    //                 data:JSON.stringify(newProduct),
-    //                 contentType: 'application/json'
-    //             });
-    //         }else {
-    //             alert("Tên bạn muồn tìm kiếm không tồn tại!")
-    //         }
-    //     }
-    //
-    // }
-    // function deteleProduct() {
-    //     let id =
-    // }
-    function addProduct() {
+    function serachProduct(){
         var product = {
-            name: $("#productName").val(),
+            name:$("#productName").val().trim(),
+            description:$("#productDescription").val().trim(),
+            price: $("#productPrice").val(),
+            star: $("#productStar").val()
+        };
+        var nameProduct = $("#product").val().trim();
+        console.log(nameProduct);
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/home?name=" + nameProduct.toLocaleLowerCase(),
+            data:JSON.stringify(nameProduct),
+            contentType: 'application/json'
+        });
+    }
+
+    function addProduct(){
+        var product = {
+            name:$("#productName").val(),
             description:$("#productDescription").val(),
-            price:$("#productPrice").val(),
-            star:$("#productStar").val()
+            price: $("#productPrice").val(),
+            star: $("#productStar").val()
         };
         console.log(product);
         $.ajax({
@@ -277,16 +195,19 @@
             url:"http://localhost:8080/create-product",
             data:JSON.stringify(product),
             contentType: 'application/json',
-            success: function (response, data) {
-                //Windown trả về HTTP status code = 200 => thành công
-                //hàm được thực thi resquet thành công không có lỗi
+            success: function(response, data){
+                // server trả về HTTP status code là 200 => Thành công
+                //hàm đc thực thi khi request thành công không có lỗi
                 //reload lại trang
                 window.location.reload();
+                alert("Bạn đã thêm sản phẩm thành công");
             },
+            error: function (response, data) {
+                alert("Bạn thêm sản phầm ko thành công");
+            }
         });
-        $('#modelAddProduct').model('hide');
+        $('#modalAddProduct').modal('hide');
     }
-
 </script>
 </body>
 </html>
