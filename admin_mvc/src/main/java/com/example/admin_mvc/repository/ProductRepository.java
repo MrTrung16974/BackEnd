@@ -13,12 +13,15 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductModel,Integer> {
 
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE product p SET p.name = :name, p.description = :description, p.price = :price, p.star = :star WHERE id = :id")
-//    void updateProduct(@Param("id") int id, @Param("name") String name, @Param("description") String description, @Param("price")
-//            float price, @Param("star") int star);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE product p SET p.name = :name, p.description = :description, p.price = " +
+            ":price, p.star = :star, p.image = :image WHERE p.id = :id", nativeQuery = true)
+    void updateProduct(@Param("id") int id, @Param("name") String name, @Param("description")
+            String description, @Param("price") Float price, @Param("star") int star, @Param("image") String image);
 
+//    @Modifying
+    //    @Transactional
     @Query(value = "SELECT * from product p WHERE p.name LIKE %:name%", nativeQuery = true)
     List<ProductModel> searchProduct(@Param("name") String name);
 }

@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -37,42 +38,76 @@
                 <input type="number" class="form-control" id="productStar"
                        th:value="${product.getStar()}">
             </div>
+            <div>
+                <label for="productImage">Image :</label>
+                <input type="file" name="file" class="form-control" id="productImage" aria-describedby="emailHelp">
+            </div>
+            <div>
+                <img width="200" height="200" id="imageProduct"th:src="@{${product.getImage()}}" alt="">
+            </div>
             <center>
                 <a th:href="@{/home}" class="btn btn-primary">Trang chủ</a>
-                <a onclick="editProduct()" class="btn btn-success">Sửa</a>
+                <a id="editProduct" class="btn btn-success">Sửa</a>
             </center>
         </div>
 
     </div>
 </div>
 
-<script>
-    function editProduct() {
-        var product = {
-            name:$("#productName").val().trim(),
-            description:$("#productDescription").val().trim(),
-            price: $("#productPrice").val(),
-            star: $("#productStar").val()
-        };
-        console.log(product);
-        $.ajax({
-            url:'http://localhost:8080/edit?id=' + $('#productId').val(),
-            type:"POST",
-            data: JSON.stringify(product),
-            contentType: 'application/json',
-            success: function(data){
-                if(data == 0){
-                    alert("Đã sửa thành công");
+<script th:inline="javascript">
+
+    $(document).ready(function() {
+        $("#productImage").on("change", function () {
+            var formData = new FormData();
+            formData.append('file', $('#productImage')[0].files[0]);
+
+            $.ajax({
+                url: 'http://localhost:8080/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data);
+                    $("#imageProduct").attr("src", data);
+                    toastr.success('Upload ảnh thành công ', 'Haha!');
+                },
+                error: function () {
+                    toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!');
                 }
-                if(data == 4 ){
-                    alert("Dữ liệu không hợp lệ");
-                }
-            },
-            error:function (error) {
-                alert("Lỗi hệ thống vui lòng quay lại sau");
-            }
+            })
         })
-    }
+
+        $("#editProduct").on('click', function () {
+            var product = {
+                name:$("#productName").val().trim(),
+                description:$("#productDescription").val().trim(),
+                price: $("#productPrice").val(),
+                star: $("#productStar").val(),
+                image: $("#imageProduct").attr('src'),
+            };
+            var productId = $('#productId').val();
+            console.log(product);
+            $.ajax({
+                url: 'http://localhost:8080/edit/' + productId,
+                type: "POST",
+                data: JSON.stringify(product),
+                processData: false,
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == 0) {
+                        toastr.success('Upload product thành công ', 'Haha!');
+                    }
+                    if (data == 4) {
+                        toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!');
+                    }
+                },
+                error: function (error) {
+                    alert("Lỗi hệ thống vui lòng quay lại sau");
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
