@@ -26,10 +26,10 @@ public class Book implements Serializable {
     private String description;
 
     @Column(name = "price")
-    private String price;
+    private Float price;
 
     @Column(name = "star")
-    private String star;
+    private Integer star;
 
     @Column(name = "author_id")
     private Integer authorId;
@@ -49,7 +49,7 @@ public class Book implements Serializable {
 
     }
 
-    public Book(String name, String description, String price, String star, Integer authorId, Integer categoryId, String image, Date created_date) {
+    public Book(String name, String description, Float price, Integer star, Integer authorId, Integer categoryId, String image, Date created_date) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -84,28 +84,20 @@ public class Book implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public String getStar() {
+    public Integer getStar() {
         return star;
     }
 
-    public void setStar(String star) {
+    public void setStar(Integer star) {
         this.star = star;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Integer getAuthorId() {
@@ -122,6 +114,14 @@ public class Book implements Serializable {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getCreated_date() {

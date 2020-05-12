@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Store Book</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:each="book : ${lstBook}" class="card">
+    <div class="card h-100">
+        <div class="labels">
+            <div class="label-new bg-success text-white text-center py-1">New</div>
+            <div class="label-sale bg-primary text-white text-center py-1">Sale</div>
+        </div>
+        <img th:src="@{${book.getImage()}}" class="img-fluid" id="imageProduct" alt="">
+        <div class="card-body position-relative d-flex flex-column">
+            <a href="#" class="add-to-cart bg-primary text-white" data-toggle="tooltip" data-placement="left"
+               title="Add To Cart">
+                <i class="fa fa-opencart" aria-hidden="true"></i>
+            </a>
+            <h3 class="text-success" th:text="${'$' + book.getPrice()}"></h3>
+            <div class="rating text-warning">
+                <i th:each="i : ${#numbers.sequence(1,5)}"
+                   th:class="${book.getStar() >= i ? 'fa fa-star' : 'fa fa-star-o'}"
+                   aria-hidden="true"></i>
+            </div>
+            <h4 th:text="${book.getName()}"></h4>
+            <p th:text="${book.getDescription()}"></p>
+            <a th:href="@{${'/edit/' + book.getId() + '/detail'}}"
+               class="btn btn-success btn-block mt-auto">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                Chi tiết
+            </a>
+
+            <a th:href="@{${'/delete/' + book.getId()}}"
+               class="btn btn-danger btn-block mt-3"><i class="fa fa-eye" aria-hidden="true"></i>
+                Xóa
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 
 @Table(name = "author")
@@ -19,9 +20,9 @@ public class Author implements Serializable {
     private String name;
 
     @Column(name = "birthday")
-    private String birthday;
+    private Data birthday;
 
-    public Author(String name, String birthday) {
+    public Author(String name, Data birthday) {
         this.name = name;
         this.birthday = birthday;
     }
@@ -42,11 +43,11 @@ public class Author implements Serializable {
         this.name = name;
     }
 
-    public String getBirthday() {
+    public Data getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Data birthday) {
         this.birthday = birthday;
     }
 }
