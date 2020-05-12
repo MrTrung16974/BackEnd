@@ -224,17 +224,23 @@
             });
         });
         $("#searchProduct").on('click', function () {
+            let keyword = null;
+            let key = $('#Product').val().trim().toLocaleLowerCase();
+            if(key != null) {
+                keyword = $('#Product').val().trim().toLocaleLowerCase();
+            }else {
+                keyword = '';
+            }
 
             $.ajax({
                 type:"GET",
-                url:"http://localhost:8080/search/"+ $('#Product').val().trim().toLocaleLowerCase(),
+                url:"http://localhost:8080/search?keyword="+ keyword,
                 processData: false,
                 contentType: 'application/json',
                 success: function(){
                     // server trả về HTTP status code là 200 => Thành công
                     //hàm đc thực thi khi request thành công không có lỗi
-                    //reload lại trang
-                    window.location.reload(true);
+                    window.location.href = "http://localhost:8080/search?keyword="+ keyword;
                 }
             });
         });

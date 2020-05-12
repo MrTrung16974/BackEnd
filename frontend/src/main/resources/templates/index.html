@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Chủ</title>
+    <link  rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+    <h1>Trang Chủ123</h1>
+    <input type="text" readonly id="idProduct" />
+    <input type="text" placeholder="tên sản phẩm"  id="nameProduct" />
+    <input type="text" placeholder="mô tả sản phẩm"  id="descriptionProduct" />
+    <input type="text" placeholder="giá sản phẩm"  id="priceProduct" />
+    <input type="number" placeholder="sao sản phẩm"  id="starProduct" />
+    <button onclick="addProduct()" type="button">add product</button>
+    <button onclick="editProduct()" type="button">edit product</button>
+    <div id="lst-product"></div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function loadData() {
+            $("#lst-product").empty();
+            $.ajax({
+                url: "http://localhost:8080/v1/api/products",
+                success: function (result) {
+                    console.log("data response", result);
+                    if(result.code == '00') {
+                        rederData(result.data);
+                    }else {
+                        alert(result.message);
+                    }
+                },
+                error: function (result) {
+                    console.log("error " + result);
+                }
+            });
+        }
+
+        function addProduct () {
+            let dataJson = {
+                name: $("#nameProduct").val().trim(),
+                description: $("#descriptionProduct").val().trim(),
+                price: $("#priceProduct").val().trim(),
+                star: $("#starProduct").val().trim(),
+                image: "http://localhost:8080/link/1587900594-5fc1f18970670d88d1dd529df3ac4591.jpg"
+            };
+            $.ajax({
+                url: "http://localhost:8080/v1/api/product",
+                type: "POST",
+                data: JSON.stringify(dataJson),
+                contentType: "application/json",
+                success: function (result) {
+                    console.log("response" + result.message);
+                    alert("Bạn đã thêm sản phẩm mới thành công")
+                    loadData()
+                },
+                error: function (result) {
+                    alert("Lỗi hệ thống")
+                    console.log("error " + result.message);
+                }
+            });
+        }
+
+        function editProduct() {
+            let updateData = {
+                name: $("#nameProduct").val().trim(),
+                description: $("#descriptionProduct").val().trim(),
+                price: $("#priceProduct").val().trim(),
+                star: $("#starProduct").val().trim(),
+                image: "http://localhost:8080/link/1587900594-5fc1f18970670d88d1dd529df3ac4591.jpg"
+            }
+            $.ajax({
+                url: "http://localhost:8080/v1/api/product/" + $("#idProduct").val(),
+                type: "PUT",
+                data: JSON.stringify(updateData),
+                contentType: "application/json",
+                success: function (result) {
+                    console.log("response" + result.message);
+                    alert("Bạn đã sửa thành công!")
+                    loadData()
+                },
+                error: function (result) {
+                    alert("Lỗi hệ thống!")
+                    console.log("error " + result.message);
+                }
+            });
+        }
+
+        function deleteProduct() {
+            let idea =  confirm("Bạn chắc muốn xóa chớ ngáo đó !!!!");
+            if(idea) {
+                $.ajax({
+                    url: "http://localhost:8080/v1/api/product/" + $("#idProduct").val(),
+                    type: "DELETE",
+                    success: function (result) {
+                        console.log("response" + result.message);
+                        alert("Bạn đã xóa thành công!")
+                        loadData()
+                    },
+                    error: function (result) {
+                        console.log("error " + result.message);
+                        alert("Lỗi hệ thống!")
+                    }
+                });
+            }
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/v1/api/products",
+            success: function (result) {
+                console.log("data response", result);
+                if(result.code == '00') {
+                    rederData(result.data);
+                }else {
+                    alert(result.message);
+                }
+            },
+            error: function (result) {
+                console.log("error " + result);
+            }
+        });
+        function rederData(data) {
+            console.log("OK");
+            data.map(item => {
+                $('#lst-product').append(
+                    `<div class="card">
+                  <img src=${item.image}
+                  alt="Denim Jeans" style="width:100%">
+                  <h1>${item.name}</h1>
+                  <p class="price">${item.price}</p>
+                  <p>${item.description}</p>
+                  <p><button onclick="setProductId(${item.id})">Edit</button></p>
+                  <p><button onclick="setProductId(${item.id}), deleteProduct(${item.id})">Delete</button></p>
+                  <p><button>Add to Cart</button></p>
+                </div>`
+                );
+            });
+        }
+
+        function setProductId(id) {
+            $("#idProduct").val(id);
+        }
+    </script>
+</body>
+</html>

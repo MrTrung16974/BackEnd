@@ -1,6 +1,7 @@
 package com.example.admin_mvc.controller;
 
 import com.example.admin_mvc.exception.ResourceNotFoundException;
+import com.example.admin_mvc.model.BaseResponse;
 import com.example.admin_mvc.model.ProductModel;
 import com.example.admin_mvc.repository.ProductRepository;
 import com.example.admin_mvc.service.StoreFileService;
@@ -20,33 +21,62 @@ public class ProductController {
     @Autowired
     StoreFileService storeFileService;
 
-    private List<ProductModel> list;
+    private List<ProductModel> lstProduct;
 
     @GetMapping(value = "/home")
-    public String homeProduct(Model model){
+    public String homeProduct(Model model, @RequestParam(value = "isSuccess", required = false) Boolean isSuccess){
         String message = "";
-        if(list == null ) {
-            list = productRepository.findAll();
+        isSuccess = false;
+        if(lstProduct == null ) {
+            lstProduct = productRepository.findAll();
         }
-        model.addAttribute("lstProduct",list);
+        model.addAttribute("lstProduct",lstProduct);
+        if(isSuccess != null) {
+            message = "Error";
+        }
         model.addAttribute("message", message);
         return "index";
     }
 
-    @GetMapping(value = "/search/{name}")
-    public String searchProduct(Model model, @PathVariable("name") String name){
+    @GetMapping(value = "/test-api")
+    @ResponseBody
+    public String testAPT() {
+        return "Hello APT";
+    }
+
+//    get all list product
+    @GetMapping(value = "/api/product")
+    @ResponseBody
+    public BaseResponse getAllProduct(@RequestParam(value = "i", defaultValue = "0") Integer i) {
+        BaseResponse response = new BaseResponse();
+        if(i == 1) {
+            response.setCode("00");
+            response.setMessge("System errors");
+            response.setData(null);
+        }else {
+            response.setCode("00");
+            response.setMessge("Get all product successfuly");
+            response.setData(lstProduct);
+        }
+        return response;
+    }
+
+
+    @GetMapping(value = "/search")
+    public String searchProduct(Model model, @RequestParam("keyword") String keyword){
         String message = "";
-        list = productRepository.searchProduct(name);
-        model.addAttribute("lstProduct",list);
+        lstProduct = productRepository.searchProduct(keyword);
+        model.addAttribute("lstProduct",lstProduct);
         model.addAttribute("message", message);
         return "redirect:/home";
     }
-    @RequestMapping(value = "/delete/{id}" )
+    @DeleteMapping(value = "/delete/{id}" )
     public String deleteProduct(Model model, @PathVariable("id") Integer id) {
         String message = null;
         if(id != null) {
             message = "Bạn đã xóa thành công product";
             productRepository.deleteById(id);
+            lstProduct = productRepository.findAll();
         }else {
             message = "Không tìm thấy sản phẩm";
         }
@@ -61,6 +91,7 @@ public class ProductController {
         if(product != null) {
             message = "Bạn đã thêm thành công product";
             productRepository.save(product);
+            lstProduct = productRepository.findAll();
         }else {
             message = "Bạn nhập sai òi";
         }
@@ -69,7 +100,7 @@ public class ProductController {
     @RequestMapping(value = "/edit/{id}/detail")
     public String editProduct(Model model, @PathVariable("id") Integer id) {
         ProductModel productModel = null;
-        for (ProductModel p : list) {
+        for (ProductModel p : lstProduct) {
             if(p.getId() == id) {
                 productModel = p;
             }
@@ -78,7 +109,7 @@ public class ProductController {
         return "detail";
     }
 
-    @PostMapping(value = "/edit/{id}")
+    @PutMapping(value = "/edit/{id}")
     @ResponseBody
     public int editProduct(Model model,@PathVariable("id") int id, @RequestBody ProductModel product) {
         String message = null;
@@ -89,6 +120,7 @@ public class ProductController {
             message = "Bạn đã thêm thành công product";
             productRepository.updateProduct(product.getId(), product.getName(),
                     product.getDescription(), product.getPrice(), product.getStar(), product.getImage());
+            lstProduct = productRepository.findAll();
         } else {
             message = "Bạn nhập sai òi";
             return 4;

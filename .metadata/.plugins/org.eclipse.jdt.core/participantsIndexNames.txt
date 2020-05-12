@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-E:\LUCAS\BackEnd\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\508866700.index
-\spring-mvc\src\main\java
-E:\LUCAS\BackEnd\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\729573613.index
-\HelloWord\src\main\java
-E:\LUCAS\BackEnd\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2579603811.index
-\HelloWord\src\main\java
-E:\LUCAS\BackEnd\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1022379119.index
-\spring-mvc\src\main\java

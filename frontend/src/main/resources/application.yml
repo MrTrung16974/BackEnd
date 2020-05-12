@@ -1,0 +1,11 @@
+spring:
+  #thymeleaf relooding during developmenr
+  thymeleaf:
+      prefix: file:src/main/resources/templates/
+      cache: false
+
+# Static resources relooding during developmenr
+  resources:
+    static-locations: file:src/main/resources/static/
+    cache:
+      period: 0
