@@ -2,8 +2,12 @@ package com.example.storebook.controller;
 
 import com.example.storebook.api.BookAPIController;
 import com.example.storebook.dto.BaseResponse;
+import com.example.storebook.model.Author;
 import com.example.storebook.model.Book;
+import com.example.storebook.model.Category;
+import com.example.storebook.repository.AuthorRepository;
 import com.example.storebook.repository.BookRepository;
+import com.example.storebook.repository.CategoryRepository;
 import com.example.storebook.service.StoreFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/book")
@@ -22,6 +27,12 @@ public class BookController {
 
 
     @Autowired
+    private AuthorRepository authorRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     StoreFileService storeFileService;
 
     @Autowired
@@ -30,10 +41,12 @@ public class BookController {
     @RequestMapping("/home")
     public String home(Model model) {
         BaseResponse response =  bookAPIController.getAllBook();
+        List<Category> lstCategory = categoryRepository.findAll();
         String mess = null;
         if(response.getData() != null) {
             mess = "Thành công";
             model.addAttribute("lstBook", response.getData());
+            model.addAttribute("lstCategory", lstCategory);
         }else {
             mess = "Không có sản phẩm";
         }
@@ -43,16 +56,22 @@ public class BookController {
 
     @RequestMapping("/book-detail/{id}")
     public String editDetail(Model model, @PathVariable Integer id) {
-        BaseResponse response =  bookAPIController.getSinglebook(id);
+        BaseResponse responseBook =  bookAPIController.getSinglebook(id);
+        Book book = (Book) responseBook.getData();
+        Optional<Author>  responseAuthor =  authorRepository.findById((book.getCategoryId()));
+        List<Category> lstCategory = categoryRepository.findAll();
+
         String mess = null;
-        if(response.getData() != null) {
-            model.addAttribute("book", response.getData());
+        if(responseBook.getData() != null) {
+            model.addAttribute("book", responseBook.getData());
+            model.addAttribute("author", responseAuthor.get());
+            model.addAttribute("lstCategory", lstCategory);
             mess = "Thành công";
         }else {
             mess = "Sản phẩm không tồn tại";
         }
         model.addAttribute("mess", mess);
-        return "index";
+        return "detail";
     }
 
     @GetMapping(value = "/search")

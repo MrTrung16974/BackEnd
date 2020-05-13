@@ -14,19 +14,11 @@ public class BookRequest {
 
     private String image;
 
+    private String categoryId;
+
     private String nameAuthor;
 
     private Date birthdayAuthor;
-
-    public BookRequest(String name, String description, String price, String star, String image, String nameAuthor, Date birthdayAuthor) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.star = star;
-        this.image = image;
-        this.nameAuthor = nameAuthor;
-        this.birthdayAuthor = birthdayAuthor;
-    }
 
     public String getName() {
         return name;
@@ -66,6 +58,14 @@ public class BookRequest {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getNameAuthor() {

@@ -47,8 +47,22 @@
             <div>
                 <img width="200" height="200" id="bookImage" th:src="@{${book.getImage()}}" alt="">
             </div>
+            <div>
+                <label for="nameAuthorBook">Name Author :</label>
+                <input type="text" class="form-control" th:value="${author.getName()}" id="nameAuthorBook" aria-describedby="emailHelp">
+            </div>
+            <div>
+                <label for="bridayAuthorBook">Birday Author Book :</label>
+                <input type="date" class="form-control" th:value="${author.getBirthday()}" id="bridayAuthorBook" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="categoryBook">Thể loại của cuốn sách :</label>
+                <select id="categoryBook">
+                    <option th:each="category : ${lstCategory}" th:value="category.getId()" th:text="category.getName()"></option>
+                </select>
+            </div>
             <center>
-                <a th:href="@{/home}" class="btn btn-primary">Trang chủ</a>
+                <a th:href="@{/book//home}" class="btn btn-primary">Trang chủ</a>
                 <a onclick="editProduct()" class="btn btn-success">Sửa</a>
             </center>
         </div>

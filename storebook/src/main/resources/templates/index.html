@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" th:href="@{/image/icon/favicon.png}" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
@@ -45,7 +45,7 @@
                     </div>
                     <h4 th:text="${book.getName()}"></h4>
                     <p th:text="${book.getDescription()}"></p>
-                    <a th:href="@{${'/book-detail/' + book.getId()}}"
+                    <a th:href="@{${'/book/book-detail/' + book.getId()}}"
                        class="btn btn-success btn-block mt-auto">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         Chi tiết
@@ -101,6 +101,12 @@
                 <div class="form-group">
                     <label for="birthdayAuthorBook">Ngày sinh của tác giả :</label>
                     <input type="date" class="form-control" id="birthdayAuthorBook" aria-describedby="emailHelp" placeholder="Nhập ngày sinh của tác giả cuốn sách">
+                </div>
+                <div class="form-group">
+                    <label for="categoryBook">Thể loại của cuốn sách :</label>
+                    <select id="categoryBook">
+                        <option th:each="category : ${lstCategory}" th:value="category.getId()" th:text="category.getName()"></option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">

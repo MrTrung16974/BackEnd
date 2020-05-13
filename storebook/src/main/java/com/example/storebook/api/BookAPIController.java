@@ -76,18 +76,22 @@ public class BookAPIController {
             response.setMess("Data invalid");
             response.setData(null);
         }else {
-            Book newBook = new Book();
             Author newAuthor = new Author();
-            response.setCode("200");
-            response.setMess("Success");
-            newBook.setName(bookRequest.getName());
-            newBook.setDescription(bookRequest.getDescription());
-            newBook.setPrice(Float.parseFloat(bookRequest.getPrice()));
-            newBook.setStar(Integer.parseInt(bookRequest.getStar()));
             newAuthor.setName(bookRequest.getNameAuthor());
             newAuthor.setBirthday(bookRequest.getBirthdayAuthor());
-            response.setData(bookRepository.save(newBook));
-            authorRepository.save(newAuthor);
+            Author exitAuthor = authorRepository.save(newAuthor);
+            if(exitAuthor != null) {
+                Book newBook = new Book();
+                response.setCode("200");
+                response.setMess("Success");
+                newBook.setName(bookRequest.getName());
+                newBook.setDescription(bookRequest.getDescription());
+                newBook.setPrice(Float.parseFloat(bookRequest.getPrice()));
+                newBook.setStar(Integer.parseInt(bookRequest.getStar()));
+                newBook.setCategoryId(Integer.parseInt(bookRequest.getCategoryId()));
+                newBook.setAuthorId(exitAuthor.getId());
+                response.setData(bookRepository.save(newBook));
+            }
         }
         return response;
     }

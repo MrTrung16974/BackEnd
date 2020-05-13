@@ -23,6 +23,7 @@ function addProduct () {
         price: $("#priceBook").val().trim(),
         star: $("#starBook").val().trim(),
         image:  $("#imageBook").attr('src'),
+        categoryId: $("#categoryBook").val(),
         nameauthor: $("#nameAuthorBook").val().trim(),
         birthdayAuthor: $("#birthdayAuthorBook").val().trim()
     };

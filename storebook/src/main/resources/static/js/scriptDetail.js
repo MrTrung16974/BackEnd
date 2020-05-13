@@ -5,6 +5,7 @@ function editProduct() {
         price: $("#priceBook").val().trim(),
         star: $("#starBook").val().trim(),
         image:  $("#bookImage").attr('src'),
+        categoryId: $("#categoryBook").val(),
         nameauthor: $("#nameAuthorBook").val().trim(),
         birthdayAuthor: $("#birthdayAuthorBook").val().trim()
     }
@@ -29,7 +30,7 @@ function editProduct() {
         formData.append('file', $('#imageBook')[0].files[0]);
 
         $.ajax({
-            url: 'http://localhost:8080/upload',
+            url: 'http://localhost:8080/book/upload',
             type: 'POST',
             data: formData,
             processData: false,
