@@ -1,15 +1,10 @@
 package com.example.storebook.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.io.Serializable;
 
 @Table(name = "author")
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"created_date"}, allowGetters = true)
 @Entity
 public class Author implements Serializable {
     @Id
@@ -21,6 +16,10 @@ public class Author implements Serializable {
 
     @Column(name = "birthday")
     private Data birthday;
+
+    public Author() {
+
+    }
 
     public Author(String name, Data birthday) {
         this.name = name;

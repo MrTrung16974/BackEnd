@@ -7,9 +7,9 @@ create table book(
 	description text null,
     price varchar(100) not null,
     star int(1) null,
-    image varchar(200) not null,
 	author_id int(6) not null,
     category_id int(6) not null,
+	image varchar(200) not null,
     created_date datetime null
 );
 

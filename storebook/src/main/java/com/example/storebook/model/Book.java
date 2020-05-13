@@ -9,11 +9,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
+@Entity
 @Table(name = "book")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"created_date"}, allowGetters = true)
-@Entity
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
