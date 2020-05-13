@@ -9,8 +9,6 @@ import com.example.storebook.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @RestController
@@ -77,8 +75,8 @@ public class BookAPIController {
             response.setData(null);
         }else {
             Author newAuthor = new Author();
-            newAuthor.setName(bookRequest.getNameAuthor());
-            newAuthor.setBirthday(bookRequest.getBirthdayAuthor());
+            newAuthor.setNameAuthor(bookRequest.getNameAuthor());
+            newAuthor.setBirthdayAuthor(bookRequest.getBirthdayAuthor());
             Author exitAuthor = authorRepository.save(newAuthor);
             if(exitAuthor != null) {
                 Book newBook = new Book();
@@ -88,6 +86,7 @@ public class BookAPIController {
                 newBook.setDescription(bookRequest.getDescription());
                 newBook.setPrice(Float.parseFloat(bookRequest.getPrice()));
                 newBook.setStar(Integer.parseInt(bookRequest.getStar()));
+                newBook.setImage(bookRequest.getImage());
                 newBook.setCategoryId(Integer.parseInt(bookRequest.getCategoryId()));
                 newBook.setAuthorId(exitAuthor.getId());
                 response.setData(bookRepository.save(newBook));
@@ -96,7 +95,7 @@ public class BookAPIController {
         return response;
     }
 
-    @PutMapping("/book{id}")
+    @PutMapping("/book/{id}")
     public BaseResponse editBook(@PathVariable Integer id, @RequestBody BookRequest bookRequest) {
         BaseResponse response = new BaseResponse();
         Optional<Book> optBook = bookRepository.findById(id);
@@ -120,10 +119,10 @@ public class BookAPIController {
                 newBook.setImage(bookRequest.getImage());
             }
             if(bookRequest.getNameAuthor().isEmpty()) {
-                newAuthor.setName(bookRequest.getNameAuthor());
+                newAuthor.setNameAuthor(bookRequest.getNameAuthor());
             }
             if(bookRequest.getBirthdayAuthor() != null) {
-                newAuthor.setBirthday(bookRequest.getBirthdayAuthor());
+                newAuthor.setBirthdayAuthor(bookRequest.getBirthdayAuthor());
             }
             response.setCode("200");
             response.setMess("Edit Book success");
@@ -145,6 +144,7 @@ public class BookAPIController {
             Optional<Book> optBook = bookRepository.findById(id);
             if(optBook.isPresent()) {
                 bookRepository.deleteById(id);
+                authorRepository.deleteById(optBook.get().getAuthorId());
                 response.setCode("200");
                 response.setMess("Delete Book success");
                 response.setData(optBook.get());

@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,15 +58,26 @@ public class BookController {
 
     @RequestMapping("/book-detail/{id}")
     public String editDetail(Model model, @PathVariable Integer id) {
+        String formatDate = null;
         BaseResponse responseBook =  bookAPIController.getSinglebook(id);
         Book book = (Book) responseBook.getData();
-        Optional<Author>  responseAuthor =  authorRepository.findById((book.getCategoryId()));
+        Optional<Author> responseAuthor =  authorRepository.findById(book.getAuthorId());
         List<Category> lstCategory = categoryRepository.findAll();
+        try {
+            Date date = responseAuthor.get().getBirthdayAuthor();
+            SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+            if(date != null) {
+                formatDate = sm.format(date);
+            }
 
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         String mess = null;
-        if(responseBook.getData() != null) {
+        if(responseBook.getData() != null && responseAuthor.isPresent() && lstCategory != null) {
             model.addAttribute("book", responseBook.getData());
             model.addAttribute("author", responseAuthor.get());
+            model.addAttribute("birthdayAuthor", formatDate);
             model.addAttribute("lstCategory", lstCategory);
             mess = "Thành công";
         }else {
@@ -80,7 +93,7 @@ public class BookController {
         List<Book> lstBook =  bookRepository.searchBook(keyword);
         model.addAttribute("lstBook", lstBook);
         model.addAttribute("message", message);
-        return "redirect:/home";
+        return "index";
     }
 
     @PostMapping("/upload")

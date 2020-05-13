@@ -9,21 +9,22 @@ import java.util.Date;
 @Entity
 public class Author implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
     @Column(name = "name")
-    private String name;
+    private String nameAuthor;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private Date birthdayAuthor;
 
     public Author() {
 
     }
 
-    public Author(String name, Date birthday) {
-        this.name = name;
-        this.birthday = birthday;
+    public Author(String nameAuthor, Date birthdayAuthor) {
+        this.nameAuthor = nameAuthor;
+        this.birthdayAuthor = birthdayAuthor;
     }
 
     public Integer getId() {
@@ -34,19 +35,19 @@ public class Author implements Serializable {
         Id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameAuthor() {
+        return nameAuthor;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameAuthor(String nameAuthor) {
+        this.nameAuthor = nameAuthor;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public Date getBirthdayAuthor() {
+        return birthdayAuthor;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthdayAuthor(Date birthdayAuthor) {
+        this.birthdayAuthor = birthdayAuthor;
     }
 }
