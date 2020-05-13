@@ -3,25 +3,25 @@ package com.example.storebook.model;
 import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.util.Date;
 
 @Table(name = "author")
 @Entity
 public class Author implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "birthday")
-    private Data birthday;
+    private Date birthday;
 
     public Author() {
 
     }
 
-    public Author(String name, Data birthday) {
+    public Author(String name, Date birthday) {
         this.name = name;
         this.birthday = birthday;
     }
@@ -42,11 +42,11 @@ public class Author implements Serializable {
         this.name = name;
     }
 
-    public Data getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Data birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 }

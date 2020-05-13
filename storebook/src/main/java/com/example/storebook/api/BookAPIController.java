@@ -2,11 +2,15 @@ package com.example.storebook.api;
 
 import com.example.storebook.dto.BaseResponse;
 import com.example.storebook.dto.BookRequest;
+import com.example.storebook.model.Author;
 import com.example.storebook.model.Book;
+import com.example.storebook.repository.AuthorRepository;
 import com.example.storebook.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @RestController
@@ -15,6 +19,9 @@ public class BookAPIController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @GetMapping("/books")
     public BaseResponse getAllBook() {
@@ -69,14 +76,18 @@ public class BookAPIController {
             response.setMess("Data invalid");
             response.setData(null);
         }else {
+            Book newBook = new Book();
+            Author newAuthor = new Author();
             response.setCode("200");
             response.setMess("Success");
-            Book newBook = new Book();
             newBook.setName(bookRequest.getName());
             newBook.setDescription(bookRequest.getDescription());
             newBook.setPrice(Float.parseFloat(bookRequest.getPrice()));
             newBook.setStar(Integer.parseInt(bookRequest.getStar()));
+            newAuthor.setName(bookRequest.getNameAuthor());
+            newAuthor.setBirthday(bookRequest.getBirthdayAuthor());
             response.setData(bookRepository.save(newBook));
+            authorRepository.save(newAuthor);
         }
         return response;
     }
@@ -85,8 +96,10 @@ public class BookAPIController {
     public BaseResponse editBook(@PathVariable Integer id, @RequestBody BookRequest bookRequest) {
         BaseResponse response = new BaseResponse();
         Optional<Book> optBook = bookRepository.findById(id);
+        Optional<Author> optAuthor = authorRepository.findById(optBook.get().getAuthorId());
         if(optBook.isPresent()) {
             Book newBook = optBook.get();
+            Author newAuthor = optAuthor.get();
             if(bookRequest.getName().isEmpty()) {
                 newBook.setName(bookRequest.getName());
             }
@@ -102,9 +115,16 @@ public class BookAPIController {
             if(bookRequest.getImage().isEmpty()) {
                 newBook.setImage(bookRequest.getImage());
             }
+            if(bookRequest.getNameAuthor().isEmpty()) {
+                newAuthor.setName(bookRequest.getNameAuthor());
+            }
+            if(bookRequest.getBirthdayAuthor() != null) {
+                newAuthor.setBirthday(bookRequest.getBirthdayAuthor());
+            }
             response.setCode("200");
             response.setMess("Edit Book success");
             response.setData(bookRepository.save(newBook));
+            authorRepository.save(newAuthor);
         }else {
             response.setMess("400");
             response.setMess("Data Not found");

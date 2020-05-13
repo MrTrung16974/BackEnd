@@ -1,7 +1,5 @@
 package com.example.storebook.dto;
 
-import com.example.storebook.model.Book;
-
 public class BaseResponse {
     private String Code;
     private String mess;

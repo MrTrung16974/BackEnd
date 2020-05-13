@@ -1,6 +1,7 @@
 package com.example.storebook.dto;
 
-import javax.persistence.Column;
+
+import java.util.Date;
 
 public class BookRequest {
     private String name;
@@ -15,9 +16,9 @@ public class BookRequest {
 
     private String nameAuthor;
 
-    private String birthdayAuthor;
+    private Date birthdayAuthor;
 
-    public BookRequest(String name, String description, String price, String star, String image, String nameAuthor, String birthdayAuthor) {
+    public BookRequest(String name, String description, String price, String star, String image, String nameAuthor, Date birthdayAuthor) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -75,11 +76,11 @@ public class BookRequest {
         this.nameAuthor = nameAuthor;
     }
 
-    public String getBirthdayAuthor() {
+    public Date getBirthdayAuthor() {
         return birthdayAuthor;
     }
 
-    public void setBirthdayAuthor(String birthdayAuthor) {
+    public void setBirthdayAuthor(Date birthdayAuthor) {
         this.birthdayAuthor = birthdayAuthor;
     }
 }
