@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actor</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <div id="addProduct" data-toggle="modal"
+         data-target="#modalAddProduct"
+         class="btn btn-success">Add New Product</div>
+    <div class="form-group my-4">
+        <input type="email" id="Product" class="form-control w-50 mb-2" placeholder="Nhập tên sản phẩm bạn muốn tìm!">
+        <button id="searchProduct" type="submit" class="btn btn-primary">Serach</button>
+    </div>
+    <div id="lst-product"></div>
+    <div class="pagination" >
+        <a each="i : ${#numbers.sequence(0, totalPage)}"
+           href="@{'actor?Page=' + ${i}}" text="${i+1}">
+        </a>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script th:src="@{/js/webScript.js.js}"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Actor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div class="container mt-5">
+    <div class="form-group my-4">
+        <input type="email" id="actorName" class="form-control w-50 mb-2" placeholder="Nhập tên sản phẩm bạn muốn tìm!">
+        <button id="searchActor" type="submit" class="btn btn-primary">Serach</button>
+    </div>
+    <div id="lst-product"></div>
+    <div class="pagination" >
+        <a each="i : ${#numbers.sequence(0, totalPage)}"
+           href="@{'actor?Page=' + ${i}}" text="${i+1}">
+        </a>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="actorName">Name :</label>
+                    <input type="text" class="form-control" id="actorName" aria-describedby="emailHelp" placeholder="Nhập tên của sản phẩm">
+                </div>
+                <div class="form-group">
+                    <label for="actorAge">Age :</label>
+                    <input type="text" class="form-control" id="actorAge" aria-describedby="emailHelp" placeholder="Nhập mô tả của sản phẩm">
+                </div>
+                <div class="form-group">
+                    <label for="actorConutry">Price :</label>
+                    <input type="number" class="form-control" id="actorConutry" aria-describedby="emailHelp" placeholder="Nhập giá tiền của sản phẩm">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="/js/webScript.js"></script>
+</body>
+</html>

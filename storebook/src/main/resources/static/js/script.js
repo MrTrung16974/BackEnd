@@ -79,7 +79,6 @@ $(document).ready(function() {
             contentType: false,
             success: function (data) {
                 $("#imageBook").attr("src", data);
-                $("#newImageBook").attr("src", data);
                 toastr.success('Upload ảnh thành công ', 'Haha!');
             },
             error: function () {
@@ -89,14 +88,10 @@ $(document).ready(function() {
     })
 
     $("#searchBook").on('click', function () {
-        let keyword = null;
-        let key = $('#BookKeyWord').val().trim().toLocaleLowerCase();
-        if(key != null) {
-            keyword = $('#BookKeyWord').val().trim().toLocaleLowerCase();
-        }else {
+        let keyword = $('#BookKeyWord').val().trim().toLocaleLowerCase();
+        if(keyword == null) {
             keyword = '';
         }
-
         $.ajax({
             type:"GET",
             url:"http://localhost:8080/book/search?keyword="+ keyword,
