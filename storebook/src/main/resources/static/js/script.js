@@ -13,6 +13,30 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: "http://localhost:8080/v1/api/categorys",
+    success: function (result) {
+        console.log("data response", result);
+        if(result.code == '200') {
+            rederCategory(result.data);
+        }else {
+            alert(result.message);
+        }
+    },
+    error: function (result) {
+        console.log("error " + result);
+    }
+});
+
+function rederCategory(data) {
+    console.log(data);
+        data.map(item => {
+            $('#categoryBook').append(`
+            <option value=${item.id}>${item.name}</option>
+            `);
+    });
+}
+
 function loadData() {
     $("#lst-product").empty();
     $.ajax({
@@ -121,7 +145,7 @@ $(document).ready(function() {
             nameAuthor: $("#nameAuthorBook").val().trim(),
             birthdayAuthor: $("#birthdayAuthorBook").val().trim()
         };
-        console.log($("#imageBook").attr('src'));
+        console.log(dataJson);
         $.ajax({
             url: "http://localhost:8080/v1/api/book",
             type: "POST",

@@ -40,6 +40,15 @@ public class BookAPIController {
     @Autowired
     private BookAPIController bookAPIController;
 
+    @GetMapping("/categorys")
+    public BaseResponse getAllCategory() {
+        BaseResponse response = new BaseResponse();
+        response.setCode("200");
+        response.setMess("Success");
+        response.setData(categoryRepository.findAll());
+        return response;
+    }
+
     @GetMapping("/books")
     public BaseResponse getAllBook() {
         BaseResponse response = new BaseResponse();
