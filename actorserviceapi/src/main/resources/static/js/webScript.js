@@ -58,7 +58,7 @@ $("#detailActor").on('click', function () {
         success: function(result){
             // server trả về HTTP status code là 200 => Thành công
             //hàm đc thực thi khi request thành công không có lỗi
-            $('#a-actor').append(
+            $('#body-actor').append(
             `<div class="form-group">
                 <label for="actorName">Tên diễn viên :</label>
                 <input value=${item.name}  type="text" class="form-control" id="actorName">
@@ -90,19 +90,3 @@ $.ajax({
         console.log("error " + result);
     }
 });
-function rederData(data) {
-    console.log("OK");
-    data.map(item => {
-        $('#lst-product').append(
-        `<div class="card">
-                  <img width="200" height="250" src="https://saobiz.net/wp-content/uploads/2016/11/ngoc-trinh-trang-da-blogtamsuvn5_01.jpg"
-                  alt="Denim Jeans" style="width:100%">
-                  <input type="hidden" value=${item.id}>
-                  <h1>${item.name}</h1>
-                  <p class="price">${item.age}</p>
-                  <p>${item.country}</p>
-                  <p><button>Detail</button></p>
-                  <p><button>Add to Cart</button></p>
-                </div>`);
-    });
-}

@@ -67,6 +67,22 @@ public class BookAPIController {
     }
 
 
+    @GetMapping(value = "/search")
+    public BaseResponse searchProduct(@RequestParam("keyword") String keyword){
+        BaseResponse response = new BaseResponse();
+        List<Book> lstBook =  bookRepository.findByNameContaining(keyword);
+        if(!lstBook.isEmpty()) {
+            response.setCode("200");
+            response.setMess("Delete Book success");
+            response.setData(lstBook);
+        }else {
+            response.setCode("400");
+            response.setMess("Data not found");
+            response.setData(null);
+        }
+        return response;
+    }
+
     @GetMapping("/books/{id}")
     public BaseResponse createBook(@PathVariable Integer id) {
         BaseResponse response = new BaseResponse();
@@ -178,15 +194,6 @@ public class BookAPIController {
             response.setData(null);
         }
         return response;
-    }
-
-    @GetMapping(value = "/search")
-    public List<Book> searchProduct(Model model, @RequestParam("keyword") String keyword){
-        String message = "";
-        List<Book> lstBook =  bookRepository.searchBook(keyword);
-        model.addAttribute("lstBook", lstBook);
-        model.addAttribute("message", message);
-        return lstBook;
     }
 
     @RequestMapping("/book-detail/{id}")
