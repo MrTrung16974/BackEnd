@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Actor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="@{/css/style.css}">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="a-actor">
+<body style="background: #f5f5f5;">
+<div class="actor container">
+    <div class="row">
+        <div class="col-md-12">
+            <a style="margin: 20px 0px 0px 0px" th:href="@{/web/home}" class="btn btn-primary">Trang chủ</a>
+
+            <div class="actor-item">
+                <div class="img-actor">
+                    <img class="img-thumbnail" width="250" height="300" src="https://saobiz.net/wp-content/uploads/2016/11/ngoc-trinh-trang-da-blogtamsuvn5_01.jpg"
+                         alt="Denim Jeans">
                 </div>
-                <center>
-                    <a href="/web/pagehome" class="btn btn-primary">Trang chủ</a>
-                </center>
+                <div class="body-actor">
+                    <h3 class="name-actor">Ngọc Trinh</h3>
+                    <p class="age-actor">30 Tuổi</p>
+                    <p class="country-actor">Việt Nam</p>
+                </div>
             </div>
-
         </div>
-    </div>
 
+    </div>
+</div>
 </body>
 </html>
