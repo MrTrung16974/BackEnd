@@ -96,7 +96,7 @@ function detailActor(idActor) {
             //hàm đc thực thi khi request thành công không có lỗi
             let item = result.data;
             $('#model-actor').append(
-                `<div class="form-group">
+            `<div class="form-group">
                 <label for="actorName">Tên diễn viên :</label>
                 <input value="${item.name}" type="text" class="form-control" id="actorName">
                 <input type="hidden" id="productId">
@@ -137,3 +137,4 @@ function paginationActor(page) {
         }
     });
 }
+});

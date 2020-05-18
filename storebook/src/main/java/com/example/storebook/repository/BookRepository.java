@@ -12,6 +12,8 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Integer> {
     //    @Modifying
     //    @Transactional
-    @Query(value = "SELECT * from book b WHERE b.name LIKE %:keyword%", nativeQuery = true)
-    List<Book> searchBook(@Param("keyword") String keyword);
+    //@Query(value = "SELECT * from book b WHERE b.name LIKE %:keyword%", nativeQuery = true)
+    //List<Book> searchBook(@Param("keyword") String keyword);
+
+    List<Book> findByNameContaining(String name);
 }
