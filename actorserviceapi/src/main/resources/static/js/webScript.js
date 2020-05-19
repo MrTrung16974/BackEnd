@@ -1,8 +1,9 @@
 let perPage =  prompt("Số diễn viên bạn muốn trong một trang là  !!!!", '');
 let keyword = "";
+let pageDefault = 0;
 
 $.ajax({
-    url: "https://12d3a150.ngrok.io/v1/api/actor/search?page=0&perPage="+ perPage +"&name=" + keyword,
+    url: "http://ca9b2477.ngrok.io/v1/api/actor/search?page=0&perPage="+ perPage +"&name=" + keyword,
     success: function (result) {
         for(let i = 0; i < result.total; i++) {
             let page = i+1;
@@ -24,11 +25,11 @@ $.ajax({
 function loadData() {
     $("#lst-product").empty();
     $.ajax({
-        url: "https://12d3a150.ngrok.io/v1/api/actors",
+        url: "http://ca9b2477.ngrok.io/v1/api/actor/search?page=" + pageDefault + "&perPage="+ perPage +"&name=" + keyword,
         type: "GET",
         success: function (result) {
             if(result.code == '00') {
-                rederData(result.data);
+                rederData(result.data.content);
             }else {
                 alert(result.message);
             }
@@ -62,7 +63,7 @@ function searchActor() {
     }
     $.ajax({
         type: "GET",
-        url: "https://12d3a150.ngrok.io/v1/api/actor/search?page=0&perPage="+ perPage +"&name=" + keyword,
+        url: "http://ca9b2477.ngrok.io/v1/api/actor/search?page=0&perPage="+ perPage +"&name=" + keyword,
         processData: false,
         contentType: 'application/json',
         success: function (result) {
@@ -87,15 +88,14 @@ function searchActor() {
 function detailActor(idActor) {
     $.ajax({
         type:"GET",
-        url:"https://12d3a150.ngrok.io/v1/api/actor/"+ idActor,
+        url:"http://ca9b2477.ngrok.io/v1/api/actor/"+ idActor,
         processData: false,
         contentType: 'application/json',
         success: function(result){
-            $('#model-actor').empty();
             // server trả về HTTP status code là 200 => Thành công
             //hàm đc thực thi khi request thành công không có lỗi
             let item = result.data;
-            $('#model-actor').append(
+            $('#model-actor').html(
             `<div class="form-group">
                 <label for="actorName">Tên diễn viên :</label>
                 <input value="${item.name}" type="text" class="form-control" id="actorName">
@@ -114,13 +114,14 @@ function detailActor(idActor) {
 }
 
 function paginationActor(page) {
+    pageDefault = page;
     keyword = $('#actorName').val().trim().toLocaleLowerCase();
     if (keyword == null) {
         keyword = '';
     }
     $.ajax({
         type: "GET",
-        url: "http://localhost:8083/v1/api/actor/search?page=" + page + "&perPage="+ perPage +"&name=" + keyword,
+        url: "http://ca9b2477.ngrok.io/v1/api/actor/search?page=" + page + "&perPage="+ perPage +"&name=" + keyword,
         processData: false,
         contentType: 'application/json',
         success: function (result) {
@@ -137,4 +138,3 @@ function paginationActor(page) {
         }
     });
 }
-});
