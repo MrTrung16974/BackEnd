@@ -121,16 +121,18 @@
         //123,445,123
         console.log("ListProduct befor in cookie " + id)
         var listProduct = getCookie("productCart");
-        // if(listProduct.indexOf(id)) {
-        //     var pos = listProduct.indexOf(id);
-        //
-        // }else {
+        if(listProduct.indexOf(id)) {
+            let pos = listProduct.indexOf("id:"+id);
+            let number = listProduct.substring(pos-3, pos-2);
+            console.log(number);
+            console.log(typeof number);
+        }else {
             if(listProduct) {
-                listProduct += ",{number=" + 1 + "}" + "{id=" + id + "}";
+                listProduct += ",{number:" + 1 + "}" + "{id:" + id + "}";
             }else {
-                listProduct += "{number=" + 1 + "}" + "{id=" + id + "}";
+                listProduct += "{number:" + 1 + "}" + "{id:" + id + "}";
             }
-        // }
+        }
         setCookie("productCart", listProduct);
         console.log(getTotalCast(listProduct))
     }
