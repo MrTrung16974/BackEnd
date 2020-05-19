@@ -90,6 +90,8 @@
         }
         return "";
     }
+    let lstProduct = getCookie("productCart")
+    console.log(getTotalCast(lstProduct))
 
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
@@ -97,18 +99,40 @@
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
-
+    function getTotalCast(listProduct) {
+        let count = 0;
+        console.log(listProduct.length);
+        for(var i = 0; i <listProduct.length; i++) {
+            var c = listProduct.charAt(i);
+            if(c == ",") {
+                count++;
+            }else {
+                count;
+            }
+        }
+        if(count != 0){
+            count++;
+        }else if(listProduct.charAt(1) != "") {
+            count++;
+        }
+        return count;
+    }
     function addToCast(id) {
         //123,445,123
         console.log("ListProduct befor in cookie " + id)
         var listProduct = getCookie("productCart");
-        if(listProduct) {
-            listProduct += "," + id;
-        }else {
-            listProduct += id;
-        }
-
+        // if(listProduct.indexOf(id)) {
+        //     var pos = listProduct.indexOf(id);
+        //
+        // }else {
+            if(listProduct) {
+                listProduct += ",{number=" + 1 + "}" + "{id=" + id + "}";
+            }else {
+                listProduct += "{number=" + 1 + "}" + "{id=" + id + "}";
+            }
+        // }
         setCookie("productCart", listProduct);
+        console.log(getTotalCast(listProduct))
     }
 </script>
 </body>
