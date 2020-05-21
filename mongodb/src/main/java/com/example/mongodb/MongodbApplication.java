@@ -1,9 +1,6 @@
 package com.example.mongodb;
 
-import com.example.mongodb.model.Product;
-import com.example.mongodb.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,8 +12,8 @@ public class MongodbApplication {
         SpringApplication.run(MongodbApplication.class, args);
     }
 
-    @Autowired
-    ProductRepository productRepository;
+//    @Autowired
+//    ProductRepository productRepository;
 
 //    @Override
 //    public void  run(String...args) throws Exception {
