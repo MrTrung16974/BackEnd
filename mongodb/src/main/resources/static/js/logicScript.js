@@ -1,4 +1,6 @@
 var listProductCart = [];
+let listProduct = getCookie("productCart");
+$("#total-cast").text(getTotalCast(listProduct));
 
 // var x = document.cookie;
 // console.log("Giá trị trước khi thêm cookie là " + x);
@@ -47,25 +49,28 @@ function getTotalCast(listProduct) {
 function addToCast(id) {
     //123,445,123
     console.log("ListProduct befor in cookie " + id)
-    var listProduct = getCookie("productCart");
-    if(listProduct.indexOf("id:"+id)  != -1) {
-        let pos = listProduct.indexOf("id:"+id);
+    let listProduct = getCookie("productCart");
+    let nameId = '"id":"';
+    let lastId = '"';
+    if(listProduct.indexOf(nameId +id +  lastId) != -1) {
+        let pos = listProduct.indexOf(nameId +id +  lastId);
         console.log(pos);
-        let number = listProduct.substring(pos-3, pos-2);
+        let number = listProduct.substring(pos-2, pos-1);
         console.log(number);
         console.log(parseInt(number, 10));
-        let newArrOne = listProduct.slice(0,pos-3);
+        let newArrOne = listProduct.slice(0,pos-2);
         newArrOne+=(parseInt(number, 10)+1);
-        let newArrTwo = listProduct.slice(pos-2);
+        let newArrTwo = listProduct.slice(pos-1);
         listProduct = newArrOne.concat(newArrTwo);
         console.log(listProduct);
     }else {
         if(listProduct) {
-            listProduct += ",{\"number\":" + 1 + "\,\"id\":\"" + id + "\"}";
+            listProduct += ",{\"number\":" + 1 + ".\"id\":\"" + id + "\"}";
         }else {
-            listProduct += "{\"number\":" + 1 + "\,\"id\":\"" + id + "\"}";
+            listProduct += "{\"number\":" + 1 + ".\"id\":\"" + id + "\"}";
         }
     }
+    $("#total-cast").text(getTotalCast(listProduct));
     setCookie("productCart", listProduct);
     console.log(getTotalCast(listProduct))
 }
