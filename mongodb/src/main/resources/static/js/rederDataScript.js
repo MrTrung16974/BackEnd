@@ -14,6 +14,25 @@ $.ajax({
     }
 });
 
+let productCast = getCookie("productCart");
+$.ajax({
+    url: "http://localhost:8099/v1/api/get-all-cookie",
+    type: "POST",
+    data: productCast,
+    processData: false,
+    contentType: false,
+    success: function (result) {
+        if(result != null) {
+            console.log(result);
+        }else {
+            alert("Find not data");
+        }
+    },
+    error: function (result) {
+        console.log("error " + result);
+    }
+});
+
 function rederData(data) {
     data.map(item => {
         $('#list-product').append(

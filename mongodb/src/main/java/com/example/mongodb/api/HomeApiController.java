@@ -6,15 +6,13 @@ import com.example.mongodb.repository.ProductRepository;
 import com.example.mongodb.services.OrderServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,17 +36,23 @@ public class HomeApiController {
         List<Product> lstProduct = productRepository.findAll();
         return lstProduct;
     }
-    @GetMapping("/all-cookie")
-    public static Cookie getCookie(HttpServletRequest request,
-                                   @RequestParam("name") String name) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(name)) {
-                    return cookie;
-                }
+    @PostMapping("/get-all-cookie")
+    public static List<String> getCookie(@RequestBody String productCart) {
+        System.out.println(productCart);
+        List<String> lstCookie = new ArrayList<>();
+        String itemCookie = "";
+        for(int i = 0; i <productCart.length(); i++) {
+            char c = productCart.charAt(i);
+            if(c  != ',') {
+                itemCookie += c;
+            }else {
+                lstCookie.add(itemCookie);
+                itemCookie = "";
             }
         }
-        return null;
+        for (String c : lstCookie) {
+            System.out.println(c);
+        }
+        return lstCookie;
     }
 }
