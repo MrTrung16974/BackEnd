@@ -389,6 +389,13 @@ h6, .h6 {
   font-size: 1rem;
 }
 
+.total-cast{
+  position: absolute;
+  top: -10px;
+  font-family: monospace;
+  left: 31px;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -10048,10 +10055,10 @@ hr.light {
   font-size: 0.9rem;
   padding: 0.75rem 0;
 }
-#mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
+#mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item {
   color: #f4623a;
 }
-#mainNav .navbar-nav .nav-item .nav-link.active {
+#mainNav .navbar-nav .nav-item {
   color: #f4623a !important;
 }
 @media (min-width: 992px) {

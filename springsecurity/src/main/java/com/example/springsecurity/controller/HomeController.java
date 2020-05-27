@@ -28,9 +28,9 @@ public class HomeController {
     public String home(){
         return "home";
     }
-    @RequestMapping("/vip")
+    @RequestMapping("/order")
     public String vip(){
-        return "vip";
+        return "order";
     }
     @RequestMapping("/403")
     public String notPo(){
