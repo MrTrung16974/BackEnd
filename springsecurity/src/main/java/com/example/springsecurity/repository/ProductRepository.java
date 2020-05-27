@@ -1,6 +1,6 @@
 package com.example.springsecurity.repository;
 
-import com.example.mongodb.model.Product;
+import com.example.springsecurity.model.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
