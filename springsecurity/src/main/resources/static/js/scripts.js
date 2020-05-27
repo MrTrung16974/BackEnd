@@ -44,20 +44,19 @@
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
 
-  // // Magnific popup calls
-  // $('#portfolio').magnificPopup({
-  //   delegate: 'a',
-  //   type: 'image',
-  //   tLoading: 'Loading image #%curr%...',
-  //   mainClass: 'mfp-img-mobile',
-  //   gallery: {
-  //     enabled: true,
-  //     navigateByImgClick: true,
-  //     preload: [0, 1]
-  //   },
-  //   image: {
-  //     tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
-  //   }
-  // });
+  function loadPageCategory(type) {
+      $.ajax({
+          url: "http://localhost:8099/catalog?type=" + type,
+          type: "GET",
+          success: function (response) {
+              if(response.code = '00') {
+
+              }
+          },
+          error: function (error) {
+              toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+          }
+      });
+  }
 
 })(jQuery); // End of use strict

@@ -1,5 +1,6 @@
 package com.example.springsecurity.controller;
 
+import com.example.springsecurity.dto.BaseResponse;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,6 @@ public class HomeController {
     @RequestMapping("/register")
     public String register() {
         return "register";
-    }
-
-    @RequestMapping(value = "/catalog", method = RequestMethod.GET)
-    public String findProductByCategory(@RequestParam("type") Integer type) {
-        return "redirect:/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
