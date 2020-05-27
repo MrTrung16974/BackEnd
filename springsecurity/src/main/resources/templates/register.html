@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form th:action="@{/login}" method="post" autocomplete="off" id="login_form">
+                <form th:action="@{/register}" method="post" autocomplete="off" id="login_form">
                     <label class="error" style="margin-bottom: 10px" th:if="${param.error != null}">Thông tin đăng nhập không hợp lệ. Vui lòng kiểm tra lại!</label>
                     <label class="error" style="margin-bottom: 10px" th:if="${param.lock != null}">Tên đăng nhập đã bị khóa do sai mật khẩu liên tiếp 5 lần</label>
                     <div class="input-group form-group">

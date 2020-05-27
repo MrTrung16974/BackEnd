@@ -36,10 +36,19 @@ public class HomeController {
     public String notPo(){
         return "403";
     }
+    @RequestMapping("/catalog")
+    public String catalog(){
+        return "catalog";
+    }
 
     @RequestMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @RequestMapping(value = "/catalog", method = RequestMethod.GET)
+    public String findProductByCategory(@RequestParam("type") Integer type) {
+        return "redirect:/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
