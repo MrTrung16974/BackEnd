@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+</head>
+<body>
+    <div class="image" style="margin: 10px auto; width: 500px;">
+        <input type="file" name="upload-image" id="upload-image" >
+        <img width="400" height="400" src="" name="load-image" id="load-image">
+        <br>
+        <button style="margin-top: 10px;" type="button" id="btn-save" class="btn btn-success">Save</button>
+    </div>
+    <script>
+        // upload file image vào folder upload
+        $("#upload-image").on("change", function () {
+            var formData = new FormData();
+            console.log(formData);
+            formData.append('file', $('#upload-image')[0].files[0]);
+
+            $.ajax({
+                url: 'http://localhost:8088/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data);
+                    $("#load-image").attr("src", data);
+                    toastr.success('Upload ảnh thành công ', 'Haha!');
+                },
+                error: function () {
+                    toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!');
+                }
+            })
+        });
+
+        //save image vào database
+        $("#btn-save").on("click", function () {
+            let updateImage = {
+                image: $("#load-image").attr('src')
+            };
+
+            $.ajax({
+                url: 'http://localhost:8088/upload/image',
+                type: 'POST',
+                data: JSON.stringify(updateImage),
+                processData: false,
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    if(data != null) {
+                        toastr.success('Save ảnh thành công ', 'Haha!');
+                    }
+
+                },
+                error: function () {
+                    toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!');
+                }
+            })
+        });
+    </script>
+</body>
+</html>
