@@ -29,17 +29,25 @@ public class HomeController {
     public String home(){
         return "home";
     }
-    @RequestMapping("/order")
-    public String vip(){
-        return "order";
+    @RequestMapping("/cart")
+    public String cart(){
+        return "cart";
+    }
+    @RequestMapping("/checkout")
+    public String checkOut(){
+        return "checkout";
+    }
+    @RequestMapping("/product-details")
+    public String productDetails(){
+        return "product-details";
+    }
+    @RequestMapping("/shop")
+    public String shop(){
+        return "shop";
     }
     @RequestMapping("/403")
     public String notPo(){
         return "403";
-    }
-    @RequestMapping("/catalog")
-    public String catalog(){
-        return "catalog";
     }
 
     @RequestMapping("/register")

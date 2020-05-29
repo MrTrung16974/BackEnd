@@ -2,170 +2,162 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
 <!--Start ./ head-->
-<div th:replace="/web/default/header :: head"></div>
+<div th:replace="/component/header :: head"></div>
 <!--End ./ head-->
 
 <body>
-<!-- Search Wrapper Area Start -->
-<div th:replace="/web/default/header :: search"></div>
-<!-- Search Wrapper Area End -->
+    <!-- Search Wrapper Area Start -->
+    <div th:replace="/component/header :: search"></div>
+    <!-- Search Wrapper Area End -->
 
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
 
+        <!-- Mobile Nav (max width 767px)-->
+        <div th:replace="/component/header :: logo"></div>
 
-<!-- ##### Main Content Wrapper Start ##### -->
-<div class="main-content-wrapper d-flex clearfix">
+        <!-- Header Area Start -->
+        <div th:replace="/component/header :: header"></div>
+        <!-- Header Area End -->
 
-    <!-- Mobile Nav (max width 767px)-->
-    <div th:replace="/web/default/header :: logo"></div>
+        <!-- Product Catagories Area Start -->
+        <div class="products-catagories-area clearfix">
+            <div class="amado-pro-catagory clearfix">
 
-    <!-- Header Area Start -->
-    <div th:replace="/web/default/header :: header"></div>
-    <!-- Header Area End -->
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/1.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $180</p>
+                            <h4>Modern Chair</h4>
+                        </div>
+                    </a>
+                </div>
 
-    <!-- Product Catagories Area Start -->
-    <div class="products-catagories-area clearfix">
-        <div class="amado-pro-catagory clearfix">
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/2.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $180</p>
+                            <h4>Minimalistic Plant Pot</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/1.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Modern Chair</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/3.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $180</p>
+                            <h4>Modern Chair</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/2.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Minimalistic Plant Pot</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/4.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $180</p>
+                            <h4>Night Stand</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/3.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Modern Chair</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/5.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $18</p>
+                            <h4>Plant Pot</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/4.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Night Stand</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/6.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $320</p>
+                            <h4>Small Table</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/5.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $18</p>
-                        <h4>Plant Pot</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/7.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $318</p>
+                            <h4>Metallic Chair</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/6.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $320</p>
-                        <h4>Small Table</h4>
-                    </div>
-                </a>
-            </div>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/8.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $318</p>
+                            <h4>Modern Rocking Chair</h4>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/7.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Metallic Chair</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/8.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Modern Rocking Chair</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="shop.html">
-                    <img th:src="@{/img/bg-img/9.jpg}" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Home Deco</h4>
-                    </div>
-                </a>
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img th:src="@{/img/bg-img/9.jpg}" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>From $318</p>
+                            <h4>Home Deco</h4>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
+        <!-- Product Catagories Area End -->
     </div>
-    <!-- Product Catagories Area End -->
-</div>
-<!-- ##### Main Content Wrapper End ##### -->
+    <!-- ##### Main Content Wrapper End ##### -->
 
-<!-- ##### Newsletter Area Start ##### -->
-<div th:replace="/web/default/footer :: section"></div>
-<!-- ##### Newsletter Area End ##### -->
+    <!-- ##### Newsletter Area Start ##### -->
+    <div th:replace="/component/footer :: section"></div>
+    <!-- ##### Newsletter Area End ##### -->
 
-<!-- ##### Footer Area Start ##### -->
-<div th:replace="/web/default/footer :: footer"></div>
-<!-- ##### Footer Area End ##### -->
+    <!-- ##### Footer Area Start ##### -->
+    <div th:replace="/component/footer :: footer"></div>
+    <!-- ##### Footer Area End ##### -->
 
 
-<!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<!-- Plugins js -->
-<script th:src="@{/js/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
+    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <!-- ##### Script Area Start ##### -->
+    <div th:replace="/component/footer :: script"></div>
+    <!-- ##### Script Area End ##### -->
 </body>
 </html>
