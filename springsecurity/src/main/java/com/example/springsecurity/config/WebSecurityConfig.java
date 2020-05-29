@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         http.authorizeRequests().mvcMatchers("/home**").permitAll();
         http.authorizeRequests().mvcMatchers("/register", "/catalog**").permitAll();
-        http.authorizeRequests().mvcMatchers("/order").access("hasAnyAuthority('USER')");
+        http.authorizeRequests().mvcMatchers("/cart", "/checkout").access("hasAnyAuthority('USER')");
         http.authorizeRequests().and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login?error=true")
