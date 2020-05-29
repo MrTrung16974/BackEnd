@@ -1,19 +1,90 @@
 <div  xmlns:th="https://www.thymeleaf.org">
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Interior World</a>
-        <button id="btn-collapse-menu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger"><i class="fas fa-bell"></i><span class="nav-info"> Thông báo</span></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger"><i class="far fa-question-circle"></i><span class="nav-info"> Trợ giúp</span></a></li>
-                <li style="position: relative;" class="nav-item"><a th:href="@{/order}" class="nav-link js-scroll-trigger"><i class="fas fa-shopping-cart"></i>
-                    <span class="total-cast">0</span><span class="nav-info"> Giỏ hàng</span></a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link js-scroll-trigger"><i class="fas fa-user"></i><span class="nav-info"> Tài khoản</span></a></li>
+    <head th:fragment="head">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Trang thương mại điện tử" />
+        <meta name="author" content="Nguyễn Tiến Trung" />
+        <title>Interior World</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" th:href="@{//core-img/favicon.ico}" />
+        <!-- Font Awesome icons (free version)-->
+        <!-- Core Style CSS -->
+        <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    </head>
+
+    <!-- Header Area Start -->
+    <header th:fragment="header" class="header-area clearfix">
+        <!-- Close Icon -->
+        <div class="nav-close">
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </div>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.html"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+        </div>
+        <!-- Amado Nav -->
+        <nav class="amado-nav">
+            <ul>
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="product-details.html">Product</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
             </ul>
+        </nav>
+        <!-- Button Group -->
+        <div class="amado-btn-group mt-30 mb-100">
+            <a href="#" class="btn amado-btn mb-15">%Discount%</a>
+            <a href="#" class="btn amado-btn active">New this week</a>
+        </div>
+        <!-- Cart Menu -->
+        <div class="cart-fav-search mb-100">
+            <a href="cart.html" class="cart-nav"><img th:src="@{/img/core-img/cart.png}" alt=""> Cart <span>(0)</span></a>
+            <a href="#" class="fav-nav"><img th:src="@{/img/core-img/favorites.png}" alt=""> Favourite</a>
+            <a href="#" class="search-nav"><img th:src="@{/img/core-img/search.png}" alt=""> Search</a>
+        </div>
+        <!-- Social Button -->
+        <div class="social-info d-flex justify-content-between">
+            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+    </header>
+    <!-- Header Area End -->
+
+    <!-- Search Wrapper Area Start -->
+    <div th:fragment="search" class="search-wrapper section-padding-100">
+        <div class="search-close">
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="search-content">
+                        <form action="#" method="get">
+                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
+                            <button type="submit"><img th:src="@{/img/core-img/search.png}" alt=""></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-<!-- Masthead-->
+    <!-- Search Wrapper Area End -->
+
+    <!-- Mobile Nav (max width 767px)-->
+    <div th:fragment="logo" class="mobile-nav">
+        <!-- Navbar Brand -->
+        <div class="amado-navbar-brand">
+            <a href="index.html"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+        </div>
+        <!-- Navbar Toggler -->
+        <div class="amado-navbar-toggler">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+    <!-- Mobile Nav (max width 767px)-->
+
 </div>
