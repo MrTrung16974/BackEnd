@@ -1,0 +1,19 @@
+<div  xmlns:th="https://www.thymeleaf.org">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Interior World</a>
+        <button id="btn-collapse-menu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger"><i class="fas fa-bell"></i><span class="nav-info"> Thông báo</span></a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger"><i class="far fa-question-circle"></i><span class="nav-info"> Trợ giúp</span></a></li>
+                <li style="position: relative;" class="nav-item"><a th:href="@{/order}" class="nav-link js-scroll-trigger"><i class="fas fa-shopping-cart"></i>
+                    <span class="total-cast">0</span><span class="nav-info"> Giỏ hàng</span></a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link js-scroll-trigger"><i class="fas fa-user"></i><span class="nav-info"> Tài khoản</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Masthead-->
+</div>
