@@ -71,35 +71,36 @@ function rederData(data) {
         $("#NullBook").text("");
         data.map(item => {
             $('#list-book').append(
-            `<input type="hidden" id="idBook">
-            <div class="card h-100">
-                <input type="hidden" id="getStarBook" value=${item.star} />
-                <div class="labels">
-                    <div class="label-new bg-success text-white text-center py-1">New</div>
-                    <div class="label-sale bg-primary text-white text-center py-1">Sale</div>
-                </div>
-                <img width="100%" src=${item.image} height="200" class="img-fluid" id="newImageBook" alt="">
-                <div class="card-body position-relative d-flex flex-column">
-                    <a href="#" class="add-to-cart bg-primary text-white" data-toggle="tooltip" data-placement="left"
-                       title="Add To Cart">
-                        <i class="fa fa-opencart" aria-hidden="true"></i>
-                    </a>
-                    <h3 class="text-success">${item.name}</h3>
-                    <p >Cửu Bá Đao</p>
-                    <div id="starBook" class="rating text-warning">
-                        
+            `<div  class="col-md-4 mb-3 mb-md-0">
+                <input type="hidden" id="idBook">
+                <div class="card h-100">
+                    <input type="hidden" id="getStarBook" value=${item.star} />
+                    <div class="labels">
+                        <div class="label-new bg-success text-white text-center py-1">New</div>
+                        <div class="label-sale bg-primary text-white text-center py-1">Sale</div>
                     </div>
-                    <h4  class="text-success">$ ${item.price}</h4>
-                    <p>${item.description}</p>
-                    <a class="btn btn-success btn-block mt-auto">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                        Chi tiết
-                    </a>
-
-                    <a id="deleteBook"
-                       class="btn btn-danger btn-block mt-3"><i class="fa fa-eye" aria-hidden="true"></i>
-                        Xóa
-                    </a>
+                    <img width="100%" src=${item.image} height="200" class="img-fluid" id="newImageBook" alt="">
+                    <div class="card-body position-relative d-flex flex-column">
+                        <a href="#" class="add-to-cart bg-primary text-white" data-toggle="tooltip" data-placement="left"
+                           title="Add To Cart">
+                            <i class="fa fa-opencart" aria-hidden="true"></i>
+                        </a>
+                        <h3 class="text-success">${item.name}</h3>
+                        <p >Cửu Bá Đao</p>
+                        <div id="starBook" class="rating text-warning">
+                            
+                        </div>
+                        <h4  class="text-success">$ ${item.price}</h4>
+                        <p>${item.description}</p>
+                        <a class="btn btn-success btn-block mt-auto">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            Chi tiết
+                        </a>
+                        <a id="deleteBook"
+                           class="btn btn-danger btn-block mt-3"><i class="fa fa-eye" aria-hidden="true"></i>
+                            Xóa
+                        </a>
+                    </div>
                 </div>
             </div>`);
             let star = $("#getStarBook").val();

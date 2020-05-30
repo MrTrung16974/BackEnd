@@ -45,10 +45,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
     }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
-    }
 }

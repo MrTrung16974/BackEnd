@@ -7,7 +7,8 @@
         <meta name="author" content="Nguyễn Tiến Trung" />
         <title>Interior World</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" th:href="@{//core-img/favicon.ico}" />
+        <link rel="icon" type="image/x-icon" th:href="@{/img/core-img/favicon.ico}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
         <!-- Font Awesome icons (free version)-->
         <!-- Core Style CSS -->
         <link rel="stylesheet" th:href="@{/css/core-style.css}">
@@ -26,23 +27,22 @@
         <!-- Amado Nav -->
         <nav class="amado-nav">
             <ul>
-                <li class="active"><a th:href="@{/home}">Home</a></li>
-                <li><a th:href="@{shop}">Shop</a></li>
-                <li><a th:href="@{product-details}">Product</a></li>
-                <li><a th:href="@{cart}">Cart</a></li>
-                <li><a th:href="@{checkout}">Checkout</a></li>
+                <li id="home"><a th:href="@{/home}">Trang chủ</a></li>
+                <li id="shop"><a th:href="@{shop}">Cửa hàng</a></li>
+                <li id="cart"><a th:href="@{cart}">Giỏ hàng</a></li>
+                <li id="checkout"><a th:href="@{checkout}">Thanh toán</a></li>
             </ul>
         </nav>
         <!-- Button Group -->
         <div class="amado-btn-group mt-30 mb-100">
-            <a href="#" class="btn amado-btn mb-15">%Discount%</a>
-            <a href="#" class="btn amado-btn active">New this week</a>
+            <a href="#" class="btn amado-btn mb-15">Giảm giá</a>
+            <a href="#" class="btn amado-btn active">Mới tuần này</a>
         </div>
         <!-- Cart Menu -->
         <div class="cart-fav-search mb-100">
-            <a th:href="@{cart}" class="cart-nav"><img th:src="@{/img/core-img/cart.png}" alt=""> Cart <span>(0)</span></a>
-            <a href="#" class="fav-nav"><img th:src="@{/img/core-img/favorites.png}" alt=""> Favourite</a>
-            <a href="#" class="search-nav"><img th:src="@{/img/core-img/search.png}" alt=""> Search</a>
+            <a th:href="@{cart}" class="cart-nav"><img th:src="@{/img/core-img/cart.png}" alt=""> Giỏ hàng <span>(0)</span></a>
+            <a href="#" class="fav-nav"><img th:src="@{/img/core-img/favorites.png}" alt=""> Yêu thích</a>
+            <a href="#" class="search-nav"><img th:src="@{/img/core-img/search.png}" alt=""> Tìm Kiếm</a>
         </div>
         <!-- Social Button -->
         <div class="social-info d-flex justify-content-between">
@@ -64,8 +64,8 @@
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img th:src="@{/img/core-img/search.png}" alt=""></button>
+                            <input type="search" onkeyup="search()" name="search" id="search" placeholder="Type your keyword...">
+                            <button onclick="search()" type="submit"><img th:src="@{/img/core-img/search.png}" alt=""></button>
                         </form>
                     </div>
                 </div>
