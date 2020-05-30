@@ -1,5 +1,79 @@
-var keyword = "";
-var pageDefault = 0;
+var cart = {
+    id: "",
+    buyer: "",
+    listProduct: [],
+    status: ""
+};
+
+
+function forPagination(totalPage) {
+    $("#pagination").empty();
+    for(let i = 0; i < totalPage; i++) {
+        if(i == pageDefault) {
+            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+        }else {
+            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+        }
+    }
+}
+
+function forStar(star) {
+    let starWrite = "";
+    for (let i=1; i <= 5; i++) {
+        if(i > star) {
+            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"true\"></i>";
+        }else {
+            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"false\"></i>";
+        }
+    }
+    return starWrite;
+}
+
+function rederData(data) {
+    $("#lst-product").empty();
+    if(data != null) {
+        data.map(item => {
+            $('#lst-product').append(
+                `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img src="${item.image.imageOne}" alt="">
+                            <!-- Hover Thumb -->
+                            <img class="hover-img" src="${item.image.imageTwo}" alt="">
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="product-description d-flex align-items-center justify-content-between">
+                            <!-- Product Meta Data -->
+                            <div class="product-meta-data">
+                                <div class="line"></div>
+                                <p class="product-price">$${item.price}</p>
+                                <a href="product-details.html">
+                                    <h6>${item.name}</h6>
+                                </a>
+                            </div>
+                            <!-- Ratings & Cart -->
+                            <div class="ratings-cart text-right">
+                                <div id="ratings" class="ratings">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="cart">
+                                    <a onclick="addToCastDB(${item.id})" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+        });
+    }else{
+        $("#lst-product").text("Sản phẩm không tồn tại");
+    }
+}
 
 function search() {
     keyword = $('#search').val().trim().toLocaleLowerCase();
@@ -54,66 +128,115 @@ function paginationProduct(page) {
     });
 }
 
-function forPagination(totalPage) {
-    $("#pagination").empty();
-    for(let i = 0; i < totalPage; i++) {
-        if(i == pageDefault) {
-            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
-        }else {
-            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+
+getProductInCast();
+function getProductInCast() {
+    $.ajax({
+        url: "http://localhost:8099/order/products/hiep",
+        type: "GET",
+        success: function (response) {
+            if(response.code = '00') {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    if(cart.listProduct[0] != null) {
+                        getPriceProductInCast(cart);
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
         }
-    }
+    });
 }
 
-function forStar(star) {
-    let starWrite = "";
-    for (let i=1; i <= 5; i++) {
-        if(i > star) {
-            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"true\"></i>";
-        }else {
-            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"false\"></i>";
+function addToCastDB(idProduct) {
+    let updateCastRequest = {
+        name: "hiep",
+        listProductCast: [{
+            id: idProduct,
+            number: 1,
+            type: 1
+        }]
+    };
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        data: JSON.stringify(updateCastRequest),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Add product success!', "HAHA");
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
         }
-    }
-    return starWrite;
+    });
 }
 
-function rederData(data) {
-    $("#lst-product").empty();
-    if(data != null) {
-        data.map(item => {
-            $('#lst-product').append(
-                `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="${item.image.imageOne}" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="${item.image.imageTwo}" alt="">
-                        </div>
+function deleteToCastDB(idProduct) {
+    let updateCastRequest = {
+        name: "hiep",
+        listProductCast: [{
+            id: idProduct,
+            number: 1,
+            type: 2
+        }]
+    };
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        data: JSON.stringify(updateCastRequest),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Delete product success!',  "HAHA");
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
+}
 
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$${item.price}</p>
-                                <a href="product-details.html">
-                                    <h6>${item.name}</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div id="ratings" class="ratings">
-                                </div>
-                                <div class="cart">
-                                    <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`);
-        });
-    }else{
-        $("#lst-product").text("Sản phẩm không tồn tại");
-    }
+function paymentToCastDB(idProduct) {
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Pay product success!',  "HAHA");
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
 }

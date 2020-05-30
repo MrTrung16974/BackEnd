@@ -1,6 +1,5 @@
 package com.example.springsecurity.controller;
 
-import com.example.springsecurity.dto.BaseResponse;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,7 @@ public class HomeController {
     public String checkOut(){
         return "checkout";
     }
-    @RequestMapping("/product-details")
-    public String productDetails(){
+    @RequestMapping("/product-details")    public String productDetails(){
         return "product-details";
     }
     @RequestMapping("/shop")
