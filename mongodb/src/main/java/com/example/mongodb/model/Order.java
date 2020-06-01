@@ -21,6 +21,8 @@ public class Order {
     private Date createdAt;
     @Field("address")
     private String address;
+    @Field("status")
+    private Integer status;
 
     public String getId() {
         return id;
@@ -68,5 +70,13 @@ public class Order {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

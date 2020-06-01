@@ -4,7 +4,58 @@ public class ProductModel {
     private String id;
     private String name;
     private Double price;
+    private String description;
+    private Image image;
+    private Promotion promotion;
+    private Integer color;
+    private Integer material;
+    private Integer star;
+    private Integer type;
     private Integer number;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getColor() {
+        return color;
+    }
+
+    public void setColor(Integer color) {
+        this.color = color;
+    }
+
+    public Integer getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Integer material) {
+        this.material = material;
+    }
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
 
     public String getId() {
         return id;
@@ -28,6 +79,18 @@ public class ProductModel {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Integer getNumber() {

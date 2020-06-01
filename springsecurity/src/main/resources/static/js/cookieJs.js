@@ -1,30 +1,12 @@
-// var listProductCart = [];
-var cart = {
-    id: "",
-    buyer: "",
-    listProduct: [],
-    status: ""
-};
-
-function getTotalProductInCast(cast) {
-    let total = cart.listProduct.length;
-    if(total <= 0) {
-        $("#total-cast").text(0);
-    }else {
-        $("#total-cast").text(total);
+document.cookie = "user=";
+let user = getCookie("user");
+setCookie("user", "");
+function saveUserName() {
+    let userName = $("#username").val().trim();
+    console.log(userName);
+    if(userName != null) {
+        setCookie("user", userName);
     }
-}
-
-function getPriceProductInCast(cast) {
-    let price_number = 0;
-    if(cast.listProduct != null) {
-        let length = cast.listProduct.length;
-        for (let i = 0; i < length; i++) {
-            price_number += cast.listProduct[i].price;
-        }
-        $("#price-number").text("$" + price_number);
-    }
-
 }
 
 

@@ -1,3 +1,4 @@
+
 var keyword = "";
 var pageDefault = 0;
 var cart = {
@@ -11,27 +12,21 @@ var pathname = window.location.pathname;
 // Returns path only (/path/example.html)
 switch (pathname) {
         case "/home":
-            console.log("home");
             $("li#home").addClass("active");
             break;
         case "/shop":
-            console.log("shop");
             $("li#shop").addClass("active");
             break;
         case "/product-details":
-            console.log("product-details");
             $("li#product-details").addClass("active");
             break;
         case "/cart":
-            console.log("cart");
             $("li#cart").addClass("active");
             break;
         case "/checkout":
-            console.log("checkout");
             $("li#checkout").addClass("active");
             break;
         default :
-            console.log("default");
             $("li").removeClass("active");
             break;
     }
@@ -131,42 +126,6 @@ function rederDataCastBoxUp(data) {
     }
 }
 
-function rederDataCast(data) {
-    $("#lst-product-in-cast").empty();
-    if(data != null) {
-        data.map(item => {
-            $('#lst-product-in-cast').append(
-                `<tr style="position: relative;">
-                    <td class="cart_product_img">
-                        <a href="#"><img src="${item.image.imageOne}" alt="Product"></a>
-                    </td>
-                    <td class="cart_product_desc">
-                        <h5>${item.name}</h5>
-                    </td>
-                    <td class="price">
-                        <span>$${item.price}</span>
-                    </td>
-                    <td class="qty">
-                        <div class="qty-btn d-flex">
-                            <p>Qty</p>
-                            <div class="quantity">
-                                <span class="qty-minus" onclick="removeItem(${item.id})"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="${item.number}">
-                                <span class="qty-plus" onclick="addItem(${item.id})"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </td>
-                    <td onclick="deleteItem(${item.id})" class="remove-item">
-                        <span>x</span>
-                    </td>
-                </tr>`
-            );
-        });
-    }else{
-        $("#lst-product-in-cast").text("Sản phẩm không tồn tại");
-    }
-}
-
 function rederDataProductDetail(data) {
     $("#single-product-detail").empty();
     if(data != null) {
@@ -261,23 +220,61 @@ function rederDataProductDetail(data) {
     }
 }
 
-function getTotalProductInCast(cast) {
-    let total = cart.listProduct.length;
-    if(total <= 0) {
-        $("#total-cast").text(`(0)`);
-    }else {
-        $("#total-cast").text(`(${total})`);
-    }
-}
-
-function getPriceProductInCast(cast) {
-    let price_number = 0;
-    if(cast.listProduct != null) {
-        let length = cast.listProduct.length;
-        for (let i = 0; i < length; i++) {
-            price_number += (cast.listProduct[i].price*cast.listProduct[i].number);
+if(user != "") {
+    function rederDataCast(data) {
+        $("#lst-product-in-cast").empty();
+        if (data != null) {
+            data.map(item => {
+                $('#lst-product-in-cast').append(
+                    `<tr style="position: relative;">
+                    <td class="cart_product_img">
+                        <a href="#"><img src="${item.image.imageOne}" alt="Product"></a>
+                    </td>
+                    <td class="cart_product_desc">
+                        <h5>${item.name}</h5>
+                    </td>
+                    <td class="price">
+                        <span>$${item.price}</span>
+                    </td>
+                    <td class="qty">
+                        <div class="qty-btn d-flex">
+                            <p>Qty</p>
+                            <div class="quantity">
+                                <span class="qty-minus" onclick="removeItem(${item.id})"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="${item.number}">
+                                <span class="qty-plus" onclick="addItem(${item.id})"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                    <td onclick="deleteItem(${item.id})" class="remove-item">
+                        <span>x</span>
+                    </td>
+                </tr>`
+                );
+            });
+        } else {
+            $("#lst-product-in-cast").text("Sản phẩm không tồn tại");
         }
-        $("#price-number").text("$" + price_number);
     }
 
+    function getTotalProductInCast(cast) {
+        let total = cart.listProduct.length;
+        if (total <= 0) {
+            $("#total-cast").text(`(0)`);
+        } else {
+            $("#total-cast").text(`(${total})`);
+        }
+    }
+
+    function getPriceProductInCast(cast) {
+        let price_number = 0;
+        if (cast.listProduct != null) {
+            let length = cast.listProduct.length;
+            for (let i = 0; i < length; i++) {
+                price_number += (cast.listProduct[i].price * cast.listProduct[i].number);
+            }
+            $("#price-number").text("$" + price_number);
+        }
+
+    }
 }

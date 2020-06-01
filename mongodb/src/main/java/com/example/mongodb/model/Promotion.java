@@ -8,6 +8,15 @@ public class Promotion {
         return name;
     }
 
+    public Promotion() {
+
+    }
+
+    public Promotion(String name, Integer percent) {
+        this.name = name;
+        this.percent = percent;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
