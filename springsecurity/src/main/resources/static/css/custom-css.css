@@ -1,0 +1,35 @@
+.shop_sidebar_area,
+.amado_product_area.section-padding-100,
+.products-catagories-area.clearfix,
+.cart-table-area.section-padding-100,
+.single-product-area.section-padding-100.clearfix{
+    z-index: -1 !important;
+}
+
+td.remove-item {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+    width: 10px !important;
+    display: inline-block;
+    height: 10px;
+    color: red;
+    cursor: pointer;
+    border: none;
+}
+a.cart-nav.cart {
+    position: relative;
+}
+div.box-up {
+    display: none;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    position: absolute;
+    left: 170px;
+    top: 0px;
+    z-index: 100;
+}
+
+a.cart-nav.cart:hover div.box-up {
+    display: block !important;
+}

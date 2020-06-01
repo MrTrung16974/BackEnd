@@ -1,82 +1,22 @@
-var cart = {
-    id: "",
-    buyer: "",
-    listProduct: [],
-    status: ""
-};
-
-
-function forPagination(totalPage) {
-    $("#pagination").empty();
-    for(let i = 0; i < totalPage; i++) {
-        if(i == pageDefault) {
-            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+$.ajax({
+    url: "http://localhost:8099/v1/api/product/search?name="+keyword+"&page="+pageDefault+"&perPage=10",
+    type: "GET",
+    success: function (response) {
+        if(response.code == "00") {
+            rederData(response.data.content);
+            let totalPage = response.data.totalPages;
+            forPagination(totalPage);
         }else {
-            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+            toastr.error('Find not data!', response.message);
         }
+    },
+    error: function (result) {
+        toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
     }
-}
+});
 
-function forStar(star) {
-    let starWrite = "";
-    for (let i=1; i <= 5; i++) {
-        if(i > star) {
-            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"true\"></i>";
-        }else {
-            starWrite += "<i class=\"fa fa-star\" aria-hidden=\"false\"></i>";
-        }
-    }
-    return starWrite;
-}
-
-function rederData(data) {
-    $("#lst-product").empty();
-    if(data != null) {
-        data.map(item => {
-            $('#lst-product').append(
-                `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="${item.image.imageOne}" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="${item.image.imageTwo}" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$${item.price}</p>
-                                <a href="product-details.html">
-                                    <h6>${item.name}</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div id="ratings" class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a onclick="addToCastDB(${item.id})" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`);
-        });
-    }else{
-        $("#lst-product").text("Sản phẩm không tồn tại");
-    }
-}
-
-function search() {
-    keyword = $('#search').val().trim().toLocaleLowerCase();
+function searchProduct() {
+    keyword = $('#keysearch').val().trim().toLocaleLowerCase();
     if (keyword == null) {
         keyword = '';
     }
@@ -128,7 +68,26 @@ function paginationProduct(page) {
     });
 }
 
+function detailProduct(idProduct) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8099/v1/api/product/" + idProduct,
+        processData: false,
+        success: function (response) {
+            $("#lst-product").empty();
+            // server trả về HTTP status code là 200 => Thành công
+            //hàm đc thực thi khi request thành công không có lỗi
+            if(response.code == "00") {
+                rederDataProductDetail(response.data);
+            }
+            else {
+                console.log(response.message);
+            }
+        }
+    });
+}
 
+// cart product
 getProductInCast();
 function getProductInCast() {
     $.ajax({
@@ -140,8 +99,43 @@ function getProductInCast() {
                 if(cart.listProduct != null) {
                     getTotalProductInCast(cart);
                     rederDataCast(cart.listProduct);
+                    rederDataCastBoxUp(cart.listProduct);
                     if(cart.listProduct[0] != null) {
                         getPriceProductInCast(cart);
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
+}
+
+function addToCastDetailDB(idProduct) {
+    let number = $("#qty").val().trim();
+    let updateCastRequest = {
+        name: "hiep",
+        listProductCast: [{
+            id: idProduct,
+            number: number,
+            type: 1
+        }]
+    };
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        data: JSON.stringify(updateCastRequest),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Add product success!', "HAHA");
                     }
                 }
             }
@@ -173,6 +167,7 @@ function addToCastDB(idProduct) {
                     getTotalProductInCast(cart);
                     rederDataCast(cart.listProduct);
                     getPriceProductInCast(cart);
+                    rederDataCastBoxUp(cart.listProduct);
                     if(cart.listProduct[0] != null) {
                         toastr.error('Add product success!', "HAHA");
                     }
@@ -185,7 +180,75 @@ function addToCastDB(idProduct) {
     });
 }
 
-function deleteToCastDB(idProduct) {
+function deleteItem(idProduct) {
+    let updateCastRequest = {
+        name: "hiep",
+        listProductCast: [{
+            id: idProduct,
+            number: 1,
+            type: 3
+        }]
+    };
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        data: JSON.stringify(updateCastRequest),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    rederDataCastBoxUp(cart.listProduct);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Delete product success!',  "HAHA");
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
+}
+
+function addItem(idProduct) {
+    let updateCastRequest = {
+        name: "hiep",
+        listProductCast: [{
+            id: idProduct,
+            number: 1,
+            type: 1
+        }]
+    };
+    $.ajax({
+        url: "http://localhost:8099/order/update/" + cart.id,
+        type: "POST",
+        data: JSON.stringify(updateCastRequest),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.code = "00") {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    getPriceProductInCast(cart);
+                    rederDataCastBoxUp(cart.listProduct);
+                    if(cart.listProduct[0] != null) {
+                        toastr.error('Add product success!', "HAHA");
+                    }
+                }
+            }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
+}
+
+function removeItem(idProduct) {
     let updateCastRequest = {
         name: "hiep",
         listProductCast: [{
@@ -206,6 +269,7 @@ function deleteToCastDB(idProduct) {
                     getTotalProductInCast(cart);
                     rederDataCast(cart.listProduct);
                     getPriceProductInCast(cart);
+                    rederDataCastBoxUp(cart.listProduct);
                     if(cart.listProduct[0] != null) {
                         toastr.error('Delete product success!',  "HAHA");
                     }
@@ -218,6 +282,7 @@ function deleteToCastDB(idProduct) {
     });
 }
 
+
 function paymentToCastDB(idProduct) {
     $.ajax({
         url: "http://localhost:8099/order/update/" + cart.id,
@@ -229,6 +294,7 @@ function paymentToCastDB(idProduct) {
                     getTotalProductInCast(cart);
                     rederDataCast(cart.listProduct);
                     getPriceProductInCast(cart);
+                    rederDataCastBoxUp(cart.listProduct);
                     if(cart.listProduct[0] != null) {
                         toastr.error('Pay product success!',  "HAHA");
                     }
