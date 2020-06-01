@@ -43,7 +43,7 @@ function searchProduct() {
 
 function paginationProduct(page) {
     pageDefault = page;
-    keyword = $('#search').val().trim().toLocaleLowerCase();
+    keyword = $('#keysearch').val().trim().toLocaleLowerCase();
     if (keyword == null) {
         keyword = '';
     }
