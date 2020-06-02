@@ -87,33 +87,35 @@ function detailProduct(idProduct) {
     });
 }
 
+// cart product
 if(user != "") {
-    // cart product
     getProductInCast();
-    function getProductInCast() {
-        $.ajax({
-            url: "http://localhost:8099/order/products/" + user,
-            type: "GET",
-            success: function (response) {
-                if(response.code = '00') {
-                    cart = response.data;
-                    if(cart.listProduct != null) {
-                        getTotalProductInCast(cart);
-                        rederDataCast(cart.listProduct);
-                        rederDataCastBoxUp(cart.listProduct);
-                        if(cart.listProduct[0] != null) {
-                            getPriceProductInCast(cart);
-                        }
+}
+function getProductInCast() {
+    $.ajax({
+        url: "http://localhost:8099/order/products/" + user,
+        type: "GET",
+        success: function (response) {
+            if(response.code = '00') {
+                cart = response.data;
+                if(cart.listProduct != null) {
+                    getTotalProductInCast(cart);
+                    rederDataCast(cart.listProduct);
+                    rederDataCastBoxUp(cart.listProduct);
+                    if(cart.listProduct[0] != null) {
+                        getPriceProductInCast(cart);
                     }
                 }
-            },
-            error: function (error) {
-                toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
-        });
-    }
+        },
+        error: function (error) {
+            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+        }
+    });
+}
 
-    function addToCastDetailDB(idProduct) {
+function addToCastDetailDB(idProduct) {
+    if(user != "") {
         let number = $("#qty").val().trim();
         let updateCastRequest = {
             name: user,
@@ -131,11 +133,12 @@ if(user != "") {
             success: function (response) {
                 if (response.code = "00") {
                     cart = response.data;
-                    if(cart.listProduct != null) {
+                    if (cart.listProduct != null) {
                         getTotalProductInCast(cart);
                         rederDataCast(cart.listProduct);
-                        getPriceProductInCast(cart);
-                        if(cart.listProduct[0] != null) {
+                        rederDataCastBoxUp(cart.listProduct);
+                        if (cart.listProduct[0] != null) {
+                            getPriceProductInCast(cart);
                             toastr.error('Add product success!', "HAHA");
                         }
                     }
@@ -145,9 +148,13 @@ if(user != "") {
                 toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
         });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!',  "HAHA");
     }
+}
 
-    function addToCastDB(idProduct) {
+function addToCastDB(idProduct) {
+    if(user != "") {
         let updateCastRequest = {
             name: user,
             listProductCast: [{
@@ -164,12 +171,12 @@ if(user != "") {
             success: function (response) {
                 if (response.code = "00") {
                     cart = response.data;
-                    if(cart.listProduct != null) {
+                    if (cart.listProduct != null) {
                         getTotalProductInCast(cart);
                         rederDataCast(cart.listProduct);
-                        getPriceProductInCast(cart);
                         rederDataCastBoxUp(cart.listProduct);
-                        if(cart.listProduct[0] != null) {
+                        if (cart.listProduct[0] != null) {
+                            getPriceProductInCast(cart);
                             toastr.error('Add product success!', "HAHA");
                         }
                     }
@@ -179,9 +186,13 @@ if(user != "") {
                 toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
         });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!', "HAHA");
     }
+}
 
-    function deleteItem(idProduct) {
+function deleteItem(idProduct) {
+    if(user != "") {
         let updateCastRequest = {
             name: user,
             listProductCast: [{
@@ -198,14 +209,18 @@ if(user != "") {
             success: function (response) {
                 if (response.code = "00") {
                     cart = response.data;
-                    if(cart.listProduct != null) {
-                        getTotalProductInCast(cart);
-                        rederDataCast(cart.listProduct);
-                        getPriceProductInCast(cart);
-                        rederDataCastBoxUp(cart.listProduct);
-                        if(cart.listProduct[0] != null) {
-                            toastr.error('Delete product success!',  "HAHA");
+                    if (user != "") {
+                        if (cart.listProduct != null) {
+                            getTotalProductInCast(cart);
+                            rederDataCast(cart.listProduct);
+                            rederDataCastBoxUp(cart.listProduct);
+                            if (cart.listProduct[0] != null) {
+                                getPriceProductInCast(cart);
+                                toastr.error('Delete product success!', "HAHA");
+                            }
                         }
+                    } else {
+                        toastr.error('Bạn cần đăng nhâp!', "HAHA");
                     }
                 }
             },
@@ -213,9 +228,13 @@ if(user != "") {
                 toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
         });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!', "HAHA");
     }
+}
 
-    function addItem(idProduct) {
+function addItem(idProduct) {
+    if(user != "") {
         let updateCastRequest = {
             name:  user,
             listProductCast: [{
@@ -232,14 +251,18 @@ if(user != "") {
             success: function (response) {
                 if (response.code = "00") {
                     cart = response.data;
-                    if(cart.listProduct != null) {
-                        getTotalProductInCast(cart);
-                        rederDataCast(cart.listProduct);
-                        getPriceProductInCast(cart);
-                        rederDataCastBoxUp(cart.listProduct);
-                        if(cart.listProduct[0] != null) {
-                            toastr.error('Add product success!', "HAHA");
+                    if(user != "") {
+                        if(cart.listProduct != null) {
+                            getTotalProductInCast(cart);
+                            rederDataCast(cart.listProduct);
+                            rederDataCastBoxUp(cart.listProduct);
+                            if(cart.listProduct[0] != null) {
+                                getPriceProductInCast(cart);
+                                toastr.error('Add product success!', "HAHA");
+                            }
                         }
+                    }else {
+                        toastr.error('Bạn cần đăng nhâp!',  "HAHA");
                     }
                 }
             },
@@ -247,63 +270,82 @@ if(user != "") {
                 toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
         });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!', "HAHA");
     }
+}
 
-    function removeItem(idProduct) {
-    let updateCastRequest = {
-        name:  user,
-        listProductCast: [{
-            id: idProduct,
-            number: 1,
-            type: 2
-        }]
-    };
-    $.ajax({
-        url: "http://localhost:8099/order/update/" + cart.id,
-        type: "POST",
-        data: JSON.stringify(updateCastRequest),
-        contentType: "application/json",
-        success: function (response) {
-            if (response.code = "00") {
-                cart = response.data;
-                if(cart.listProduct != null) {
-                    getTotalProductInCast(cart);
-                    rederDataCast(cart.listProduct);
-                    getPriceProductInCast(cart);
-                    rederDataCastBoxUp(cart.listProduct);
-                    if(cart.listProduct[0] != null) {
-                        toastr.error('Delete product success!',  "HAHA");
+function removeItem(idProduct) {
+    if(user != "") {
+        let updateCastRequest = {
+            name: user,
+            listProductCast: [{
+                id: idProduct,
+                number: 1,
+                type: 2
+            }]
+        };
+        $.ajax({
+            url: "http://localhost:8099/order/update/" + cart.id,
+            type: "POST",
+            data: JSON.stringify(updateCastRequest),
+            contentType: "application/json",
+            success: function (response) {
+                if (response.code = "00") {
+                    cart = response.data;
+                    if (user != "") {
+                        if (cart.listProduct != null) {
+                            getTotalProductInCast(cart);
+                            rederDataCast(cart.listProduct);
+                            rederDataCastBoxUp(cart.listProduct);
+                            if (cart.listProduct[0] != null) {
+                                getPriceProductInCast(cart);
+                                toastr.error('Delete product success!', "HAHA")
+                            }
+                        }
+                    } else {
+                        toastr.error('Bạn cần đăng nhâp!', "HAHA");
                     }
                 }
+            },
+            error: function (error) {
+                toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
-        },
-        error: function (error) {
-            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
-        }
-    });
-}
+        });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!', "HAHA");
+    }
 }
 
 function paymentToCastDB(idProduct) {
-    $.ajax({
-        url: "http://localhost:8099/order/update/" + cart.id,
-        type: "POST",
-        success: function (response) {
-            if (response.code = "00") {
-                cart = response.data;
-                if(cart.listProduct != null) {
-                    getTotalProductInCast(cart);
-                    rederDataCast(cart.listProduct);
-                    getPriceProductInCast(cart);
-                    rederDataCastBoxUp(cart.listProduct);
-                    if(cart.listProduct[0] != null) {
-                        toastr.error('Pay product success!',  "HAHA");
+    if(user != "") {
+        $.ajax({
+            url: "http://localhost:8099/order/update/" + cart.id,
+            type: "POST",
+            success: function (response) {
+                if (response.code = "00") {
+                    cart = response.data;
+                    if(user != "") {
+                        if(cart.listProduct != null) {
+                            getTotalProductInCast(cart);
+                            rederDataCast(cart.listProduct);
+                            rederDataCastBoxUp(cart.listProduct);
+                            if(cart.listProduct[0] != null) {
+                                getPriceProductInCast(cart);
+                                toastr.error('Payment product success!',  "HAHA");
+                            }
+                        }
+                    }else {
+                        toastr.error('Bạn cần đăng nhâp!',  "HAHA");
                     }
                 }
+            },
+            error: function (error) {
+                toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
             }
-        },
-        error: function (error) {
-            toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
-        }
-    });
+        });
+    }else {
+        toastr.error('Bạn cần đăng nhâp!', "HAHA");
+    }
 }
+
