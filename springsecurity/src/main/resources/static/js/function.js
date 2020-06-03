@@ -26,7 +26,6 @@ function searchProduct() {
         processData: false,
         contentType: 'application/json',
         success: function (response) {
-            $("#lst-product").empty();
             // server trả về HTTP status code là 200 => Thành công
             //hàm đc thực thi khi request thành công không có lỗi
             if(response.code == "00") {
@@ -53,7 +52,6 @@ function paginationProduct(page) {
         processData: false,
         contentType: 'application/json',
         success: function (response) {
-            $("#lst-product").empty();
             // server trả về HTTP status code là 200 => Thành công
             //hàm đc thực thi khi request thành công không có lỗi
             if(response.code == "00") {
@@ -74,11 +72,16 @@ function detailProduct(idProduct) {
         url: "http://localhost:8099/v1/api/product/" + idProduct,
         processData: false,
         success: function (response) {
-            $("#lst-product").empty();
+            singleProduct = null;
             // server trả về HTTP status code là 200 => Thành công
             //hàm đc thực thi khi request thành công không có lỗi
             if(response.code == "00") {
-                rederDataProductDetail(response.data);
+                console.log(response.data);
+                singleProduct = response.data ;
+                console.log(singleProduct);
+                if(singleProduct == null) {
+                    window.location.href = "http://localhost:8089/product-details";
+                }
             }
             else {
                 console.log(response.message);

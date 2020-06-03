@@ -2,6 +2,7 @@ var user = getCookie("user");
 console.log(user);
 var keyword = "";
 var pageDefault = 0;
+var singleProduct = null;
 var cart = {
     id: "",
     buyer: "",
@@ -15,21 +16,24 @@ var origin   = window.location.origin;
 var pathname = window.location.pathname;
 // Returns path only (/path/example.html)
 
+console.log(singleProduct);
+if(singleProduct != null) {
+    console.log(singleProduct + "Ok");
+    rederDataProductDetail(singleProduct);
+}
+
 switch (pathname) {
         case "/home":
-            $("li#home").addClass("active");
+            $("li.home").addClass("active");
             break;
         case "/shop":
-            $("li#shop").addClass("active");
-            break;
-        case "/product-details":
-            $("li#product-details").addClass("active");
+            $("li.shop").addClass("active");
             break;
         case "/cart":
-            $("li#cart").addClass("active");
+            $("li.cart").addClass("active");
             break;
         case "/checkout":
-            $("li#checkout").addClass("active");
+            $("li.checkout").addClass("active");
             break;
         default :
             $("li").removeClass("active");
@@ -91,7 +95,7 @@ function rederData(data) {
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <p class="product-price">$${item.price}</p>
-                                <a onclick="detailProduct(${item.id})" href="/product-details">
+                                <a onclick="detailProduct(${item.id})">
                                     <h6>${item.name}</h6>
                                 </a>
                             </div>
@@ -147,7 +151,7 @@ function rederDataProductDetail(data) {
     $("#single-product-detail").empty();
     if(data != null) {
         data.map(item => {
-            $('#single-product-detail').append(
+            $('#single-product-detail').html(
                 `<div class="col-12 col-lg-7">
                         <div class="single_product_thumb">
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
@@ -192,7 +196,7 @@ function rederDataProductDetail(data) {
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <p class="product-price">${item.price}</p>
-                                <a href="product-details.html">
+                                <a href="/product-details">
                                     <h6>${item.name}</h6>
                                 </a>
                                 <!-- Ratings & Review -->
@@ -234,14 +238,6 @@ function rederDataProductDetail(data) {
         });
     }else{
         $("#single-product-detail").text("Sản phẩm không tồn tại");
-    }
-}
-
-function saveUserName() {
-    let userName = $("#username").val().trim();
-    console.log(userName);
-    if(userName != null) {
-        setCookie("user", userName);
     }
 }
 
