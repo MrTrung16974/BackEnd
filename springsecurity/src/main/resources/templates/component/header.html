@@ -51,6 +51,7 @@
             </a>
             <a href="#" class="fav-nav"><img th:src="@{/img/core-img/favorites.png}" alt=""> Yêu thích</a>
             <a href="#" class="search-nav"><img th:src="@{/img/core-img/search.png}" alt=""> Tìm Kiếm</a>
+            <a th:href="@{/login}" class="search-nav"><img width="20" th:src="@{/img/core-img/login.png}" alt=""> Đăng nhập</a>
         </div>
         <!-- Social Button -->
         <div class="social-info d-flex justify-content-between">
@@ -86,7 +87,7 @@
     <div th:fragment="logo" class="mobile-nav">
         <!-- Navbar Brand -->
         <div class="amado-navbar-brand">
-            <a href="index.html"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+            <a th:href="@{/home}"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
         </div>
         <!-- Navbar Toggler -->
         <div class="amado-navbar-toggler">

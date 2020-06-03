@@ -69,7 +69,10 @@ function forStar(star) {
 
 function rederData(data) {
     $("#lst-product").empty();
-    if(data != null) {
+    if(typeof data != "undefined"
+        && data != null
+        && data.length != null
+        && data.length > 0 != null) {
         data.map(item => {
             $('#lst-product').append(
                 `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
@@ -115,7 +118,10 @@ function rederData(data) {
 
 function rederDataCastBoxUp(data) {
     $("#box-up-lst-prodcut-in-cast").empty();
-    if(data != null) {
+    if(typeof data != "undefined"
+        && data != null
+        && data.length != null
+        && data.length > 0 != null) {
         data.map(item => {
             $('#box-up-lst-prodcut-in-cast').append(
                 `<tr style="position: relative;">
@@ -141,7 +147,10 @@ function rederDataCastBoxUp(data) {
 
 function rederDataCast(data) {
     $("#lst-product-in-cast").empty();
-    if (data != null) {
+    if (typeof data != "undefined"
+        && data != null
+        && data.length != null
+        && data.length > 0) {
         data.map(item => {
             $('#lst-product-in-cast').append(
                 `<tr style="position: relative;">
@@ -171,7 +180,7 @@ function rederDataCast(data) {
             );
         });
     } else {
-        $("#lst-product-in-cast").text("Sản phẩm không tồn tại");
+        $('#lst-product-in-cast').html("<h3>Sản phẩm không tồn tại!</h3>");
     }
 }
 
