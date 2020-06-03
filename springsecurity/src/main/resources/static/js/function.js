@@ -66,34 +66,11 @@ function paginationProduct(page) {
     });
 }
 
-function detailProduct(idProduct) {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8099/v1/api/product/" + idProduct,
-        processData: false,
-        success: function (response) {
-            singleProduct = null;
-            // server trả về HTTP status code là 200 => Thành công
-            //hàm đc thực thi khi request thành công không có lỗi
-            if(response.code == "00") {
-                console.log(response.data);
-                singleProduct = response.data ;
-                console.log(singleProduct);
-                if(singleProduct == null) {
-                    window.location.href = "http://localhost:8089/product-details";
-                }
-            }
-            else {
-                console.log(response.message);
-            }
-        }
-    });
-}
-
 // cart product
 if(user != "") {
     getProductInCast();
 }
+
 function getProductInCast() {
     $.ajax({
         url: "http://localhost:8099/order/products/" + user,
