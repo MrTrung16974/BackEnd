@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var idProduct = new URLSearchParams(window.location.search).get("id");
-    console.log(idProduct);
 
     $.ajax({
         type: "GET",
@@ -96,9 +95,9 @@ $(document).ready(function () {
                                 <div class="cart-btn d-flex mb-50">
                                     <p>Qty</p>
                                     <div class="quantity">
-                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="${item.number}">
-                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                        <span class="qty-minus" onclick="removeItem('${item.id}')"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="${item.number ? item.number : 0}">
+                                        <span class="qty-plus" onclick="addItem('${item.id}')"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 <button type="button" onclick="addToCastDetailDB(${item.id})" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>

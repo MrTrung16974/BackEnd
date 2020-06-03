@@ -1,5 +1,4 @@
 var user = getCookie("user");
-console.log(user);
 var keyword = "";
 var pageDefault = 0;
 var cart = {
@@ -159,9 +158,9 @@ function rederDataCast(data) {
                     <div class="qty-btn d-flex">
                         <p>Qty</p>
                         <div class="quantity">
-                            <span class="qty-minus" onclick="removeItem(${item.id})"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                            <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="${item.number}">
-                            <span class="qty-plus" onclick="addItem(${item.id})"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            <span class="qty-minus" onclick="removeItem('${item.id}')"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="${item.number ? item.number : 0}">
+                            <span class="qty-plus" onclick="addItem('${item.id}')"><i class="fa fa-plus" aria-hidden="true"></i></span>
                         </div>
                     </div>
                 </td>
