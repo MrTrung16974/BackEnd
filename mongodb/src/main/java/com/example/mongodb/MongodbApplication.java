@@ -31,13 +31,13 @@ public class MongodbApplication {
 //            p.setPrice((double)i*100);
 //            p.setType(5);
 //            p.setColor(7);
-//            p.setMaterial(1);
+//            p.setMaterial(2);
 //            p.setPromotion(new Promotion("1/4", 20));
 //            p.setStar(5);
 //            p.setImage(new Image("http://localhost:8099/link/1590817275-1.jpg",
 //                    "http://localhost:8099/link/1590817280-3.jpg",
-//                    "http://localhost:8099/link/1590817275-1.jpg",
-//                    "http://localhost:8099/link/1590817280-3.jpg"));
+//                    "http://localhost:8099/link/1591186178-7.jpg",
+//                    "http://localhost:8099/link/1591186190-8.jpg"));
 //            p.setId(""+i);
 //            p.setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?");
 //            p.setCreateAt(new Date());
