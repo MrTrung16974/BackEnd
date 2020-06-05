@@ -59,14 +59,14 @@ public class OrderApiController {
             @RequestBody UpdateCastRequest updateCastRequest) {
         BaseResponse response = new BaseResponse();
         Optional<Order> optOrder = orderRepository.findById(id);
-        if(!optOrder.isPresent()) {
+        if (!optOrder.isPresent()) {
             response.setCode("99");
             response.setMessage("Data not found");
             response.setData(null);
             return response;
         }
         Order exitsOrder = optOrder.get();
-        if(exitsOrder.getStatus() != 1) {
+        if (exitsOrder.getStatus() != 1) {
             response.setCode("99");
             response.setMessage("Cast invalid");
             response.setData(null);
@@ -77,94 +77,134 @@ public class OrderApiController {
         ProductModel productDelete = null;
         Boolean checkAddProduct = true;
 //        List get from clent
-        List<ProductModel> productInCast = exitsOrder.getListProduct();
+        List<ProductModel> productInCart = exitsOrder.getListProduct();
         //        checkname
 //        list get from database
         List<ProductCast> lstProduct = updateCastRequest.getListProductCast();
 
         for (ProductCast p : lstProduct) {
 //            add product in cast
-            if(p.getType() == 1) {
-                if(productInCast == null){
-                    productInCast = new ArrayList<>();
-                }
-                if(productInCast.isEmpty()) {
-//                        new ko có trong list product tring cast thì thêm mới cho nó
-                    productAdd = addListProduct(p);
+            if (p.getType() == 1) {
+                if (productInCart == null) {
+                    //Tạo mới giổ hàng trống
+                    productInCart = new ArrayList<>();
+                    //Tạo đối tượng sản phẩm trong giỏ hàng với các thông tin sau
+                    ProductModel productModel = new ProductModel();
+                    //số lượng client gửi lên
+                    productModel.setNumber(p.getNumber());
+                    //Mã sp client gửi lên
+                    productModel.setId(p.getId());
+
+                    //lấy thông tin sản phẩm trong DB
+                    Product exitsProduct = productRepository.findById(p.getId()).get();
+                    //Thêm giá
+                    productModel.setPrice(exitsProduct.getPrice());
+                    //Thêm name
+                    productModel.setName(exitsProduct.getName());
+                    //Thêm ảnh
+                    productModel.setImage(exitsProduct.getImage());
+
+                    //Thêm sản phẩm vưa tạo vào Danh sách sẩn phẩm trong giỏ
+                    productInCart.add(productModel);
+
                     response.setCode("00");
                     response.setMessage("Thêm sản phẩm vào giỏ thành công");
-                }else {
-                    for (ProductModel pm : productInCast) {
+                } else {
+                    boolean isHaveInList = false;
+                    //Duyệt sản phẩm trong danh sách sp trong giỏ hàng của DB đang có sẵn
+                    for (int i = 0; i < productInCart.size(); i++) {
+                        ProductModel pm = productInCart.get(i);
+                        //p.getNumber là số sản phẩm người dùng muốn thêm
+                        //pm.getNumber là số sản phẩm hiện tại trong gio hàng của DB
+                        //so sánh mã số sản phẩm hiện tại trong DB và mã người dùng
+                        //gửi lên nếu = nhau tăng số lượng lên
                         if (p.getId().equals(pm.getId()) && p.getNumber() > 0) {
-                            checkAddProduct = false;
+                            //Đặt lại số lượng của sản phẩm trong giỏ hàng
+                            pm.setNumber(pm.getNumber() + p.getNumber());
+                            isHaveInList = true;
+                            response.setCode("00");
+                            response.setMessage("Đã tăng số lượng thành công");
                         }
                     }
-                    for (ProductModel pm : productInCast) {
-//                      p.getNumber la so san pham muon them
-//                      check sô sản phẩm hiện tại trong DB lớn hon number
-                    if (p.getId().equals(pm.getId()) && p.getNumber() > 0) {
-                        pm.setNumber(p.getNumber() + pm.getNumber());
-                        response.setCode("00");
-                        response.setMessage("Đã tăng số lượng thành công");
-                    }else if (checkAddProduct){
-                        productAdd = addListProduct(p);
+
+                    if (!isHaveInList) {
+                        //Nếu sản phẩm gửi lên không có trong list product của
+                        // cart thì thêm mới sản phẩm đó vào trong ds sản phẩm của
+                        // Giỏ hàng
+                        //Tạo mới model và set các trường
+                        ProductModel productModel = new ProductModel();
+                        //Số lượng
+                        productModel.setNumber(p.getNumber());
+                        productModel.setId(p.getId());
+                        //lấy thông tin sản phẩm trong DB
+                        Product exitsProduct = productRepository.findById(p.getId()).get();
+                        productModel.setPrice(exitsProduct.getPrice());
+                        productModel.setName(exitsProduct.getName());
+                        productModel.setImage(exitsProduct.getImage());
+
+                        //lưu lại sản phẩm vào giỏ hàng
+                        productInCart.add(productModel);
+
                         response.setCode("00");
                         response.setMessage("Thêm sản phẩm vào giỏ thành công");
-                        }
+
                     }
-                }
-                if(productAdd != null) {
-                    productInCast.add(productAdd);
                 }
             }
 //            remove product in cast
-            if (p.getType() == 2) {
-                for (ProductModel pm : productInCast) {
-//                    p.getNumber la so san pham muon them
-//                    check sô sản phẩm hiện tại trong DB lớn hon number
-                    if(p.getId().equals(pm.getId())
-                            && p.getNumber() > 0 &&
-                            p.getNumber() <= pm.getNumber()) {
+            if(p.getType() == 2){
+                boolean isHaveInList = false;
+                for(int i = 0;i < productInCart.size();i++){
+                    ProductModel pm =productInCart.get(i);
+                    //p.getNumber là số lượng sản phẩm muốn thêm
+                    //pm.getNumber là số lượng sản phẩm hiện tại
+                    //so sánh mã số sản phẩm hiện tại trong DB
+                    //và mã sp người dùng gửi lên
+                    //nếu trùng thực hiện giảm số lượng sản phẩm
+                    if(p.getId().equals(pm.getId()) && p.getNumber() > 0 &&
+                            p.getNumber() <= pm.getNumber()){
+
+                        //Giẩm số lượng sản phẩm
                         pm.setNumber(pm.getNumber() - p.getNumber());
-//                        nêu giảm xuốn bằng 0 thì xóa luôn sản phẩm khỏi cast
                         response.setMessage("Đã giảm số lượng sản phẩm");
-                        if(pm.getNumber() == 0) {
-                            productDelete = pm;
-                            response.setMessage("đã xóa sản phẩm");
-                        }else {
-                            response.setCode("99");
-                            response.setMessage("Data invalid");
+
+                        //Nếu giảm xuống == 0 thì xóa luôn sản phẩm khỏi list
+                        if(pm.getNumber() == 0){
+                            productInCart.remove(pm);
+                            response.setMessage("Đã xóa sản phẩm ");
                         }
+
+                        response.setCode("00");
                     }
-                    response.setCode("00");
                 }
-                if(productDelete != null) {
-                    productInCast.remove(productDelete);
+                if(!isHaveInList){
+                    response.setCode("99");
+                    response.setMessage("Data invalid");
                 }
             }
 
 //            delete product in cast
-            if(p.getType() == 3) {
-                for (ProductModel pm : productInCast) {
+            if (p.getType() == 3) {
+                for (ProductModel pm : productInCart) {
 //                    p.getNumber la so san pham muon them
 //                    check sô sản phẩm hiện tại trong DB lớn hon number
-                    if(p.getId().equals(pm.getId())
+                    if (p.getId().equals(pm.getId())
                             && p.getNumber() > 0 &&
                             p.getNumber() <= pm.getNumber()) {
-                            productDelete = pm;
-                            response.setMessage("đã xóa sản phẩm");
-                    }else {
+                        productDelete = pm;
+                        response.setMessage("đã xóa sản phẩm");
+                    } else {
                         response.setCode("99");
                         response.setMessage("Data invalid");
                     }
                 }
                 response.setCode("00");
-                if(productDelete != null) {
-                    productInCast.remove(productDelete);
+                if (productDelete != null) {
+                    productInCart.remove(productDelete);
                 }
             }
         }
-        exitsOrder.setListProduct(productInCast);
+        exitsOrder.setListProduct(productInCart);
         response.setCode("00");
         response.setMessage("Update giỏ hàng thành công");
         response.setData(orderRepository.save(exitsOrder));
@@ -189,15 +229,4 @@ public class OrderApiController {
         return response;
     }
 
-    public ProductModel addListProduct(ProductCast cast) {
-        ProductModel productModel = new ProductModel();
-        productModel.setNumber(cast.getNumber());
-        productModel.setId(cast.getId());
-//                        lấy thông tin sản phẩm trong db
-        Product exitProduct = productRepository.findById(cast.getId()).get();
-        productModel.setPrice(exitProduct.getPrice());
-        productModel.setImage(exitProduct.getImage());
-        productModel.setName(exitProduct.getName());
-        return productModel;
-    }
 }

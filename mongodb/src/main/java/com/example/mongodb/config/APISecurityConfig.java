@@ -52,7 +52,8 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .authorizeRequests()
-                .antMatchers("/**").access("hasAnyAuthority('USER')")
+//                .antMatchers("/**").access("hasAnyAuthority('USER')")
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 //                .and()

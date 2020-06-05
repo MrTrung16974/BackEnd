@@ -1,3 +1,4 @@
+// khai báo biến
 var user = getCookie("user");
 var keyword = "";
 var pageDefault = 0;
@@ -14,6 +15,7 @@ var origin   = window.location.origin;
 var pathname = window.location.pathname;
 // Returns path only (/path/example.html)
 
+// reder chung
 switch (pathname) {
         case "/home":
             $("li.home").addClass("active");
@@ -32,28 +34,6 @@ switch (pathname) {
             break;
     }
 
-if(url == origin+"/login?error=true") {
-    setCookie("user", "");
-}
-
-function saveUserName() {
-    let username = $("#username").val().trim();
-    if(username != null) {
-        setCookie("user", username);
-    }
-    console.log(username);
-}
-    
-function forPagination(totalPage) {
-    $("#pagination").empty();
-    for(let i = 0; i < totalPage; i++) {
-        if(i == pageDefault) {
-            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
-        }else {
-            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
-        }
-    }
-}
 
 function forStar(star) {
     let starWrite = "";
@@ -66,7 +46,18 @@ function forStar(star) {
     }
     return starWrite;
 }
+function forPagination(totalPage) {
+    $("#pagination").empty();
+    for(let i = 0; i < totalPage; i++) {
+        if(i == pageDefault) {
+            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+        }else {
+            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+        }
+    }
+}
 
+// reder cast
 function rederData(data) {
     $("#lst-product").empty();
     if(typeof data != "undefined"
@@ -75,7 +66,7 @@ function rederData(data) {
         && data.length > 0 != null) {
         data.map(item => {
             $('#lst-product').append(
-                `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+            `<div class="col-12 col-sm-6 col-md-12 col-xl-6">
                     <div  class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
@@ -110,12 +101,22 @@ function rederData(data) {
                         </div>
                     </div>
                 </div>`);
-        });
+    });
     }else{
         $("#lst-product").text("Sản phẩm không tồn tại");
     }
 }
+function getPriceProductInCast(cast) {
+    let price_number = 0;
+    if (cast.listProduct != null) {
+        let length = cast.listProduct.length;
+        for (let i = 0; i < length; i++) {
+            price_number += (cast.listProduct[i].price * cast.listProduct[i].number);
+        }
+        $("#price-number").text("$" + price_number);
+    }
 
+}
 function rederDataCastBoxUp(data) {
     $("#box-up-lst-prodcut-in-cast").empty();
     if(typeof data != "undefined"
@@ -124,7 +125,7 @@ function rederDataCastBoxUp(data) {
         && data.length > 0 != null) {
         data.map(item => {
             $('#box-up-lst-prodcut-in-cast').append(
-                `<tr style="position: relative;">
+            `<tr style="position: relative;">
                     <td class="cart_product_img">
                         <a href="#"><img width="50" height="50" src="${item.image.imageOne}" alt="Product"></a>
                     </td>
@@ -138,13 +139,12 @@ function rederDataCastBoxUp(data) {
                         <span>x</span>
                     </td>
                 </tr>`
-            );
-        });
+        );
+    });
     }else{
         $("#box-up-lst-prodcut-in-cast").text("Sản phẩm không tồn tại");
     }
 }
-
 function rederDataCast(data) {
     $("#lst-product-in-cast").empty();
     if (typeof data != "undefined"
@@ -153,7 +153,7 @@ function rederDataCast(data) {
         && data.length > 0) {
         data.map(item => {
             $('#lst-product-in-cast').append(
-                `<tr style="position: relative;">
+            `<tr style="position: relative;">
                 <td class="cart_product_img">
                     <a href="#"><img src="${item.image.imageOne}" alt="Product"></a>
                 </td>
@@ -177,13 +177,12 @@ function rederDataCast(data) {
                     <span>x</span>
                 </td>
             </tr>`
-            );
-        });
+        );
+    });
     } else {
         $('#lst-product-in-cast').html("<h3>Sản phẩm không tồn tại!</h3>");
     }
 }
-
 function getTotalProductInCast(cast) {
     let total = cart.listProduct.length;
     if (total <= 0) {
@@ -193,18 +192,7 @@ function getTotalProductInCast(cast) {
     }
 }
 
-function getPriceProductInCast(cast) {
-    let price_number = 0;
-    if (cast.listProduct != null) {
-        let length = cast.listProduct.length;
-        for (let i = 0; i < length; i++) {
-            price_number += (cast.listProduct[i].price * cast.listProduct[i].number);
-        }
-        $("#price-number").text("$" + price_number);
-    }
-
-}
-
+// logic cookie
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -226,4 +214,17 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+//reder user name
+
+if(url == origin+"/login?error=true") {
+    setCookie("user", "");
+}
+function saveUserName() {
+    let username = $("#username").val().trim();
+    if(username != null) {
+        setCookie("user", username);
+    }
+    console.log(username);
 }

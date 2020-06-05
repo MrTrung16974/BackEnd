@@ -1,3 +1,4 @@
+// find product all
 $.ajax({
     url: "http://localhost:8099/v1/api/product/search?name="+keyword+"&page="+pageDefault+"&perPage=10",
     type: "GET",

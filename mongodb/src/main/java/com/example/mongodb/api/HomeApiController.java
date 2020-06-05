@@ -54,6 +54,9 @@ public class HomeApiController {
 
     @GetMapping("/product/search")
     public BaseResponse index( @RequestParam(value = "name", required = false)String name,
+                               @RequestParam(value = "material", required = false)String material,
+                               @RequestParam(value = "color", required = false)String color,
+                               @RequestParam(value = "type", required = false)String type,
                                @RequestParam("page") int page,
                                @RequestParam("perPage") int perPage){
         BaseResponse response = new BaseResponse();
