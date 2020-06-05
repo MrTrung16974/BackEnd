@@ -1,16 +1,16 @@
 package com.example.springsecurity.controller;
 
+import com.example.springsecurity.dto.BaseResponse;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
+import com.example.springsecurity.service.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -20,6 +20,9 @@ public class HomeController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    TokenAuthenticationService tokenAuthenticationService;
 
     @RequestMapping("/login")
     public String login(){
@@ -66,4 +69,35 @@ public class HomeController {
         userRepository.save(user);
         return "redirect:/login?regisSuccess=true";
     }
+
+    @PostMapping("/login")
+    public BaseResponse login(@RequestParam(value = "username" )String username,
+                              @RequestParam(value = "password" )String password) {
+        BaseResponse response = new BaseResponse();
+        try {
+            if (!username.isEmpty() && !password.isEmpty()) {
+                Optional<User> optUser = userRepository.findById(username);
+                if (!optUser.isPresent()) {
+                    throw new Exception("username or password invalid");
+                }
+                User user = optUser.get();
+                if(!passwordEncoder.matches(password, user.getPassword())) {
+                    throw new Exception("Password invalid");
+                }
+                response.setData("00");
+                response.setMessage("Login Success");
+                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
+            } else {
+                response.setData("00");
+                response.setMessage("Error");
+                response.setData(null);
+            }
+        }catch (Exception e) {
+            response.setData("99");
+            response.setMessage("Error");
+            response.setData(e.getMessage());
+        }
+        return response;
+    }
+
 }

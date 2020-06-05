@@ -1,7 +1,7 @@
-package com.example.mongodb.services;
+package com.example.springsecurity.service;
 
-import com.example.mongodb.model.User;
-import com.example.mongodb.repository.UserRepository;
+import com.example.springsecurity.model.User;
+import com.example.springsecurity.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -217,10 +217,33 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 //reder user name
-
 if(url == origin+"/login?error=true") {
     setCookie("user", "");
 }
+
+// function loginUser() {
+//     let username = $("#username").val().trim();
+//     let password = $("#password").val().trim();
+//     $.ajax({
+//         type: "POST",
+//         url: "http://localhost:8089/login?username="+username+"&password    ="+ password,
+//         processData: false,
+//         success: function (response) {
+//             // server trả về HTTP status code là 200 => Thành công
+//             //hàm đc thực thi khi request thành công không có lỗi
+//             if(response.code == "00") {
+//                 if(response.data != null) {
+//                     setCookie("user", response.data);
+//                     console.log(response.data);
+//                 }
+//             }
+//             else {
+//                 console.log(response.message);
+//             }
+//         }
+//     });
+// }
+
 function saveUserName() {
     let username = $("#username").val().trim();
     if(username != null) {
