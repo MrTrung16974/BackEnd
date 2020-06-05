@@ -4,6 +4,7 @@ import com.example.mongodb.model.Product;
 import com.example.mongodb.repository.ProductRepository;
 import com.mongodb.client.MongoClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,15 +16,35 @@ import java.util.List;
 @Service
 public class OrderServices {
 
-//    MongoTemplate mongoTemplate =
-//            new MongoTemplate(new MongoClient("127.0.0.1"),"yourdb");
-//
-//    @Override
-//    public ​List<Product> findHotStoriesOfGroup(String groupId) {
-//       ​Query query = new Query();
-//       ​query.with(new Sort(Sort.Direction.DESC, "this.comments.length"));
-//       ​query.addCriteria(Criteria.where("groupId").is(groupId));
-//
-//       ​return mongoTemplate.find(query, Story.class);
-//    }
+   @Autowired
+    MongoTemplate mongoTemplate;
+
+    //tìm kiếm product theo name và giá tiền
+    public List<Product> search(String name, Integer color, Integer material, Integer type, long startPrice,long endPrice, Pageable pageable){
+        Query query = new Query();
+        //check name tồn tài mới thêm điều kiện search
+        if(!name.isEmpty()){
+            query.addCriteria(Criteria.where("name").regex(name));
+        }
+        //check giá lớn hơn 0  mới thêm điều kiện search
+        if(startPrice > 0 && endPrice>0 ){
+            query.addCriteria(Criteria.where("price").lte(startPrice).gt(endPrice));
+        }
+        if(type > 0) {
+            query.addCriteria(Criteria.where("type").in(type));
+        }
+        if(color > 0) {
+            query.addCriteria(Criteria.where("color").lte(startPrice).gt(endPrice));
+        }
+        if(material > 0) {
+            query.addCriteria(Criteria.where("material").lte(startPrice).gt(endPrice));
+
+        }
+        //nếu khác null là phân trang và sắp xếp theo pageanable
+        if(pageable != null){
+            query.with(pageable);
+        }
+        List<Product> lstProduct = mongoTemplate.find(query, Product.class);
+        return lstProduct;
+    }
 }
