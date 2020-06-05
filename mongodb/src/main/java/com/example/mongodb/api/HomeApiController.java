@@ -63,7 +63,6 @@ public class HomeApiController {
         try {
             Pageable pageable = PageRequest.of(page, perPage, Sort.by(Sort.Direction.ASC,"id"));
             Page<Product> listProduct = productRepository.findByNameContaining(name.toLowerCase(),pageable);
-            Integer totalPage = listProduct.getTotalPages();
             if (!listProduct.isEmpty()) {
                 response.setCode("00");
                 response.setMessage("List actor search by key: " + name);
