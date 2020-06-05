@@ -1,5 +1,6 @@
 package com.example.mongodb.services;
 
+import com.example.mongodb.model.User;
 import com.example.mongodb.model.Users;
 import com.example.mongodb.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
@@ -43,7 +44,7 @@ public class TokenAuthenticationService {
     public boolean validateToKen(String token) {
         try {
             String userId = tokenAuthenticationService.readJWT(token);
-            Optional<Users> optionalUser = userRepository.findById(userId);
+            Optional<User> optionalUser = userRepository.findById(userId);
             if(!optionalUser.isPresent()) {
                 return false;
             }

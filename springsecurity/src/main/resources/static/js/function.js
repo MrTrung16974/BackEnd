@@ -95,7 +95,7 @@ function getProductInCast() {
     });
 }
 
-function addToCastDetailDB(idProduct) {
+function addToCastDetailDB(idProduct, number) {
     if(user != "") {
         let number = $("#qty").val().trim();
         let updateCastRequest = {
@@ -134,13 +134,16 @@ function addToCastDetailDB(idProduct) {
     }
 }
 
-function addToCastDB(idProduct) {
+function addToCastDB(idProduct, oldNumber) {
+    let newNumber = $("#qty").val().trim();
+    newNumber -= oldNumber;
+    console.log(newNumber);
     if(user != "") {
         let updateCastRequest = {
             name: user,
             listProductCast: [{
                 id: idProduct,
-                number: 1,
+                number: number,
                 type: 1
             }]
         };
