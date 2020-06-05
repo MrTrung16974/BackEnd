@@ -1,7 +1,6 @@
 package com.example.mongodb.services;
 
 import com.example.mongodb.model.User;
-import com.example.mongodb.model.Users;
 import com.example.mongodb.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
