@@ -95,55 +95,70 @@ function getProductInCast() {
     });
 }
 
-function addToCastDetailDB(idProduct, number) {
-    if(user != "") {
-        let number = $("#qty").val().trim();
-        let updateCastRequest = {
-            name: user,
-            listProductCast: [{
-                id: idProduct,
-                number: number,
-                type: 1
-            }]
-        };
-        $.ajax({
-            url: "http://localhost:8099/order/update/" + cart.id,
-            type: "POST",
-            data: JSON.stringify(updateCastRequest),
-            contentType: "application/json",
-            success: function (response) {
-                if (response.code = "00") {
-                    cart = response.data;
-                    if (cart.listProduct != null) {
-                        getTotalProductInCast(cart);
-                        rederDataCast(cart.listProduct);
-                        rederDataCastBoxUp(cart.listProduct);
-                        if (cart.listProduct[0] != null) {
-                            getPriceProductInCast(cart);
-                            toastr.error('Add product success!', "HAHA");
-                        }
-                    }
-                }
-            },
-            error: function (error) {
-                toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
-            }
-        });
-    }else {
-        toastr.error('Bạn cần đăng nhâp!',  "HAHA");
-    }
-}
+// function addToCastDetailDB(idProduct, oldNumber) {
+//     let updateCastRequest = [];
+//     if(user != "") {
+//         let newNumber = $("#qty").val().trim();
+//         if(newNumber > 0) {
+//             newNumber -= oldNumber;
+//             console.log(newNumber);
+//             if(newNumber < oldNumber) {
+//                 updateCastRequest = {
+//                     name: user,
+//                     listProductCast: [{
+//                         id: idProduct,
+//                         number: newNumber,
+//                         type: 1
+//                     }]
+//                 };
+//             }else {
+//                 updateCastRequest = {
+//                     name: user,
+//                     listProductCast: [{
+//                         id: idProduct,
+//                         number: newNumber,
+//                         type: 2
+//                     }]
+//                 };
+//             }
+//             $.ajax({
+//                 url: "http://localhost:8099/order/update/" + cart.id,
+//                 type: "POST",
+//                 data: JSON.stringify(updateCastRequest),
+//                 contentType: "application/json",
+//                 success: function (response) {
+//                     if (response.code = "00") {
+//                         cart = response.data;
+//                         if (cart.listProduct != null) {
+//                             getTotalProductInCast(cart);
+//                             rederDataCast(cart.listProduct);
+//                             rederDataCastBoxUp(cart.listProduct);
+//                             if (cart.listProduct[0] != null) {
+//                                 getPriceProductInCast(cart);
+//                                 toastr.error('Add product success!', "HAHA");
+//                             }
+//                         }
+//                     }
+//                 },
+//                 error: function (error) {
+//                     toastr.error('có lỗi xảy ra . Xin vui lòng thử lại', response.message);
+//                 }
+//             });
+//         }else {
+//             toastr.error('Bạn nhập nhâp số vào nếu ko thì chết đó làm khó nhau vcl! Mịa!',  "HAHA");
+//         }
+//     }else {
+//         toastr.error('Bạn cần đăng nhâp!',  "HAHA");
+//     }
+// }
 
-function addToCastDB(idProduct, oldNumber) {
-    let newNumber = $("#qty").val().trim();
-    newNumber -= oldNumber;
-    console.log(newNumber);
+function addToCastDB(idProduct) {
     if(user != "") {
         let updateCastRequest = {
             name: user,
             listProductCast: [{
                 id: idProduct,
-                number: number,
+                number: 1,
                 type: 1
             }]
         };

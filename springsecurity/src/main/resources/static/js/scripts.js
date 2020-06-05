@@ -106,17 +106,6 @@ function rederData(data) {
         $("#lst-product").text("Sản phẩm không tồn tại");
     }
 }
-function getPriceProductInCast(cast) {
-    let price_number = 0;
-    if (cast.listProduct != null) {
-        let length = cast.listProduct.length;
-        for (let i = 0; i < length; i++) {
-            price_number += (cast.listProduct[i].price * cast.listProduct[i].number);
-        }
-        $("#price-number").text("$" + price_number);
-    }
-
-}
 function rederDataCastBoxUp(data) {
     $("#box-up-lst-prodcut-in-cast").empty();
     if(typeof data != "undefined"
@@ -190,6 +179,17 @@ function getTotalProductInCast(cast) {
     } else {
         $("#total-cast").text(`(${total})`);
     }
+}
+function getPriceProductInCast(cast) {
+    let price_number = 0;
+    if (cast.listProduct != null) {
+        let length = cast.listProduct.length;
+        for (let i = 0; i < length; i++) {
+            price_number += (cast.listProduct[i].price * cast.listProduct[i].number);
+        }
+        $("#price-number").text("$" + price_number);
+    }
+
 }
 
 // logic cookie

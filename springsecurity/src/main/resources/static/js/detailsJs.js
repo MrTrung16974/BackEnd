@@ -35,12 +35,9 @@ $(document).ready(function () {
 
             $("#price-product").text(`$${item.price}`);
             $("#name-product").text(`${item.name}`);
-            $("#qty").val(`${item.number ? item.number : 0}`);
             $("#description-product").text(`${item.description}`);
 
-            $(".qty-plus").attr("onclick", `addItem('${item.id}')`);
-            $(".qty-minus").attr("onclick", `removeItem('${item.id}')')`);
-            $(".addtocart").attr("onclick", `addToCastDetailDB(${item.id})`);
+            $("button#addtocart").attr("onclick", `addToCastDB('${item.id}')`);
         }else{
             $("#single-product-detail").text("Sản phẩm không tồn tại");
         }
