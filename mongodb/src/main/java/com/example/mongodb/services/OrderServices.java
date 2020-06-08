@@ -20,23 +20,23 @@ public class OrderServices {
     MongoTemplate mongoTemplate;
 
     //tìm kiếm product theo name và giá tiền
-    public List<Product> search(String name, Integer color, Integer material, Integer type, long startPrice,long endPrice, Pageable pageable){
+    public List<Product> search(String name, Integer color, Integer material, Integer type, Long startPrice,Long endPrice, Pageable pageable){
         Query query = new Query();
         //check name tồn tài mới thêm điều kiện search
-        if(!name.isEmpty()){
+        if(!name.isEmpty()  && name != null){
             query.addCriteria(Criteria.where("name").regex(name));
         }
         //check giá lớn hơn 0  mới thêm điều kiện search
-        if(startPrice > 0 && endPrice>0 ){
+        if(startPrice > 0 && endPrice>0  && startPrice != null && endPrice != null){
             query.addCriteria(Criteria.where("price").lte(startPrice).gt(endPrice));
         }
-        if(type > 0) {
+        if(type > 0 && type != null) {
             query.addCriteria(Criteria.where("type").in(type));
         }
-        if(color > 0) {
+        if(color > 0 && color != null) {
             query.addCriteria(Criteria.where("color").lte(startPrice).gt(endPrice));
         }
-        if(material > 0) {
+        if(material > 0 && material != null) {
             query.addCriteria(Criteria.where("material").lte(startPrice).gt(endPrice));
 
         }

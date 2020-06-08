@@ -3,15 +3,19 @@ package com.example.mongodb.api;
 import com.example.mongodb.dto.BaseResponse;
 import com.example.mongodb.model.Product;
 import com.example.mongodb.model.ProductModel;
+import com.example.mongodb.model.User;
 import com.example.mongodb.repository.OrderRepository;
 import com.example.mongodb.repository.ProductRepository;
+import com.example.mongodb.repository.UserRepository;
 import com.example.mongodb.services.OrderServices;
 import com.example.mongodb.services.StoreFileService;
+import com.example.mongodb.services.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +38,63 @@ public class HomeApiController {
 
     @Autowired
     OrderServices orderServices;
+//
+//    @Autowired
+//    TokenAuthenticationService tokenAuthenticationService;
+//
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
+//
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    @PostMapping("/login")
+//    public BaseResponse login(@RequestParam(value = "username" )String username,
+//                              @RequestParam(value = "password" )String password) {
+//        BaseResponse response = new BaseResponse();
+//        try {
+//            if (!username.isEmpty() && !password.isEmpty()) {
+//                Optional<User> optUser = userRepository.findById(username);
+//                if (!optUser.isPresent()) {
+//                    throw new Exception("username or password invalid");
+//                }
+//                User user = optUser.get();
+//                if(!passwordEncoder.matches(password, user.getPassword())) {
+//                    throw new Exception("Password invalid");
+//                }
+//                response.setData("00");
+//                response.setMessage("Login Success");
+//                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
+//            } else {
+//                response.setData("00");
+//                response.setMessage("Error");
+//                response.setData(null);
+//            }
+//        }catch (Exception e) {
+//            response.setData("99");
+//            response.setMessage("Error");
+//            response.setData(e.getMessage());
+//        }
+//        return response;
+//    }
+//
+//    @GetMapping("/getInfoUser")
+//    public BaseResponse getInfo(@RequestHeader("Authen") String token) {
+//        BaseResponse response = new BaseResponse();
+//        try {
+//            if(!tokenAuthenticationService.validateToKen(token)) {
+//                throw new Exception("Token invalid");
+//            }
+//            response.setData("00");
+//            response.setMessage("get data thanh công");
+//            response.setData("User info");
+//        }catch (Exception e) {
+//            response.setData("99");
+//            response.setMessage("Error" );
+//            response.setData(e.getMessage());
+//        }
+//        return response;
+//    }
 
     //    Upload file img
     @PostMapping("/upload")
@@ -54,15 +115,17 @@ public class HomeApiController {
 
     @GetMapping("/product/search")
     public BaseResponse index( @RequestParam(value = "name", required = false)String name,
-                               @RequestParam(value = "material", required = false)String material,
-                               @RequestParam(value = "color", required = false)String color,
-                               @RequestParam(value = "type", required = false)String type,
+                               @RequestParam(value = "material", required = false)Integer material,
+                               @RequestParam(value = "color", required = false)Integer color,
+                               @RequestParam(value = "type", required = false)Integer type,
+                               @RequestParam(value = "endPrice", required = false)Long endPrice,
+                               @RequestParam(value = "startPrice", required = false)Long startPrice,
                                @RequestParam("page") int page,
                                @RequestParam("perPage") int perPage){
         BaseResponse response = new BaseResponse();
         try {
             Pageable pageable = PageRequest.of(page, perPage, Sort.by(Sort.Direction.ASC,"id"));
-            Page<Product> listProduct = productRepository.findByNameContaining(name.toLowerCase(),pageable);
+            Page<Product> listProduct = productRepository.findByNameContaining(name, pageable);
             if (!listProduct.isEmpty()) {
                 response.setCode("00");
                 response.setMessage("List actor search by key: " + name);

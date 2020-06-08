@@ -7,6 +7,7 @@ import com.example.springsecurity.service.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -70,34 +71,36 @@ public class HomeController {
         return "redirect:/login?regisSuccess=true";
     }
 
-    @PostMapping("/login")
-    public BaseResponse login(@RequestParam(value = "username" )String username,
-                              @RequestParam(value = "password" )String password) {
-        BaseResponse response = new BaseResponse();
-        try {
-            if (!username.isEmpty() && !password.isEmpty()) {
-                Optional<User> optUser = userRepository.findById(username);
-                if (!optUser.isPresent()) {
-                    throw new Exception("username or password invalid");
-                }
-                User user = optUser.get();
-                if(!passwordEncoder.matches(password, user.getPassword())) {
-                    throw new Exception("Password invalid");
-                }
-                response.setData("00");
-                response.setMessage("Login Success");
-                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
-            } else {
-                response.setData("00");
-                response.setMessage("Error");
-                response.setData(null);
-            }
-        }catch (Exception e) {
-            response.setData("99");
-            response.setMessage("Error");
-            response.setData(e.getMessage());
-        }
-        return response;
-    }
+//    @PostMapping("/login")
+//    public String login(Model model,
+//                        @RequestParam(value = "username" )String username,
+//                        @RequestParam(value = "password" )String password) {
+//        BaseResponse response = new BaseResponse();
+//        try {
+//            if (!username.isEmpty() && !password.isEmpty()) {
+//                Optional<User> optUser = userRepository.findById(username);
+//                if (!optUser.isPresent()) {
+//                    throw new Exception("username or password invalid");
+//                }
+//                User user = optUser.get();
+//                if(!passwordEncoder.matches(password, user.getPassword())) {
+//                    throw new Exception("Password invalid");
+//                }
+//                response.setData("00");
+//                response.setMessage("Login Success");
+//                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
+//            } else {
+//                response.setData("00");
+//                response.setMessage("Error");
+//                response.setData(null);
+//            }
+//        }catch (Exception e) {
+//            response.setData("99");
+//            response.setMessage("Error");
+//            response.setData(e.getMessage());
+//        }
+//        model.addAttribute("response", response);
+//        return "redirect:/home";
+//    }
 
 }

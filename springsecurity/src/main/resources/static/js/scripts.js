@@ -50,9 +50,9 @@ function forPagination(totalPage) {
     $("#pagination").empty();
     for(let i = 0; i < totalPage; i++) {
         if(i == pageDefault) {
-            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+            $("#pagination").append(`<li class="page-item active"><a class="page-link" onclick='searchProduct(${i})' >0${i+1}.</a></li>`);
         }else {
-            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='paginationProduct(${i})' >0${i+1}.</a></li>`);
+            $("#pagination").append(`<li class="page-item"><a class="page-link" onclick='searchProduct(${i})' >0${i+1}.</a></li>`);
         }
     }
 }
@@ -103,7 +103,7 @@ function rederData(data) {
                 </div>`);
     });
     }else{
-        $("#lst-product").text("Sản phẩm không tồn tại");
+        $("#lst-product").html("<h3 style='padding: 20px;'>Sản phẩm không tồn tại</h3>");
     }
 }
 function rederDataCastBoxUp(data) {
@@ -131,7 +131,7 @@ function rederDataCastBoxUp(data) {
         );
     });
     }else{
-        $("#box-up-lst-prodcut-in-cast").text("Sản phẩm không tồn tại");
+        $("#box-up-lst-prodcut-in-cast").html("<h3 style='padding: 20px;'>Sản phẩm không tồn tại</h3>");
     }
 }
 function rederDataCast(data) {
@@ -169,7 +169,7 @@ function rederDataCast(data) {
         );
     });
     } else {
-        $('#lst-product-in-cast').html("<h3>Sản phẩm không tồn tại!</h3>");
+        $('#lst-product-in-cast').html("<h3 style='padding: 20px;'>Sản phẩm không tồn tại</h3>");
     }
 }
 function getTotalProductInCast(cast) {
@@ -217,7 +217,7 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 //reder user name
-if(url == origin+"/login?error=true") {
+if(url == origin+"/login?error=true" || url == origin+"/logout") {
     setCookie("user", "");
 }
 
@@ -250,4 +250,18 @@ function saveUserName() {
         setCookie("user", username);
     }
     console.log(username);
+}
+function rederUserInfo(data) {
+    $("#box-up-info-user").empty();
+    if(data != null) {
+        $('#box-up-info-user').append(
+            `<ul>
+                <li><a href="#">Tài khoản của tôi</a></li>
+                <li><a href="/logout">Đăng Xuất</a></li>
+            </ul>`
+        );
+        $('#name-user').text(data.buyer);
+        $('#login-user').css("display", "none");
+        $('#logout-user').css("display", "block");
+    }
 }
