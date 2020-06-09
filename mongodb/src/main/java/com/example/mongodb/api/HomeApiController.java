@@ -43,44 +43,44 @@ public class HomeApiController {
     @Autowired
     TokenAuthenticationService tokenAuthenticationService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/login")
-    public BaseResponse login(@RequestParam(value = "username" )String username,
-                              @RequestParam(value = "password" )String password) {
-        BaseResponse response = new BaseResponse();
-        try {
-            if (!username.isEmpty() && !password.isEmpty()) {
-                Optional<User> optUser = userRepository.findById(username);
-                if (!optUser.isPresent()) {
-                    throw new Exception("username or password invalid");
-                }
-                User user = optUser.get();
-                if(!passwordEncoder.matches(password, user.getPassword())) {
-                    throw new Exception("Password invalid");
-                }
-                response.setData("00");
-                response.setMessage("Login Success");
-                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
-            } else {
-                response.setData("00");
-                response.setMessage("Error");
-                response.setData(null);
-            }
-        }catch (Exception e) {
-            response.setData("99");
-            response.setMessage("Error");
-            response.setData(e.getMessage());
-        }
-        return response;
-    }
+//    @PostMapping("/login")
+//    public BaseResponse login(@RequestParam(value = "username" )String username,
+//                              @RequestParam(value = "password" )String password) {
+//        BaseResponse response = new BaseResponse();
+//        try {
+//            if (!username.isEmpty() && !password.isEmpty()) {
+//                Optional<User> optUser = userRepository.findById(username);
+//                if (!optUser.isPresent()) {
+//                    throw new Exception("username or password invalid");
+//                }
+//                User user = optUser.get();
+//                if(!passwordEncoder.matches(password, user.getPassword())) {
+//                    throw new Exception("Password invalid");
+//                }
+//                response.setData("00");
+//                response.setMessage("Login Success");
+//                response.setData(tokenAuthenticationService.generateJWT(user.getId()));
+//            } else {
+//                response.setData("00");
+//                response.setMessage("Error");
+//                response.setData(null);
+//            }
+//        }catch (Exception e) {
+//            response.setData("99");
+//            response.setMessage("Error");
+//            response.setData(e.getMessage());
+//        }
+//        return response;
+//    }
 
     @GetMapping("/getInfoUser")
-    public BaseResponse getInfo(@RequestHeader("Authen") String token) {
+    public BaseResponse getInfo(@RequestHeader("Authorization") String token) {
         BaseResponse response = new BaseResponse();
         try {
             if(!tokenAuthenticationService.validateToKen(token)) {
