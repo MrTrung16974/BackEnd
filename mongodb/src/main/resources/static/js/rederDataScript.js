@@ -1,5 +1,5 @@
 $.ajax({
-    url: "http://localhost:8099/order/products",
+    url: "http://localhost:8099/order/products/hiep",
     type: "GET",
     success: function (response) {
         if(response.code == "00") {

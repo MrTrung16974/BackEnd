@@ -4,6 +4,16 @@ $.ajax({
     url: "http://localhost:8099/v1/api/product/search?name="+keyword+"&page="+pageDefault+"&perPage=10",
     type: "GET",
     dataType: 'json',
+    xhrFields: {
+        withCredentials: true
+    },
+    // beforeSend : function(xhr) {
+    //     var cookie = getCookie("JSESSIONID");
+    //     console.log(cookie);
+    //     xhr.setRequestHeader('Cookie',"JSESSIONID=" + cookie);
+    //     xhr.setRequestHeader ("Authorization", "Basic " + btoa('trungth' + ":" + '123456'));
+    //
+    // },
     headers: {
         "Authorization": "Basic " + btoa('trungth' + ":" + '123456')
     },

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <h1>Con Gà</h1>
+    <script>
+        var stomClient = null;
+        function concect() {
+            var socket = new SockJS("http://localhost:8010/notification");
+            ws = Stomp.over(socket);
+            ws.connect({}, function (frame) {
+                ws.subscribe("/topic/notification", function (message) {
+                    console.log(message);
+                    console.log(message.body);
+                });
+            }, function (error) {
+                setTimeout(() => {
+                   this.concect();
+                }, 5000);
+            });
+        }
+        concect();
+
+        function disconnect() {
+            stompClinet.disconnect();
+            console.log("Disconnected");
+        }
+    </script>
+</body>
+</html>
