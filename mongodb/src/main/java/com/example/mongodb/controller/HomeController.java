@@ -36,6 +36,11 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String logout() {
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String AddUser(@RequestParam("username") String username,
                           @RequestParam("password") String password,
