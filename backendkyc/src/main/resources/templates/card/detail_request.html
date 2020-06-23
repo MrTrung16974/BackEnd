@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="include/layout::common_head(~{::title},~{::link})">
+    <title>Quản lý yêu cầu hoàn tiền</title>
+    <link/>
+</head>
+<body class="no-skin">
+<header th:replace="include/layout::head_menu"></header>
+<div class="main-container" id="main-container">
+    <aside class="main-sidebar" th:replace="include/layout::left_menu"></aside>
+    <div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="default-icon fa fa-home home-icon"></i>
+                    <a href="#">Home</a>
+                </li>
+                <li class="active">Danh sách yêu cầu</li>
+            </ul>
+            <!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="page-content-area">
+                <th:block>
+                    <div id="timeOutAlert" class="alert alert-success"
+                         th:if="${messageErr != null && messageErr=='Gửi duyệt thành công'}">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span class="alert-content" th:text="${messageErr}">Success</span>
+                    </div>
+                </th:block>
+                <!-- /.page-header -->
+                <div th:replace="include/layout::notice_box"></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+
+                            <div class="container">
+                                <div class="row form-group">
+                                    <div class="col-xs-12">
+                                        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                                            <li class="active" th:if="${pprServiceDTO}">
+                                                <a href="#step-1" >
+                                                    <h4 class="list-group-item-heading"
+                                                        th:text="${pprServiceDTO.getResponseCode() == 200} ? 'Step 1 (Success)' : 'Step 1 (Fail)'"></h4>
+                                                    <p class="list-group-item-text">PPR Service</p>
+                                                </a>
+                                            </li>
+                                            <li th:if="${ocrServiceDTO}">
+                                                <a href="#step-2">
+                                                    <h4 class="list-group-item-heading"
+                                                        th:text="${ocrServiceDTO.getResponseCode() == 200} ? 'Step 2 (Success)' : 'Step 2 (Fail)'"></h4>
+                                                    <p class="list-group-item-text">OCR Serivce</p>
+                                                </a>
+                                            </li>
+                                            <li th:if="${facServiceDTO}">
+                                                <a href="#step-2">
+                                                    <h4 class="list-group-item-heading"
+                                                        th:text="${facServiceDTO.getResponseCode() == 200} ? 'Step 2 (Success)' : 'Step 2 (Fail)'"></h4>
+                                                    <p class="list-group-item-text">FAC Serivce</p>
+                                                </a>
+                                            </li>
+                                            <li th:if="${nlpServiceDTO}">
+                                                <a href="#step-3" >
+                                                    <h4 class="list-group-item-heading"
+                                                        th:text="${nlpServiceDTO.getResponseCode() == 200} ? 'Step 3 (Success)' : 'Step 3 (Fail)'"></h4>
+                                                    <p class="list-group-item-text">NLP Services</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="step-1" th:if="${pprServiceDTO}">
+                                    <div class="col-xs-12">
+                                        <div class="col-md-12 well">
+                                            <h1>Chi tiết yêu cầu</h1>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Thời gian xử lý :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getProcessTime() + ' ms'}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Ảnh đầu vào :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getInputData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Trace ID :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getTraceId()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Ảnh đầu ra :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Status Code :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getResponseCode()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Message :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getResponseMessage()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="step-2" th:if="${ocrServiceDTO}">
+                                    <div class="col-xs-12">
+                                        <div class="col-md-12 well">
+                                            <h1>Chi tiết yêu cầu</h1>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Thời gian xử lý :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getProcessTime() + ' ms'}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu vào :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Trace ID :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getTraceId()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu ra :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Status Code :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getResponseCode()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Message :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getResponseMessage()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="step-2" th:if="${facServiceDTO}">
+                                    <div class="col-xs-12">
+                                        <div class="col-md-12 well">
+                                            <h1>Chi tiết yêu cầu</h1>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Thời gian xử lý :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getProcessTime() + ' ms'}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu vào :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${pprServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Trace ID :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getTraceId()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Ảnh selfie :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getImageSelfie()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Confidence :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getConfidence()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu ra :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Status Code :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getResponseCode()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Message :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getResponseMessage()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">RecommendThreshold :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getRecommendThreshold()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Độ giống :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getSimilarityScore()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Đặc điểm FACE :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${facServiceDTO.getFaceCharacteristics()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="step-3" th:if="${nlpServiceDTO}" >
+                                    <div class="col-xs-12">
+                                        <div class="col-md-12 well">
+                                            <h1>Chi tiết yêu cầu</h1>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Thời gian xử lý :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getProcessTime() + ' ms'}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu vào :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${ocrServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Trace ID :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getTraceId()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Ngày sinh :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getDateOfBirth()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Quê quán :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getPlaceOfBirth()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Dữ liệu ra :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getResponseData()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Status Code :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getResponseCode()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Ngày hết hạn :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getExpiryDate()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Quốc gia :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getNationalCard()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Số thẻ :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getNumber()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group clearfix">
+                                                        <label class="col-sm-4 control-label no-padding-right p_top">Giới tính :</label>
+                                                        <div class="col-sm-8">
+                                                            <p th:text="${nlpServiceDTO.getSex()}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row text-center">
+                    <a th:href="@{/request/list}" class="btn btn-primary">Quay lại</a>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content-area -->
+        </div>
+        <!-- /.page-content -->
+    </div>
+    <!-- /.main-content -->
+    <footer class="footer" th:replace="include/layout::footer"></footer>
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cập nhập trạng thái</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">Trạng thái</div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="updateStatus">
+                                <option value="2">Đã duyệt hoàn</option>
+                                <option value="3">Từ chối duyệt hoàn</option>
+                            </select>
+                            <input id="updateId" type="hidden">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-4">Ghi chú</div>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="note" style="width: 100%; height: 150px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="updateRequest()">Cập nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="include/layout::dialog_confirm"></div>
+<div th:replace="include/layout::js_include"></div>
+
+<!-- DataTables -->
+<script th:inline="javascript">
+
+    var navListItems = $('ul.setup-panel li a'),
+        allWells = $('.setup-content');
+
+    allWells.hide();
+
+    navListItems.click(function(e)
+    {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this).closest('li');
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.closest('li').removeClass('active');
+            $item.addClass('active');
+            allWells.hide();
+            $target.show();
+        }
+    });
+
+    $('ul.setup-panel li.active a').trigger('click');
+
+    //<![CDATA[
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var searchUrl = /*[[@{/request/search}]]*/ "/request/search";
+    var updateUrl = /*[[@{/request/update/}]]*/ "/request/update/";
+    var exportUrl = /*[[@{/request/export}]]*/ "/request/export";
+
+    jQuery(document).ready(function () {
+        var dtViLang = /*[[@{/plugins/datatables/extensions/i18n/vi.json}]]*/ "plugins/datatables/extensions/i18n/vi.json";
+
+        $('#toDate').datepicker({
+            format: "dd/mm/yyyy",
+            language: "vi",
+            todayHighlight: true,
+            autoclose: true,
+
+        });
+        $('#iaddFromDate').on('click', function () {
+            $('#fromDate').focus();
+        });
+        $('#iaddToDate').on('click', function () {
+            $('#toDate').focus();
+        });
+        $('#fromDate').datepicker({
+            format: "dd/mm/yyyy",
+            language: "vi",
+            todayHighlight: true,
+            autoclose: true
+        });
+        $("#tblLoading").css("dipslay","none");
+
+        var toDate = new Date();
+        fromDate = new Date();
+        fromDate.setMonth(fromDate.getMonth() - 1);
+        toDate.setHours(0);
+        toDate.setMinutes(0);
+        toDate.setSeconds(0);
+        toDate.setMilliseconds(0);
+        $('#fromDate').datepicker('setDate', fromDate);
+        $('#toDate').datepicker('setDate', toDate);
+
+        var tblRequest = $('#table_list').DataTable({
+            searching: false,
+            bPaginate: true,
+            bAutoWidth: false,
+            bLengthChange: true,
+            "lengthMenu": [10, 25, 50, 100],
+            bSort: true,
+            order: [13, "desc"],
+            pageLength: 10,
+            "processing": false,
+            "serverSide": true,
+            "language": {
+                "url": dtViLang
+            },
+            "ajax": {
+                "url": searchUrl,
+                "data": function (d) {
+                    d.cardNumber = $("#cardNumber").val().trim();
+                    d.authorizationCode = $("#authorizationCode").val().trim();
+                    d.billId = $("#billId").val().trim();
+                    d.bank = $("#bank").val().trim();
+                    d.type = $("#type").val().trim();
+                    d.status = $("#status").val().trim();
+                    d.fromDate = $("#fromDate").val().trim();
+                    d.toDate = $("#toDate").val().trim();
+                },
+                beforeSend: function (xhr) {
+                    $("#tblLoading").css("display", "block");
+                },
+                complete: function () {
+                    $("#tblLoading").css("display", "none");
+                },
+                error: function (xhr, status, error) {
+                    showAlertError("Có lỗi xảy ra trong quá trình tải dữ liệu");
+                }
+            },
+            columns: [
+                {"data": "index"},
+                {"data": "requestId"},
+                {"data": "authorizationCode"},
+                {"data": "merchantOrderNumber"},
+                {"data": "invoiceNumber"},
+                {"data": "merchantCode"},
+                {"data": "sourceBankCode"},
+                {"data": "channelName"},
+                {"data": "cardNumber"},
+                {"data": "type"},
+                {"data": "refundAmount"},
+                {"data": "transactionAmount"},
+                {"data": "transactionCcy"},
+                {"data": "settlementTime"},
+                {"data": "requestTime"},
+                {"data": "updateTimeStatus"},
+                {"data": "status"},
+                {"data": "status"},
+            ],
+            columnDefs: [{
+                type: 'date-euro',
+                "targets": [14,13,12]
+            },{
+                "render": function (data, type, row) {
+                    if (row.type === 1) {
+                        return "Một phần"
+                    }
+                    else {
+                        return "Toàn phần";
+                    }
+                },
+                "targets": 9
+            },
+                {
+                    "render": function (data, type, row) {
+                        if (row.status === 3) {
+                            return "Từ chối"
+                        }
+                        else if(row.status === 1){
+                            return "Chờ duyệt";
+                        }
+                        else if(row.status === 2){
+                            return "Đã duyệt";
+                        }
+                    },
+                    "targets": 16
+                },
+                {
+                    "render": function (data, type, row) {
+                        let content = ""
+                        if (row.status === 1) {
+                            content += '<a class="blue"' +
+                                ' data-toggle="modal" onclick="showModal('+row.requestId +')" style="cursor:pointer;" data-toggle="tooltip" ' +
+                                'title="Xem chi tiết">Xử lý</a>';
+                            return content;
+                        }else {
+                            return content;
+                        }
+
+                    },
+                    "targets": 17
+                },
+                {'bSortable': false, 'aTargets': ["no-sort"]}
+            ],
+        });
+
+    });
+
+    function doSearch() {
+        if (checkDate()) {
+            $("#table_list").DataTable().ajax.reload();
+        } else {
+            alert("Từ ngày phải nhỏ hơn hoặc bằng đến ngày");
+        }
+    }
+
+    function exportExcel() {
+        cardNumber =  $("#cardNumber").val().trim();
+        authorizationCode = $("#authorizationCode").val().trim();
+        billId = $("#billId").val().trim();
+        bank = $("#bank").val().trim();
+        type = $("#type").val().trim();
+        status = $("#status").val().trim();
+        fromDate = $("#fromDate").val().trim();
+        toDate = $("#toDate").val().trim()
+        window.location.href = exportUrl + '?cardNumber=' + cardNumber +'&authorizationCode='+authorizationCode +'&billId='+billId
+            +'&bank='+bank+'&type='+type+'&status='+status+'&fromDate='+fromDate+'&toDate='+toDate;
+    }
+
+    function checkDate() {
+        let strFrom = $('#fromDate').val().toString();
+        let arFrom = strFrom.split("/");
+        let from = new Date(+arFrom[2], arFrom[1] - 1, +arFrom[0]);
+
+        let strTo = $('#toDate').val().toString();
+        let arrTo = strTo.split("/");
+        let to = new Date(+arrTo[2], arrTo[1] - 1, +arrTo[0]);
+        if (from > to) {
+            return false;
+        }
+        return true;
+    }
+
+    function showModal(id){
+        $('#editModal').modal('show');
+        $('#updateId').val(id);
+    }
+
+    function updateRequest() {
+        let id = $('#updateId').val();
+        let status = $('#updateStatus').val();
+        let note = $('#note').val();
+        console.log("Id",id,status,note);
+        if (id !== undefined && status !== undefined) {
+            if(status === 1){
+                return;
+            }
+            $.ajax({
+                type: "PUT",
+                url: updateUrl + id + '?status=' + status +'&note='+note,
+                success: function (data) {
+                    console.log("data response",data);
+                    if (data.success) {
+                        alert("Cập nhật thành công !");
+                        doSearch();
+                    } else {
+                        alert("Duyệt yêu cầu hoàn tiền thất bại. Vui lòng thử lại sau!");
+                    }
+                    $('#note').val("");
+                },
+                beforeSend: function (xhr) {
+                    $("#tblLoading").css("display", "block");
+                },
+                complete: function () {
+                    $("#tblLoading").css("display", "none");
+                },
+                error: function (error) {
+                    if (error.status == 403) {
+                        alert("Bạn không có quyền thực hiện chức năng này");
+                    } else {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại sau!");
+                    }
+                }
+            });
+            $('#editModal').modal('hide');
+        }
+    }
+
+
+</script>
+</body>
+</html>

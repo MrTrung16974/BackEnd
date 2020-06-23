@@ -1,0 +1,37 @@
+server:
+  port: 8182
+  error:
+    whitelabel:
+      enabled: false
+  session:
+    timeout: 6000
+    cookie:
+      max-age: 600
+  servlet:
+    context-path: /bekyc
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+
+ekyc:
+  security:
+    authorizations:
+      - url: /js/**,/css/**,/img/**,/images/**,/fonts/**,/plugins/**,/login,/logout,/api/**
+        access: permitAll
+      - url: /*,/**
+        access: isAuthenticated()
+
+default:
+  password: 12345a
+spring:
+  # Templates reloading during development
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    cache: false
+
+  # Static resources reloading during development
+  resources:
+    static-locations: file:src/main/resources/static/

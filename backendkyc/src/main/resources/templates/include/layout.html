@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:fragment="common_head(title,links)">    
+        <meta charset="utf-8"/>
+        <meta name="_csrf" content="" th:content="${_csrf.token}" th:if="${_csrf}"/>
+        <meta name="_csrf_header" content="" th:content="${_csrf.headerName}" th:if="${_csrf}"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title th:replace="${title}">SES V2</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>    
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+        <link rel="stylesheet" href="../../static/fonts/css/font-awesome.min.css" th:href="@{/fonts/css/font-awesome.min.css}" />
+        <link rel="stylesheet" href="../../css/theme.css" th:href="@{/css/theme.css}" />
+        <link rel="stylesheet" href="../../css/skins.min.css" th:href="@{/css/skins.min.css}" />
+        <link rel="stylesheet" href="../../css/ses.css" th:href="@{/css/ses.css}" />
+        <!--    <link href="../../plugins/select2/select2.min.css" rel="stylesheet" />
+            <link rel="stylesheet" href="../../static/plugins/datepicker1.6.4/css/bootstrap-datepicker3.min.css"
+                  th:href="@{/plugins/datepicker1.6.4/css/bootstrap-datepicker3.min.css}" />-->
+        <!--<link rel="shortcut icon" href="favicon.ico" />-->
+        <th:block th:replace="${links} ?: ~{}"/>
+    </head>
+    <body class="no-skin">
+        <th:block th:fragment="js_include">
+            <script th:src="@{/js/jquery.min.js}" src="../../static/js/jquery.min.js"></script>
+            <script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
+            <script th:src="@{/js/jquery-ui.custom.min.js}" src="../../static/js/jquery-ui.custom.min.js"></script>
+            <script th:src="@{/js/jquery.ui.touch-punch.min.js}" src="../../static/js/jquery.ui.touch-punch.min.js"></script>
+            <script th:src="@{/js/ott.js}" src="../../static/js/ott.js"></script>
+            <!-- ace scripts -->
+            <!--<script th:src="@{/js/elements.min.js}" src="../../js/elements.min.js"></script>-->
+            <script th:src="@{/js/sms.min.js}" src="../../js/sms.min.js"></script>
+            <script th:src="@{/js/app.min.js}" src="../../js/app.min.js"></script>
+            <script th:src="@{/js/sms-extra.min.js}" src="../../js/sms-extra.min.js"></script>
+            <!--datatable-->
+            <script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+            <script th:src="@{/js/jquery.dataTables.min.js}" src="../../js/jquery.dataTables.min.js"></script>
+            <script th:src="@{/js/jquery.dataTables.bootstrap.js}" src="../../js/jquery.dataTables.bootstrap.js"></script>
+            <!--<script th:src="@{/plugins/datepicker/datepicker.js}" src="../../static/plugins/datepicker/datepicker.js"></script>-->
+            <!-- bootstrap datepicker -->
+            <script src="../../static/plugins/datepicker1.6.4/js/bootstrap-datepicker.min.js" th:src="@{/plugins/datepicker1.6.4/js/bootstrap-datepicker.min.js}"></script>
+            <link th:href="@{/css/select2.css}" href="../../static/css/select2.css" rel="stylesheet" />
+            <script th:src="@{/js/select2.min.js}" src="../../static/js/select2.min.js"></script>
+
+        </th:block>
+
+        <!-- Main Header -->
+        <div id="navbar" class="navbar navbar-default" th:fragment="head_menu">
+            <div class="navbar-container" id="navbar-container">
+                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+                    <span class="sr-only">menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-header pull-left">
+                    <div class="box clearfix">
+                        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                            <i class="default-icon fa fa-angle-double-left" data-icon1="default-icon fa fa-angle-double-left" data-icon2="default-icon fa fa-angle-double-right"></i>
+                        </div>
+                        <a href="#" class="navbar-brand">
+                            <img src="../../static/images/vnpay_logo.png" th:src="@{/images/vnpay_logo.png}" width="182" height="41" alt="logo" />
+                        </a>
+                        <ul class=" nav-top">
+                            <li class="active">
+                                <a th:href="@{/}">
+                                    <i class="menu-icon fa fa-home"></i>
+                                    <span class="text-top">Trang chủ</span>
+                                </a>
+                            </li>                     
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                    <ul class="nav ace-nav">
+                        <li class="light-blue"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><i class="default-icon fa fa-user"></i><span class="user-info">Admin</span><i class="default-icon fa fa-caret-down"></i></a>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+<!--                                <li><a href="#"><i class="default-icon fa fa-user"></i>Profile</a></li>-->
+                                <li><a th:href="@{/user/change_password}"><i class="default-icon fa fa-lock"></i>Đổi mật khẩu</a></li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/logout}"><i class="default-icon fa fa-power-off"></i>Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-container -->
+        </div>
+        <div id="sidebar" class="sidebar responsive" th:fragment="left_menu"> 
+            <ul class="nav nav-list">
+                <li class="">
+                    <a href="/" th:href="@{/}">
+                        <i class="menu-icon fa fa-home"></i>
+                        <span class="menu-text"> Dashboard </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/user/') or
+                #strings.startsWith(#httpServletRequest.requestURI,'/bekyc/role/') }? 'hsub open' : ''">
+                    <a href="javascript:void(0);" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-desktop"></i>
+                        <span class="menu-text">
+                            Quản trị hệ thống
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/user/') or #strings.startsWith(#httpServletRequest.requestURI,'/bekyc/role/') }? 'submenu nav-show' : 'submenu'"
+                         th:style="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/user/') or #strings.startsWith(#httpServletRequest.requestURI,'/bekyc/role/') }? 'display:block;' : ''">
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/user/')}? 'active' : ''">
+                            <a href="javascript:;" th:href="@{/user/list}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Tài khoản người dùng
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/role/')}? 'active' : ''">
+                            <a href="javascript:;" th:href="@{/role/list}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Phân quyền
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+                
+
+                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'hsub open' : ''">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <span class="menu-text">Quản lý yêu cầu</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'submenu nav-show' : 'submenu'"
+                        th:style="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'display:block;' : ''">
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/request/list')}? 'active' : ''">
+                            <a th:href="@{/request/list}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Danh sách lịch sử
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/card/list')}? 'active' : ''">
+                            <a th:href="@{/card/list}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Đọc thông tin thẻ
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/face/list')}? 'active' : ''">
+                            <a th:href="@{/face/list}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Nhận diện khuôn mặt
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul><!-- /.nav-list -->
+            <!-- /.nav-list -->    
+        </div>
+
+        <th:block th:fragment="notice_box">
+            <div class="alert alert-success alert-dismissable" th:if="${success!=null and success and message!=null}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="alert-content" th:text="${message}">Success</span>
+            </div>
+
+            <div class="alert alert-danger alert-dismissable" th:if="${success!=null and !success and message!=null}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="alert-content" th:text="${message}">Error</span>
+            </div>
+        </th:block>
+        
+        <th:block th:fragment="alert">
+            <div class="alert alert-success alert-dismissable" id="alert-success"
+                 style="display: none;position: fixed; top: 50px; right: 10px; z-index: 9999999; opacity: 0.9; min-width: 300px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="alert-content">Success</span>
+            </div>
+
+            <div class="alert alert-danger alert-dismissable" id="alert-dander"
+                 style="display: none; position: fixed; top: 50px; right: 10px; z-index: 9999999; opacity: 0.9">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="alert-content">Error</span>
+            </div>
+        </th:block>
+        <th:block th:fragment="alert-sub">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissable" id="alert-success-sub"
+                     style="display: none; z-index: 9999999; opacity: 0.9">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span class="alert-content">Success</span>
+                </div>
+
+                <div class="alert alert-danger alert-dismissable" id="alert-danger-sub"
+                     style="display: none; z-index: 9999999; opacity: 0.9">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span class="alert-content">Error</span>
+                </div>
+            </div>
+        </th:block>
+
+        <!-- Modal Confirmation-->
+        <div th:fragment="dialog_confirm" id="dialogConfirm" title="Confirm?" class="modal fade" role="dialog"
+             data-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <span id="confirm_title">Xác nhận</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12" id="confirm_content">Bạn có chắc chắn không?</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnConfirm">Xác nhận</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy bỏ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:fragment="modalMessage" id="modalMessage" title="Modal form" class="modal fade reload_modal" role="dialog"
+             data-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <span id="title">Xác nhận</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12" id="content">Bạn có chắc chắn không?</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-primary" id="btnConfirm">Xác nhận</button>-->
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:fragment="modalForm" id="modalForm" title="Modal form" class="modal fade reload_modal" role="dialog"
+             data-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <span>Them moi ngan hang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:fragment="modalFormLarger" id="modalForm" title="Modal form" class="modal fade reload_modal" role="dialog"
+             data-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-content modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <span>Them moi ngan hang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:fragment="modalFormUpload" id="modalFormUpload" title="Modal form" class="modal fade reload_modal" role="dialog"
+             data-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-content modal-lg" style="width: 85% !important;height: 85% !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <span>Upload</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Footer -->
+        <th:block th:fragment="footer">
+            <div class="footer">
+                <div class="footer-inner">
+                    <div class="footer-content">
+                        <span class="bigger-120">Copyright © 2019 VNPAY. All rights reserved. </span>
+                    </div>
+                </div>
+            </div>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="default-icon fa fa-angle-double-up icon-only bigger-110"></i>
+            </a>
+        </th:block>
+    </body>
+</html>

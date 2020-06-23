@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>EKYC System</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+        <!-- Bootstrap 3.3.6 -->
+        <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+              type="text/css" />
+        <link href="../static/css/ses.css" th:href="@{/css/ses.css}" rel="stylesheet"
+              type="text/css" />
+    </head>
+    <body style="background-color: #F6F6F6 !important;">
+        <div class="login-box" style="width: 360px; margin: 7% auto">
+            <div class="login-logo" style="text-align: center">
+                <img alt="vnpay" src="../static/images/vnpay_logo.png" th:src="@{/images/vnpay_logo.png}" style="height: 30px"/>
+                <br />
+                <h4>HỆ THỐNG QUẢN LÝ EKYC</h4>
+            </div>
+            <!-- /.login-logo -->
+            <form th:action="@{/login}" method="post" autocomplete="off" id="login_form">
+                <div class="form-horizontal">
+                    <label class="error" style="margin-bottom: 10px" th:if="${param.error != null}">Thông tin đăng nhập không hợp lệ. Vui lòng kiểm tra lại!</label>
+                    <label class="error" style="margin-bottom: 10px" th:if="${param.lock != null}">Tên đăng nhập đã bị khóa do sai mật khẩu liên tiếp 5 lần</label>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Tên đăng nhập" autofocus="autofocus" maxlength="30" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Mật khẩu" maxlength="20" />                            
+                    </div>
+                </div>
+                <div class="clearfix form-actions">
+                    <!-- /.col -->
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <!-- static/plugins/slimScroll/jquery.slimscroll.min.js -->
+        <script src="../static/plugins/slimScroll/jquery.slimscroll.min.js" th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+        <!-- Bootstrap validator -->
+        <script src="../static/plugins/jqueryValidator/jquery.validate.min.js" th:src="@{/plugins/jqueryValidator/jquery.validate.min.js}"></script>
+        <!-- OTT application -->
+        <script src="../static/js/ott.js" th:src="@{/js/ott.js}"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $("#login_form").validate({
+                    focusInvalid: true, // focus the last invalid input
+                    ignore: [],
+                    rules: {
+                        username: {
+                            required: true,
+                            maxlength: 30
+                        },
+                        password: {
+                            required: true,
+                            rangelength: [5, 20]
+                        },
+                    },
+                    messages: {
+                        username: {
+                            required: "Vui lòng nhập tên đăng nhập",
+                            maxlength: "Tên đăng nhập không được quá 30 ký tự. Vui lòng kiểm tra lại"
+                        },
+                        password: {
+                            required: "Vui lòng nhập mật khẩu",
+                            rangelength: "Mật khẩu phải từ 5 – 20 ký tự. Vui lòng kiểm tra lại"
+                        }
+                    }
+                });
+            });
+        </script>
+        <!-- END JAVASCRIPTS -->
+    </body>
+    <!-- END BODY -->
+</html>

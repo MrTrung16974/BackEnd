@@ -1,0 +1,280 @@
+.form-group label.error, label.error {
+    color: #e2563c;
+    font-weight: normal;
+}
+
+.form-group input.error, input.error {
+    border-color: #f2a696;
+    color: #e2563c;
+}
+.format-clearboth::after{
+    clear:none !important;
+}
+.select2-search:after{
+    content: "" !important;
+}
+.select2-selection__choice{
+    margin-top: 10px !important;
+}
+
+.select2 {
+    min-height: 32px;
+}
+
+
+
+.btn-export-excel{
+    position: absolute;
+    margin-left: 87%;
+    margin-top: 0px;
+    font-size: 16px;
+
+}
+.avata{
+    position: absolute;
+    left: 17%;
+    top: 60%;
+}
+.close{
+    position: absolute;
+    left: 85%;
+    font-weight: bold;
+    bottom: 75%;
+    border: none;
+}
+/*.close1{*/
+/*position: absolute;*/
+/*left: 80%;*/
+/*font-weight: bold;*/
+/*bottom: 70%;*/
+/*}*/
+.lbImage{
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20%;
+    color: silver;
+}
+.image-view{
+    max-height: 150px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px 5px 5px 0px;
+    height: 90% !important;
+}
+.active{
+    color: limegreen;
+    size: 14px;
+    font-weight: bold;
+}
+.inactive{
+    color: red;
+    size: 14px;
+    font-weight: bold;
+}
+.lbAvata{
+    position: absolute;
+    left: 30%;
+    top: 36%;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+    height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+}
+
+#pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+.pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+    top: 15px !important;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+/*#title {*/
+/*color: #fff;*/
+/*background-color: #4d90fe;*/
+/*font-size: 25px;*/
+/*font-weight: 500;*/
+/*padding: 6px 12px;*/
+/*}*/
+#target {
+    width: 345px;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    margin-top: 10px !important;
+    margin-right: 10px;
+}
+
+.checkbox-table-list{
+    text-align: center;
+    width: 40px;
+}
+#table_list tr > td:first-child{
+    text-align: center;
+    width: 50px;
+}
+#table_list tr > td:last-child{
+    text-align: center;
+    vertical-align: middle;
+}
+.scroll-table-list {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+
+/* The Modal (background) */
+.modal-highlight {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 15%; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content-highlight {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close-highlight {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-highlight:hover,
+.close-highlight:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header-highlight {
+    padding: 2px 16px;
+}
+
+.modal-body-highlight {padding: 2px 16px;}
+
+.modal-footer-highlight {
+    padding: 2px 16px;
+}
+
+.border-infomation {
+    border:1px solid black;
+    padding: 30px 20px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.label-infomation{
+    position: absolute;
+    top: -15px;
+    background-color: white;
+    padding: 5px;
+}
+
+.widget-home{
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+}

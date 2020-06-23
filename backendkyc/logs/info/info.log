@@ -1,0 +1,25 @@
+2020-06-05 08:41:15,886 [HikariPool-1 housekeeper] WARN  c.z.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h22m13s855ms697µs500ns).
+2020-06-22 20:54:46,312 [restartedMain] INFO  c.e.b.BackendkycApplication - Starting BackendkycApplication on DESKTOP-7DKQI0R with PID 10612 (F:\LUCAS\GitHup\ljava1908\spring\backendkyc\target\classes started by Mr.Trung in F:\LUCAS\GitHup\ljava1908\spring\backendkyc)
+2020-06-22 20:54:46,353 [restartedMain] INFO  c.e.b.BackendkycApplication - No active profile set, falling back to default profiles: default
+2020-06-22 20:54:46,659 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-22 20:54:46,660 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-22 20:59:55,722 [restartedMain] INFO  c.e.b.BackendkycApplication - Starting BackendkycApplication on DESKTOP-7DKQI0R with PID 2316 (F:\LUCAS\GitHup\ljava1908\spring\backendkyc\target\classes started by Mr.Trung in F:\LUCAS\GitHup\ljava1908\spring\backendkyc)
+2020-06-22 20:59:55,741 [restartedMain] INFO  c.e.b.BackendkycApplication - No active profile set, falling back to default profiles: default
+2020-06-22 20:59:56,023 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-22 20:59:56,024 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-22 20:59:59,240 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2020-06-22 20:59:59,436 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 184ms. Found 2 MongoDB repository interfaces.
+2020-06-22 21:00:00,862 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8182 (http)
+2020-06-22 21:00:00,899 [restartedMain] INFO  o.a.c.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8182"]
+2020-06-22 21:00:00,901 [restartedMain] INFO  o.a.c.core.StandardService - Starting service [Tomcat]
+2020-06-22 21:00:00,901 [restartedMain] INFO  o.a.c.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.34]
+2020-06-22 21:00:01,343 [restartedMain] INFO  o.a.c.c.C.[.[.[/bekyc] - Initializing Spring embedded WebApplicationContext
+2020-06-22 21:00:01,345 [restartedMain] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5320 ms
+2020-06-22 21:00:03,141 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-06-22 21:00:03,142 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server localhost:27017 to client view of cluster
+2020-06-22 21:00:03,347 [cluster-ClusterId{value='5ef0b963ed49741c6d2898dd', description='null'}-localhost:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:79}] to localhost:27017
+2020-06-22 21:00:03,364 [cluster-ClusterId{value='5ef0b963ed49741c6d2898dd', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 2, 6]}, minWireVersion=0, maxWireVersion=8, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=12792900}
+2020-06-22 21:00:03,368 [cluster-ClusterId{value='5ef0b963ed49741c6d2898dd', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2020-06-22 21:00:04,015 [restartedMain] WARN  o.s.d.m.c.m.BasicMongoPersistentProperty - Customizing field name for id property 'com.example.backendkyc.model.Role.roleID' is not allowed! Custom name ('ID') will not be considered!
+2020-06-22 21:00:04,208 [restartedMain] WARN  o.s.b.d.a.OptionalLiveReloadServer - Unable to start LiveReload server
+2020-06-22 21:00:04,219 [restartedMain] WARN  o.s.d.m.c.m.BasicMongoPersistentProperty - Customizing field name for id property 'com.example.backendkyc.model.User.userID' is not allowed! Custom name ('userId') will not be considered!

@@ -1,0 +1,159 @@
+.navbar-ott-menu .nav{
+  float: left;
+  border-right: 1px solid #00508c;
+  border-left: 1px solid #00508c;
+}
+.navbar-ott-menu >.nav > li {
+    background-color: #53a3de;
+    color: #fff;
+    border-left: 1px solid #00508c;
+    padding: 10px 5px;
+    /* border-right: 1px solid #00508c; */
+    min-width: 120px;
+    min-height:50px;
+    border-top: none;
+    border-bottom: none;
+}
+
+.navbar-ott-menu >.nav > li >a {
+    padding: 5px !important;
+    background: none !important;
+}
+
+.navbar-ott-menu >.nav > li >a:hover {
+    padding: 5px !important;
+    background: none !important;
+}
+
+.navbar-ott-menu >.nav > li.active {
+    background: rgba(0,0,0,0.1) !important;
+    color: #f6f6f6;
+    /*font-weight: 600;*/
+}
+
+.btn-110{
+    min-width: 110px;
+}
+
+label{
+    font-weight: normal !important;
+}
+.input-group{
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+.no-sort{ min-width: 90px;}
+/**/
+@media (max-width: 991px) {
+  .hidden-767{
+    display: none !important;
+  }
+}
+
+.step-content{
+    /*min-height: 150px;*/
+}
+
+.step-content .form-row-seperated{
+    padding: 20px 0px;
+}
+.boxloading {
+    display:    none;
+    position:   fixed;
+    z-index:    9999;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+    url('../img/loader.gif')
+    50% 50%
+    no-repeat;
+    opacity: 0.80;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
+    filter: alpha(opacity = 80)
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .boxloading {
+    display: block;
+}
+
+.fieldset-green{
+    border: solid #3d9970 1px;
+    padding: 10px;
+}
+
+.fieldset-green > legend{
+    font-size: 14px;
+    width: auto;
+    padding: 2px;
+    border: none;
+}
+/*viettx chinh sua export button*/
+.btn-export-excel{
+    position: absolute;
+    margin-left: 185px;
+    margin-top: 0px;
+    font-size: 20px;
+
+}
+.date-group-fix .input-group-addon {
+    right: 12px;
+    border-radius: 0;
+    position: absolute;
+    padding: 9px 26px 9px 10px;
+    border-right: 1px solid #d2d6de;
+    background-color: white;
+}
+
+.upload-area{
+    width: 100%;
+    /*height: 200px;*/
+    border: 2px solid lightgray;
+    border-radius: 3px;
+    margin: 0 auto;
+    /*margin-top: 100px;*/
+    text-align: center;
+    overflow: auto;
+}
+
+.upload-area:hover{
+    cursor: pointer;
+}
+
+.upload-area h1{
+    text-align: center;
+    font-weight: normal;
+    font-family: sans-serif;
+    line-height: 50px;
+    color: darkslategray;
+}
+
+#file{
+    display: none;
+}
+
+/* Thumbnail */
+.thumbnail{
+    width: 80px;
+    height: 80px;
+    padding: 2px;
+    border: 2px solid lightgray;
+    border-radius: 3px;
+    float: left;
+}
+
+.size{
+    font-size:12px;
+}
+.lbImage{
+    font-size:20px;
+    text-align: center;
+}
+/*.div-image:hover{*/
+    /*background-color: yellow;*/
+/*}*/

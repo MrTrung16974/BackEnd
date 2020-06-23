@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/layout::common_head(~{::title},~{::link})">        
+    <title>Quản lý tin báo cáo</title>    
+</head>
+<body class="no-skin">
+    <header th:replace="include/layout::head_menu"></header>
+    <div class="main-container" id="main-container">
+            <aside class="main-sidebar" th:replace="include/layout::left_menu"></aside>
+            <div class="main-content">
+                <p>Backend Game</p>
+            </div>
+            <!-- /.main-content -->
+            <footer class="footer" th:replace="include/layout::footer"></footer>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="default-icon fa fa-angle-double-up icon-only bigger-110"></i>
+            </a>
+    </div>      
+    <div th:replace="include/layout::js_include"></div>    
+    <!--<iframe src="http://10.22.7.27:9093/login?username=BIDVBE&timestamp=14032019113715&token=GwaBo3zVhwQmkuXsNSAIqSpvDKv6hMYXIftMbX5Jrqk%3D" width="600" height="800"></iframe>-->
+    <!-- DataTables -->     
+    <script th:inline="javascript">        
+        jQuery(document).ready(function () {    
+                $('#toDate').datepicker({
+                    format: "dd/mm/yyyy",
+                    language: "vi",
+        //            endDate: "0d",
+                    todayHighlight: true,
+                    autoclose: true,
+
+                });
+                $('#fromDate').on('click', function () {
+                    $('#fromDate').focus();
+                });
+                $('#toDate').on('click', function () {
+                    $('#toDate').focus();
+                });
+                $('#fromDate').datepicker({
+                    format: "dd/mm/yyyy",
+                    language: "vi",
+        //            endDate: "0d",
+                    todayHighlight: true,
+                    autoclose: true
+                });
+                var toDate = new Date();
+                fromDate = new Date();
+                fromDate.setMonth(fromDate.getMonth() - 1);
+                toDate.setHours(0);
+                toDate.setMinutes(0);
+                toDate.setSeconds(0);
+                toDate.setMilliseconds(0);
+                $('#fromDate').datepicker('setDate', fromDate);
+                $('#toDate').datepicker('setDate', toDate);              
+        });
+</script> 
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="include/layout::common_head(~{::title},~{::link})">
+        <title>Quản lý thông tin người dùng</title>
+        <link />
+    </head>
+    <body class="no-skin">
+        <header th:replace="include/layout::head_menu"></header>
+        <div class="main-container" id="main-container">
+            <aside class="main-sidebar" th:replace="include/layout::left_menu"></aside>
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="default-icon fa fa-home home-icon"></i>
+                            <a href="javascript:;">Home</a>
+                        </li>
+                        <li class="active"><span th:text="${titlePage}"></span></li>
+                    </ul>
+                    <!-- /.breadcrumb -->
+                </div>
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>
+                                <a th:href="@{/user/list}">Quản trị hệ thống - người dùng</a>
+                                <small><i class="default-icon fa fa-angle-double-right"></i><span th:text="${titlePage}"></span></small>
+                            </h1>
+                        </div>
+                        <!-- /.page-header -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div th:replace="include/layout::notice_box"></div>
+
+                                <form id="formInsert" name="formInsert" th:object="${user}" method="POST"
+                                      class="form-horizontal form-row-seperated">
+                                    <div th:replace="include/layout::alert-sub"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right p_top">Tên đăng nhập (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" th:field="*{userName}" maxlength="30" th:disabled="${user.userName} != null"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right p_top">Họ tên (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" th:field="*{fullName}" maxlength="50"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right p_top">Email (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" th:field="*{email}" maxlength="30"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" th:if="${user.userID} == null">
+                                        <label id="passworLab" class="col-sm-3 control-label no-padding-right p_top">Mật khẩu (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" th:field="*{password}" maxlength="20" minlength="6" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group" th:if="${user.userID} == null">
+                                        <label  id="passworReLab" class="col-sm-3 control-label no-padding-right p_top">Nhập lại mật khẩu (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" id="passwordRe" name="passwordRe" maxlength="20" minlength="6"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right p_top">Nhóm Quyền (<span class="text-red">*</span>) </label>
+                                        <div class="col-sm-9">
+                                            <select class="select2 form-control" id="role" name="role">
+                                                <option value="">-Chọn vai trò-</option>
+                                                <option th:each="role : ${lstRole}" th:value="${role.roleID}"
+                                                        th:text="${role.roleCode}"
+                                                        th:selected="${role.roleID == user.roleID}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-actions">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <input type="submit" value="Thêm mới" class="btn btn-info" id="addForm" th:if="${user.userID} == null" />
+                                            <input type="submit" value="Cập nhật" class="btn btn-info" id="addForm" th:if="${user.userID} != null" />
+                                            <!--<input type="reset" class="btn" value="Hủy">&nbsp;-->
+                                            <a class="btn" th:href="@{/user/list}">Về Danh sách</a></div>
+                                    </div>
+                                </form>      
+                            </div>                                                                       
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.page-content-area -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.main-content -->
+        <footer class="footer" th:replace="include/layout::footer"></footer>
+        <div th:replace="include/layout::js_include">
+        </div>
+        <script src="../../static/plugins/jqueryValidator/jquery.validate.min.js" th:src="@{/plugins/jqueryValidator/jquery.validate.min.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var user = [[${user}]];
+            var editUserUrl = /*[[@{/user/edit/}]]*/ "/user/edit/";
+            var addUserUrl = /*[[@{/user/add}]]*/ "/user/add";
+            jQuery(document).ready(function () {
+
+                $("#addForm").on("click", function(e){
+                    e.preventDefault();
+                    if(user.userID != null){
+                        $('#formInsert').attr('action', editUserUrl + user.userID).submit();
+                    }else{
+                        $('#formInsert').attr('action', addUserUrl).submit();
+                    }
+
+                });
+                //kiem tra truong user
+                $.validator.methods.username = function (value, element) {
+                    return !/[^a-z0-9]/.test(value);
+                };
+                //kiem tra truong password
+                $.validator.methods.pwcheck = function (value, element) {
+                    return /[a-z]/.test(value) && /\d/.test(value);
+                };
+                //kiem tra truong password retype
+                $.validator.methods.repwcheck = function (value, element) {
+                    return $("#password").val() === value;
+                };
+                //kiem tra truong role
+                $.validator.methods.role = function (value, element) {
+                    if (value === '') {
+                        return false;
+                    }
+                    return true;
+                };
+
+                $("#formInsert").validate({
+                    focusInvalid: true, // focus the last invalid input
+                    ignore: [],
+                    rules: {
+                        userName: {
+                            required: true,
+                            maxlength: 30,
+                            username: true
+                        },
+                        fullName: {
+                            required: true,
+                            maxlength: 50
+                        },
+                        password: {
+                            required: true,
+                            maxlength: 20,
+                            minlength: 6,
+                            pwcheck: true
+                        },
+                        passwordRe: {
+                            repwcheck: true
+                        },
+                        role: {
+                            role: true
+                        }
+                    },
+                    messages: {
+                        userName: "Tên đăng nhập không được bỏ trống và không quá 30 ký tự. Chỉ cho phép ký tự số và chữ thường",
+                        fullName: "Họ tên không được bỏ trống và không quá 50 ký tự",
+                        password: "Mật khẩu từ 6 đến 20 ký tự, bao gồm ít nhất 1 chữ cái và 1 số",
+                        passwordRe: "Mật khẩu không khớp",
+                        role: "Trường Nhóm quyền không được bỏ trống"
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>
