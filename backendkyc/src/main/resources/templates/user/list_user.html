@@ -107,7 +107,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                             </tbody>
                                         </table>
                                         <div class="overlay" id="tblLoading">
@@ -177,7 +176,7 @@
                 $('#toDate').datepicker('setDate', toDate);
 
                 var tblUser = $('#table_list').DataTable({
-                    searching: false,
+                    searching: true,
                     bPaginate: true,
                     bAutoWidth: false,
                     bLengthChange: true,

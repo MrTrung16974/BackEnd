@@ -23,6 +23,7 @@ ekyc:
         access: permitAll
       - url: /*,/**
         access: isAuthenticated()
+    ignoring: 123
 
 default:
   password: 12345a
@@ -31,7 +32,6 @@ spring:
   thymeleaf:
     prefix: file:src/main/resources/templates/
     cache: false
-
   # Static resources reloading during development
   resources:
     static-locations: file:src/main/resources/static/

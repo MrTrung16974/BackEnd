@@ -62,9 +62,9 @@
                                                         <div class="control-group">
                                                             <div th:each="funcGroup, iterStat : ${lstFuncGroup}" class="checkbox">
                                                                 <label>
-                                                                    <input th:name="chkFunctions" th:value="${funcGroup.functionID}" type="checkbox" class="ace"
-                                                                           th:checked="${roleFunction != null && #lists.contains(roleFunction, funcGroup.functionID)}" disabled="disabled"/>
-                                                                    <span class="lbl" th:text="${'&nbsp;' + funcGroup.functionCode}"> Choice</span>
+                                                                    <input th:name="chkFunctions" th:value="${funcGroup.id}" type="checkbox" class="ace"
+                                                                           th:checked="${roleFunction != null && #lists.contains(roleFunction, funcGroup.id)}" disabled="disabled"/>
+                                                                    <span class="lbl" th:text="${'&nbsp;' + funcGroup.id}"> Choice</span>
                                                                 </label>
                                                             </div>
                                                         </div>

@@ -13,7 +13,6 @@ import java.util.Date;
 public class User  implements Serializable {
 
     @Id
-    @Field(name = "userId")
     private String userID;
 
     @Field(name = "user_name")
@@ -40,7 +39,6 @@ public class User  implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "Asia/Saigon")
     @Field(name = "last_login")
     private Date lastLogin;
-
 
     public String getUserID() {
         return userID;

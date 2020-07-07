@@ -8,11 +8,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collation = "sa_role")
+@Document(collection = "sa_role")
 public class Role implements Serializable {
 
     @Id
-    @Field(name = "ID")
     private String roleID;
 
     @Field(name = "ROLE_CODE")
@@ -66,4 +65,5 @@ public class Role implements Serializable {
     public void setFunctions(Set<Function> functions) {
         this.functions = functions;
     }
+
 }

@@ -19,7 +19,6 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-
     final static Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
     private static final Gson gson = new Gson();
 

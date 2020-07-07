@@ -96,7 +96,6 @@
 
                     <b class="arrow"></b>
                 </li>
-
                 <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/user/') or
                 #strings.startsWith(#httpServletRequest.requestURI,'/bekyc/role/') }? 'hsub open' : ''">
                     <a href="javascript:void(0);" class="dropdown-toggle">
@@ -129,13 +128,10 @@
                         </li>
                     </ul>
                 </li>
-
-                
-
-                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'hsub open' : ''">
+                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/product/')} ? 'hsub open' : ''">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-pencil-square-o"></i>
-                        <span class="menu-text">Quản lý yêu cầu</span>
+                        <span class="menu-text">Quản lý sản phẩm</span>
 
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
@@ -144,10 +140,10 @@
 
                     <ul th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'submenu nav-show' : 'submenu'"
                         th:style="${#strings.startsWith(#httpServletRequest.requestURI,'/bekyc/request/')}? 'display:block;' : ''">
-                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/request/list')}? 'active' : ''">
+                        <li th:class="${#strings.contains(#httpServletRequest.requestURI,'/bekyc/product/list')}? 'active' : ''">
                             <a th:href="@{/request/list}">
                                 <i class="menu-icon fa fa-caret-right"></i>
-                                Danh sách lịch sử
+                                Danh sách sản phẩm
                             </a>
 
                             <b class="arrow"></b>

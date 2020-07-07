@@ -26,6 +26,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -61,7 +62,8 @@ public class UserController {
     Validator validator;
 
     @RequestMapping("/list")
-    public ModelAndView index(HttpServletRequest request, Principal principal) {
+    public ModelAndView index(HttpServletRequest request,
+                              Principal principal) {
         String tag = buildLogTag(request, principal, "List User");
         LOGGER.debug(LOG_FORMAT, tag, "List user view");
         ModelAndView mv = new ModelAndView("user/list_user");
@@ -187,15 +189,17 @@ public class UserController {
         boolean success = true;
         String message = "Thêm mới người dùng " + userName + " thành công!";
         try {
-            if (userRepository.findByUserName(userName) != null) {
+            Optional<User> optionalUser =
+                    userRepository.findByUserName(userName);
+            if (optionalUser.isPresent()) {
                 LOGGER.debug(LOG_FORMAT, tag, "Tên người dùng đã tồn tại: " + userName);
                 return getUserModelView(new User(), TITLE_ADD, Boolean.FALSE, "Tên đăng nhập đã tồn tại. Vui lòng kiểm tra lại.");
             }
-            Pattern  pattern = Pattern.compile(PATTERN_PASSWORD);
-            if(!pattern.matcher(password).matches()){
-                LOGGER.debug(LOG_FORMAT, tag, "Mật khẩu không hợp lê: " + password);
-                return getUserModelView(new User(), TITLE_ADD, Boolean.FALSE, "Mật khẩu từ 6- 20 kí tự, có chứa ít nhất 1 ký tự số, 1 ký tự chữ, 1 chữ hoa.");
-            }
+//            Pattern  pattern = Pattern.compile(PATTERN_PASSWORD);
+//            if(!pattern.matcher(password).matches()){
+//                LOGGER.debug(LOG_FORMAT, tag, "Mật khẩu không hợp lê: " + password);
+//                return getUserModelView(new User(), TITLE_ADD, Boolean.FALSE, "Mật khẩu từ 6- 20 kí tự, có chứa ít nhất 1 ký tự số, 1 ký tự chữ, 1 chữ hoa.");
+//            }
             user.setUserName(userName);
             user.setFullName(fullName);
             user.setPassword(password);
